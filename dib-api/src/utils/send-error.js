@@ -14,4 +14,4 @@ const sendError = (res, err) => {
     });
 };
 
-module.exports = sendError;
+module.exports = { sendError };

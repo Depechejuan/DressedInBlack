@@ -8,4 +8,4 @@ const sendResponse = (res, data, status = 200) => {
     });
 };
 
-module.exports = sendResponse;
+module.exports = { sendResponse };
