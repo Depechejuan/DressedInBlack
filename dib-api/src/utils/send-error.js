@@ -1,6 +1,7 @@
 "use strict";
 
 const sendError = (res, err) => {
+    console.log(__dirname);
     const status = err.status || 500;
     const code = err.code || "UNEXPECTED_ERROR";
     const msg = err.message || "An unexpected error has ocurred";
