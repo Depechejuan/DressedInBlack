@@ -35,3 +35,4 @@ async function login({ email, plainPassword }) {
 
     return token;
 }
+module.exports = { login };

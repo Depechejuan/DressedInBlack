@@ -13,15 +13,13 @@ router.get("/news");
 
 router.get("/about");
 
-router.get("/contact");
-
-router.get("/rider");
-
-router.get("/bio");
+router.get("/tour");
 
 router.get("/video");
 
-router.get("/tour");
+router.get("/rider");
+
+router.get("/contact");
 
 // POST
 

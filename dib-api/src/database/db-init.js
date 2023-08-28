@@ -83,6 +83,16 @@ async function createTables(pool) {
     `);
 
     await pool.query(`
+        CREATE TABLE IF NOT EXISTS validationcodes(
+            id CHAR(36) PRIMARY KEY,
+            idUser CHAR(36) NOT NULL,
+            code CHAR(6),
+            createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (idUser) REFERENCES users (id) ON DELETE CASCADE
+        );
+    `);
+
+    await pool.query(`
         INSERT INTO users (
             id, userName, realName, password, birthday, acceptdTOS, validated, role
         )
