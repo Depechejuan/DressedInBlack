@@ -1,8 +1,10 @@
 "use strict";
 
-const { Router } = require("expres");
+const { Router } = require("express");
 
-const userRouter = require();
+const userRouter = require("./user-router.js");
 
 const router = Router();
-router.use();
+router.use(userRouter);
+
+module.exports = router;

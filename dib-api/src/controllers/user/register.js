@@ -35,18 +35,22 @@ async function register(userData) {
         ...userData,
         id: newUserId,
         password: hashedPassword,
-        emailValidated: false,
     };
     await saveUser(user);
 
-    const expirationTime = getTimerForValidationCode(60);
-    const validationCode = {
-        id: generateUUID(),
-        idUser: user.id,
-        code: randomCode,
-        expirationTime,
+    // const expirationTime = getTimerForValidationCode(60);
+    // const validationCode = {
+    //     id: generateUUID(),
+    //     idUser: user.id,
+    //     code: randomCode,
+    //     expirationTime,
+    // };
+    // await saveValidationCode(validationCode);
+
+    return {
+        success: true,
+        dibreg,
     };
-    await saveValidationCode(validationCode);
 }
 
 module.exports = { register };

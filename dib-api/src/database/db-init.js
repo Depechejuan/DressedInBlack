@@ -16,30 +16,31 @@ const dbInit = async () => {
     await pool.query(`CREATE DATABASE ${DATABASE_NAME}`);
     console.log("Database successfully created");
     await pool.query(`USE ${DATABASE_NAME}`);
-
-    // create tables and so.
-
+    console.log("Generating tables...");
+    await createTables(pool);
+    console.log("All done");
     console.log("Database Creation complete.");
     await pool.end();
 };
 
 async function createTables(pool) {
     const plainPassowrd = process.env.ADMINPASS;
-
     const hashedPassword = await hashPassword(plainPassowrd);
     const adminId = generateUUID();
-
     await pool.query(`
         CREATE TABLE IF NOT EXISTS users(
             id CHAR(36) PRIMARY KEY,
-            userName VARCHAR(20) NOT NULL UNIQUE;
-            realName VARCHAR(50);
-            password VARCHAR(50) NOT NULL;
+            userName VARCHAR(20) NOT NULL UNIQUE,
+            realName VARCHAR(50),
+            password VARCHAR(255) NOT NULL,
+            email VARCHAR(120) NOT NULL UNIQUE,
             birthday TIMESTAMP NOT NULL,
-            acceptedTOS BOOL NOT NULL,
+            acceptedTOS BOOLEAN NOT NULL,
             avatarURL varchar(255),
             country VARCHAR(150),
             city VARCHAR(150),
+            biography TEXT,
+            validated BOOLEAN DEFAULT false,
             role ENUM('Admin', 'Moderador', 'Devotee', 'VIP') DEFAULT 'Devotee',
             createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             modifiedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -61,7 +62,7 @@ async function createTables(pool) {
     await pool.query(`
         CREATE TABLE IF NOT EXISTS postimages(
             id CHAR(36) PRIMARY KEY,
-            idPost CHAR(369) NOT NULL,
+            idPost CHAR(36) NOT NULL,
             imageURL VARCHAR(255),
             createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             modifiedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -92,14 +93,84 @@ async function createTables(pool) {
         );
     `);
 
-    await pool.query(`
-        INSERT INTO users (
-            id, userName, realName, password, birthday, acceptdTOS, validated, role
-        )
-        VALUES (
-            '${adminId}', 'Depechejuan', 'Juan León', 'dressedinblackdm@gmail.com', ${hashedPassword}, 1990-01-01, true, true, 'Admin'
-        );
-    `);
+    await pool.query(
+        "INSERT INTO users (id, userName, realName, email, password, birthday, acceptedTOS, validated, role) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        [
+            generateUUID(),
+            "Depechejuan",
+            "Juan León",
+            "dressedinblackdm@gmail.com",
+            hashedPassword,
+            "1990-01-01",
+            true,
+            true,
+            "Admin",
+        ]
+    );
+    await pool.query(
+        "INSERT INTO users (id, userName, realName, email, password, birthday, acceptedTOS, validated, role) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        [
+            generateUUID(),
+            "Escri",
+            "Javier Escribano",
+            "escribano101@gmail.com",
+            hashedPassword,
+            "1990-01-01",
+            true,
+            true,
+            "Admin",
+        ]
+    );
+
+    await pool.query(
+        "INSERT INTO users (id, userName, realName, email, password, birthday, acceptedTOS, validated, role) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        [
+            generateUUID(),
+            "Luis",
+            "Luis Alcober",
+            "luis_alcober@hotmail.com",
+            hashedPassword,
+            "1990-01-01",
+            true,
+            true,
+            "Admin",
+        ]
+    );
+
+    await pool.query(
+        "INSERT INTO users (id, userName, realName, email, password, birthday, acceptedTOS, validated, role) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        [
+            generateUUID(),
+            "Javi",
+            "Javier Redondo",
+            "javirefe@hotmail.com",
+            hashedPassword,
+            "1990-01-01",
+            true,
+            true,
+            "Admin",
+        ]
+    );
+
+    await pool.query(
+        "INSERT INTO users (id, userName, realName, email, password, birthday, acceptedTOS, validated, role) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        [
+            generateUUID(),
+            "Manu",
+            "Manuel Cuesta",
+            "manuelcuesta@hotmail.com",
+            hashedPassword,
+            "1990-01-01",
+            true,
+            true,
+            "Admin",
+        ]
+    );
 }
 
 dbInit();

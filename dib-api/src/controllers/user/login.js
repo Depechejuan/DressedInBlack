@@ -7,24 +7,27 @@ const {
     validatePassword,
     generateJWT,
 } = require("../../services/crypto-services");
-const { getUserByEmail } = require("../../services/db-service");
+const { getUserByEmailUNSAFE } = require("../../services/db-service");
 const {
     invalidCredentials,
     emailNotValidated,
 } = require("../../services/error-service");
 
-async function login({ email, plainPassword }) {
-    const user = await getUserByEmail(email);
+async function login(data) {
+    const user = await getUserByEmailUNSAFE(data.email);
 
     if (!user) {
-        invalidCredentials();
+        throw invalidCredentials();
     }
-    if (!user.emailValidated) {
-        emailNotValidated();
-    }
-    const valid = await validatePassword(plainPassword, user.password);
-    if (!valid) {
-        invalidCredentials();
+
+    // if (!user.emailValidated) {
+    //     throw emailNotValidated();
+    // }
+
+    const passMatch = await validatePassword(data.password, user.password);
+
+    if (!passMatch) {
+        throw invalidCredentials();
     }
 
     const token = generateJWT({
@@ -33,6 +36,14 @@ async function login({ email, plainPassword }) {
         name: user.name,
     });
 
-    return token;
+    const userData = {
+        id: user.id,
+        userName: user.userName,
+    };
+
+    return {
+        token,
+        userData,
+    };
 }
 module.exports = { login };

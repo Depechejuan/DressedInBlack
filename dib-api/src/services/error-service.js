@@ -1,6 +1,6 @@
 "use strict";
 
-const err = null;
+let err = null;
 
 function invalidCredentials() {
     err = new Error("You must enter a valid email and password");

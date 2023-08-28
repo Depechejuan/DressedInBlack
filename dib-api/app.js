@@ -5,9 +5,8 @@ const path = require("path");
 const cors = require("cors");
 const express = require("express");
 const { sendError } = require("./src/utils/send-error.js");
-// const { sendResponse } = require("./src/utils/send-response");
-// const validateToken = require("./src/middlewares/validate-token");
-// const { notFound } = require("./src/services/error-service");
+const validateToken = require("./src/middlewares/validate-token.js");
+const appRouter = require("./src/routes/app-router.js");
 
 const app = express();
 const PORT = 3000;
@@ -24,6 +23,8 @@ app.use(
 );
 
 app.use(express.json());
+app.use(validateToken);
+app.use(appRouter);
 
 // Error Middleware
 app.use((err, req, res, next) => {
