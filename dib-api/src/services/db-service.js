@@ -73,6 +73,37 @@ module.exports = {
         return rows;
     },
 
+    // POST
+
+    async createPost(post) {
+        const statement = `
+        INSERT INTO posts(id, title, description, idUser)
+        VALUES (?, ?, ?, ?)`;
+        const rows = await db.execute(statement, [
+            post.id,
+            post.title,
+            post.description,
+            post.idUser,
+        ]);
+    },
+
+    async getAllPosts() {
+        const statement = `
+        SELECT * FROM posts
+        `;
+        const [rows] = await db.execute(statement);
+        return rows;
+    },
+
+    async getPostById(id) {
+        const statement = `
+        SELECT * FROM posts
+        WHERE id = ?
+        `;
+        const [rows] = await db.execute(statement, [id]);
+        return rows;
+    },
+
     // async saveValidationCode(code) {
     //     const statement = `
     //     INSERT INTO validationcodes(id, idUser, code)

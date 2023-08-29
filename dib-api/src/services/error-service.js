@@ -51,6 +51,12 @@ function notFound() {
     throw err;
 }
 
+function incomplete() {
+    err = new Error("You must complete all required data");
+    err.status = 403;
+    err.code = "INCOMPLETE";
+}
+
 module.exports = {
     invalidCredentials,
     emailNotValidated,
@@ -59,4 +65,5 @@ module.exports = {
     notAuth,
     unauthorized,
     notFound,
+    incomplete,
 };
