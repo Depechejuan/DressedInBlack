@@ -30,9 +30,10 @@ module.exports = {
 
     parseJWT(token) {
         try {
-            const payload = jtw.verify(token, process.env.JWT_SECRET);
+            const payload = jwt.verify(token, process.env.JWT_SECRET);
             return { ...payload, token };
-        } catch {
+        } catch (err) {
+            console.log(err);
             return null;
         }
     },

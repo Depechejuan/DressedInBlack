@@ -41,7 +41,7 @@ module.exports = {
         const statement = `
         UPDATE users
         SET avatarURL = ?, country = ?, city = ?, biography = ?
-        WERE id = ?`;
+        WHERE id = ?`;
         const [rows] = await db.execute(statement, [
             edit.avatarURL ?? null,
             edit.country ?? null,

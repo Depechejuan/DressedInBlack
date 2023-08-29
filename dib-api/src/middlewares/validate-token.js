@@ -1,10 +1,19 @@
 "use strict";
 
-const { parseJWT } = require("../services/crypto-services");
+const parseJWT = require("../services/crypto-services.js").parseJWT;
 
 module.exports = (req, res, next) => {
     const token = req.headers.authorization;
-    const user = token ? parseJWT(token) : null;
-    req.currentUser = user;
+
+    if (token) {
+        const user = parseJWT(token);
+        if (user) {
+            req.currentUser = user;
+        } else {
+            req.currentUser = null;
+        }
+    } else {
+        req.currentUser = null;
+    }
     next();
 };
