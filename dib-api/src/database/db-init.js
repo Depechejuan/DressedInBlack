@@ -1,7 +1,8 @@
 "use strict";
 
 require("dotenv").config();
-const { hashPassword, generateUUID } = require("../services/crypto-services");
+const addData = require("./db-add-data");
+const addTourData = require("./db-add-tour-details");
 const { createPool } = require("./mysql-connection");
 
 // bring hashes
@@ -18,20 +19,16 @@ const dbInit = async () => {
     await pool.query(`USE ${DATABASE_NAME}`);
     console.log("Generating tables...");
     await createTables(pool);
+    console.log("Adding Details to DataBase");
+    await addData(pool);
+    console.log("Adding TourDates");
+    await addTourData(pool);
     console.log("All done");
     console.log("Database Creation complete.");
     await pool.end();
 };
 
 async function createTables(pool) {
-    const plainPassowrd = process.env.ADMINPASS;
-    const hashedPassword = await hashPassword(plainPassowrd);
-    const DepechejuanID = generateUUID();
-    const JaviID = generateUUID();
-    const EscriID = generateUUID();
-    const LuisID = generateUUID();
-    const ManuID = generateUUID();
-
     await pool.query(`
         CREATE TABLE IF NOT EXISTS users(
             id CHAR(36) PRIMARY KEY,
@@ -54,7 +51,9 @@ async function createTables(pool) {
 
     await pool.query(`
         CREATE TABLE IF NOT EXISTS instruments (
-            id VARCHAR(100) PRIMARY KEY
+            id VARCHAR(100) PRIMARY KEY,
+            createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            modifiedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );
     `);
 
@@ -63,9 +62,47 @@ async function createTables(pool) {
             id INT AUTO_INCREMENT PRIMARY KEY,
             idUser CHAR(36),
             idInstrument VARCHAR(100),
+            createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            modifiedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY (idUser) REFERENCES users (id) ON DELETE CASCADE,
             FOREIGN KEY (idInstrument) REFERENCES instruments (id) ON DELETE CASCADE
         );
+    `);
+
+    await pool.query(`
+        CREATE TABLE IF NOT EXISTS users_photos (
+            id CHAR(36) PRIMARY KEY,
+            idUser CHAR(36),
+            photoURL VARCHAR(255) NOT NULL,
+            createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            modifiedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (idUser) REFERENCES users (id) ON DELETE CASCADE
+    )`);
+
+    await pool.query(`
+        CREATE TABLE IF NOT EXISTS tour (
+            id CHAR(36) PRIMARY KEY,
+            tourName VARCHAR(255) NOT NULL,
+            tourDate DATE NOT NULL,
+            city VARCHAR(150) NOT NULL,
+            country VARCHAR(150) NOT NULL,
+            venue VARCHAR(255) NOT NULL,
+            soldOut BOOLEAN DEFAULT false,
+            setlist TEXT NOT NULL,
+            createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            modifiedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        );
+    `);
+
+    await pool.query(`
+            CREATE TABLE IF NOT EXISTS tour_photos (
+                id CHAR(36) PRIMARY KEY,
+                photoURL VARCHAR(255) NOT NULL,
+                idTour CHAR(36) NOT NULL,
+                createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                modifiedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY (idTour) REFERENCES tour (id) ON DELETE CASCADE
+            );
     `);
 
     await pool.query(`
@@ -113,188 +150,6 @@ async function createTables(pool) {
             FOREIGN KEY (idUser) REFERENCES users (id) ON DELETE CASCADE
         );
     `);
-
-    console.log("Adding Details to DataBase");
-    // Adding users
-    await pool.query(
-        "INSERT INTO users (id, userName, realName, email, password, birthday, acceptedTOS, validated, role) " +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        [
-            DepechejuanID,
-            "Depechejuan",
-            "Juan León",
-            "dressedinblackdm@gmail.com",
-            hashedPassword,
-            "1990-01-01",
-            true,
-            true,
-            "Admin",
-        ]
-    );
-    await pool.query(
-        "INSERT INTO users (id, userName, realName, email, password, birthday, acceptedTOS, validated, role) " +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        [
-            EscriID,
-            "Escri",
-            "Javier Escribano",
-            "escribano101@gmail.com",
-            hashedPassword,
-            "1990-01-01",
-            true,
-            true,
-            "Admin",
-        ]
-    );
-
-    await pool.query(
-        "INSERT INTO users (id, userName, realName, email, password, birthday, acceptedTOS, validated, role) " +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        [
-            LuisID,
-            "Luis",
-            "Luis Alcober",
-            "luis_alcober@hotmail.com",
-            hashedPassword,
-            "1990-01-01",
-            true,
-            true,
-            "Admin",
-        ]
-    );
-
-    await pool.query(
-        "INSERT INTO users (id, userName, realName, email, password, birthday, acceptedTOS, validated, role) " +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        [
-            JaviID,
-            "Javi",
-            "Javier Redondo",
-            "javirefe@hotmail.com",
-            hashedPassword,
-            "1990-01-01",
-            true,
-            true,
-            "Admin",
-        ]
-    );
-
-    await pool.query(
-        "INSERT INTO users (id, userName, realName, email, password, birthday, acceptedTOS, validated, role) " +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        [
-            ManuID,
-            "Manu",
-            "Manuel Cuesta",
-            "manuelcuesta@hotmail.com",
-            hashedPassword,
-            "1990-01-01",
-            true,
-            true,
-            "Admin",
-        ]
-    );
-
-    console.log("adding instruments");
-    // Adding Instrument Details
-    await pool.query(`
-    INSERT INTO instruments VALUES ('Voz')`);
-    await pool.query(`
-    INSERT INTO instruments VALUES ('Coros')`);
-    await pool.query(`
-    INSERT INTO instruments VALUES ('Guitarra')`);
-    await pool.query(`
-    INSERT INTO instruments VALUES ('Bajo')`);
-    await pool.query(`
-    INSERT INTO instruments VALUES ('Batería')`);
-    await pool.query(`
-    INSERT INTO instruments VALUES ('Teclados')`);
-    await pool.query(`
-    INSERT INTO instruments VALUES ('Programación')`);
-
-    console.log("Adding Instruments to Users");
-    //adding instruments to Users
-    // Depechejuan
-    console.log("for Juan");
-
-    await pool.query(
-        `
-        INSERT INTO user_instruments (idUser, idInstrument)
-        VALUES(?,?)`,
-        [DepechejuanID, "Coros"]
-    ); // -- Coros
-    await pool.query(
-        `
-        INSERT INTO user_instruments (idUser, idInstrument)
-        VALUES(?,?)`,
-        [DepechejuanID, "Teclados"]
-    ); // -- Teclados
-    await pool.query(
-        `
-        INSERT INTO user_instruments (idUser, idInstrument)
-        VALUES(?,?)`,
-        [DepechejuanID, "Programación"]
-    ); // -- Programación
-
-    console.log("for Escri");
-    // Escri
-    await pool.query(
-        `
-        INSERT INTO user_instruments (idUser, idInstrument)
-        VALUES(?,?)`,
-        [EscriID, "Voz"]
-    ); // -- Voz
-    await pool.query(
-        `
-        INSERT INTO user_instruments (idUser, idInstrument)
-        VALUES(?,?)
-        `,
-        [EscriID, "Teclados"]
-    ); // -- Teclados
-    await pool.query(
-        `
-        INSERT INTO user_instruments (idUser, idInstrument)
-        VALUES(?,?)
-        `,
-        [EscriID, "Programación"]
-    ); // -- Programación
-
-    console.log("For Luis");
-    // Luis
-    await pool.query(
-        `
-        INSERT INTO user_instruments (idUser, idInstrument)
-        VALUES(?,?)
-        `,
-        [LuisID, "Guitarra"]
-    ); // -- Guitarra
-
-    console.log("For Javi");
-    // Javi
-    await pool.query(
-        `
-        INSERT INTO user_instruments (idUser, idInstrument)
-        VALUES(?,?)
-        `,
-        [JaviID, "Batería"]
-    ); // -- Batería
-    await pool.query(
-        `
-    INSERT INTO user_instruments (idUser, idInstrument)
-    VALUES(?,?)
-    `,
-        [JaviID, "Programación"]
-    ); // -- Programación
-
-    console.log("For Manu");
-    // Manu
-    await pool.query(
-        `
-    INSERT INTO user_instruments (idUser, idInstrument)
-    VALUES(?,?)
-    `,
-        [ManuID, "Bajo"]
-    ); // -- Bajo
 }
 
 dbInit();
