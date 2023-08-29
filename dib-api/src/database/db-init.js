@@ -26,7 +26,12 @@ const dbInit = async () => {
 async function createTables(pool) {
     const plainPassowrd = process.env.ADMINPASS;
     const hashedPassword = await hashPassword(plainPassowrd);
-    const adminId = generateUUID();
+    const DepechejuanID = generateUUID();
+    const JaviID = generateUUID();
+    const EscriID = generateUUID();
+    const LuisID = generateUUID();
+    const ManuID = generateUUID();
+
     await pool.query(`
         CREATE TABLE IF NOT EXISTS users(
             id CHAR(36) PRIMARY KEY,
@@ -48,6 +53,22 @@ async function createTables(pool) {
     `);
 
     await pool.query(`
+        CREATE TABLE IF NOT EXISTS instruments (
+            id VARCHAR(100) PRIMARY KEY
+        );
+    `);
+
+    await pool.query(`
+        CREATE TABLE IF NOT EXISTS user_instruments (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            idUser CHAR(36),
+            idInstrument VARCHAR(100),
+            FOREIGN KEY (idUser) REFERENCES users (id) ON DELETE CASCADE,
+            FOREIGN KEY (idInstrument) REFERENCES instruments (id) ON DELETE CASCADE
+        );
+    `);
+
+    await pool.query(`
         CREATE TABLE IF NOT EXISTS posts(
             id CHAR(36) PRIMARY KEY,
             title VARCHAR(70) NOT NULL,
@@ -60,7 +81,7 @@ async function createTables(pool) {
     `);
 
     await pool.query(`
-        CREATE TABLE IF NOT EXISTS postimages(
+        CREATE TABLE IF NOT EXISTS post_images(
             id CHAR(36) PRIMARY KEY,
             idPost CHAR(36) NOT NULL,
             imageURL VARCHAR(255),
@@ -71,7 +92,7 @@ async function createTables(pool) {
     `);
 
     await pool.query(`
-        CREATE TABLE IF NOT EXISTS postcomments(
+        CREATE TABLE IF NOT EXISTS post_comments(
             id CHAR(36) PRIMARY KEY,
             comments TEXT NOT NULL,
             idUser CHAR(36) NOT NULL,
@@ -84,7 +105,7 @@ async function createTables(pool) {
     `);
 
     await pool.query(`
-        CREATE TABLE IF NOT EXISTS validationcodes(
+        CREATE TABLE IF NOT EXISTS validation_codes(
             id CHAR(36) PRIMARY KEY,
             idUser CHAR(36) NOT NULL,
             code CHAR(6),
@@ -93,11 +114,13 @@ async function createTables(pool) {
         );
     `);
 
+    console.log("Adding Details to DataBase");
+    // Adding users
     await pool.query(
         "INSERT INTO users (id, userName, realName, email, password, birthday, acceptedTOS, validated, role) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
-            generateUUID(),
+            DepechejuanID,
             "Depechejuan",
             "Juan León",
             "dressedinblackdm@gmail.com",
@@ -112,7 +135,7 @@ async function createTables(pool) {
         "INSERT INTO users (id, userName, realName, email, password, birthday, acceptedTOS, validated, role) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
-            generateUUID(),
+            EscriID,
             "Escri",
             "Javier Escribano",
             "escribano101@gmail.com",
@@ -128,7 +151,7 @@ async function createTables(pool) {
         "INSERT INTO users (id, userName, realName, email, password, birthday, acceptedTOS, validated, role) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
-            generateUUID(),
+            LuisID,
             "Luis",
             "Luis Alcober",
             "luis_alcober@hotmail.com",
@@ -144,7 +167,7 @@ async function createTables(pool) {
         "INSERT INTO users (id, userName, realName, email, password, birthday, acceptedTOS, validated, role) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
-            generateUUID(),
+            JaviID,
             "Javi",
             "Javier Redondo",
             "javirefe@hotmail.com",
@@ -160,7 +183,7 @@ async function createTables(pool) {
         "INSERT INTO users (id, userName, realName, email, password, birthday, acceptedTOS, validated, role) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
-            generateUUID(),
+            ManuID,
             "Manu",
             "Manuel Cuesta",
             "manuelcuesta@hotmail.com",
@@ -171,6 +194,107 @@ async function createTables(pool) {
             "Admin",
         ]
     );
+
+    console.log("adding instruments");
+    // Adding Instrument Details
+    await pool.query(`
+    INSERT INTO instruments VALUES ('Voz')`);
+    await pool.query(`
+    INSERT INTO instruments VALUES ('Coros')`);
+    await pool.query(`
+    INSERT INTO instruments VALUES ('Guitarra')`);
+    await pool.query(`
+    INSERT INTO instruments VALUES ('Bajo')`);
+    await pool.query(`
+    INSERT INTO instruments VALUES ('Batería')`);
+    await pool.query(`
+    INSERT INTO instruments VALUES ('Teclados')`);
+    await pool.query(`
+    INSERT INTO instruments VALUES ('Programación')`);
+
+    console.log("Adding Instruments to Users");
+    //adding instruments to Users
+    // Depechejuan
+    console.log("for Juan");
+
+    await pool.query(
+        `
+        INSERT INTO user_instruments (idUser, idInstrument)
+        VALUES(?,?)`,
+        [DepechejuanID, "Coros"]
+    ); // -- Coros
+    await pool.query(
+        `
+        INSERT INTO user_instruments (idUser, idInstrument)
+        VALUES(?,?)`,
+        [DepechejuanID, "Teclados"]
+    ); // -- Teclados
+    await pool.query(
+        `
+        INSERT INTO user_instruments (idUser, idInstrument)
+        VALUES(?,?)`,
+        [DepechejuanID, "Programación"]
+    ); // -- Programación
+
+    console.log("for Escri");
+    // Escri
+    await pool.query(
+        `
+        INSERT INTO user_instruments (idUser, idInstrument)
+        VALUES(?,?)`,
+        [EscriID, "Voz"]
+    ); // -- Voz
+    await pool.query(
+        `
+        INSERT INTO user_instruments (idUser, idInstrument)
+        VALUES(?,?)
+        `,
+        [EscriID, "Teclados"]
+    ); // -- Teclados
+    await pool.query(
+        `
+        INSERT INTO user_instruments (idUser, idInstrument)
+        VALUES(?,?)
+        `,
+        [EscriID, "Programación"]
+    ); // -- Programación
+
+    console.log("For Luis");
+    // Luis
+    await pool.query(
+        `
+        INSERT INTO user_instruments (idUser, idInstrument)
+        VALUES(?,?)
+        `,
+        [LuisID, "Guitarra"]
+    ); // -- Guitarra
+
+    console.log("For Javi");
+    // Javi
+    await pool.query(
+        `
+        INSERT INTO user_instruments (idUser, idInstrument)
+        VALUES(?,?)
+        `,
+        [JaviID, "Batería"]
+    ); // -- Batería
+    await pool.query(
+        `
+    INSERT INTO user_instruments (idUser, idInstrument)
+    VALUES(?,?)
+    `,
+        [JaviID, "Programación"]
+    ); // -- Programación
+
+    console.log("For Manu");
+    // Manu
+    await pool.query(
+        `
+    INSERT INTO user_instruments (idUser, idInstrument)
+    VALUES(?,?)
+    `,
+        [ManuID, "Bajo"]
+    ); // -- Bajo
 }
 
 dbInit();

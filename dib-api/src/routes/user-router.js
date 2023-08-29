@@ -11,6 +11,7 @@ const { sendResponse } = require("../utils/send-response");
 const { register } = require("../controllers/user/register");
 const authGuard = require("../middlewares/auth-guard");
 const controlPanel = require("../controllers/user/control-panel");
+const { getFullUserById } = require("../services/db-service");
 
 const router = Router();
 
@@ -26,8 +27,11 @@ router.get("/video");
 router.get("/rider");
 
 router.get("/contact");
-// proximo objetivo:
-router.get("/users/:id");
+
+router.get("/users/:id", json(), async (req, res) => {
+    const user = await getFullUserById(req.params.id);
+    sendResponse(res, user);
+});
 
 // POST
 
@@ -41,7 +45,7 @@ router.post("/diblog", json(), async (req, res) => {
         const token = await login(req.body);
         sendResponse(res, token);
     } catch (err) {
-        console.log(err);
+        console.error(err);
         if (err.code === "INVALID_CREDENTIALS") {
             sendResponse(res, { error: "Invalid email or password" }, 400);
         } else {
@@ -55,7 +59,6 @@ router.post("/diblog", json(), async (req, res) => {
 router.put("/users/:id", authGuard, json(), async (req, res) => {
     const idUser = req.params.id;
     const userInfo = req.body;
-    console.log("endpoint: ", idUser, "\n", userInfo);
     const info = await controlPanel(idUser, userInfo);
     sendResponse(res, info, undefined, 201);
 });

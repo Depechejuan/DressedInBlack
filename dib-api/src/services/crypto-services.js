@@ -33,7 +33,7 @@ module.exports = {
             const payload = jwt.verify(token, process.env.JWT_SECRET);
             return { ...payload, token };
         } catch (err) {
-            console.log(err);
+            console.error(err);
             return null;
         }
     },

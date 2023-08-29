@@ -26,7 +26,28 @@ module.exports = {
         FROM users
         WHERE id = ?`;
         const [rows] = await db.execute(statement, [idUser]);
-        return rows;
+        return rows[0];
+    },
+
+    async getFullUserById(idUser) {
+        const statement = `
+        SELECT 
+            u.userName, 
+            u.realName, 
+            u.birthday, 
+            u.avatarURL, 
+            u.city, 
+            u.biography,
+            GROUP_CONCAT(i.id) AS instruments
+        FROM users u
+        JOIN user_instruments ui ON u.id = ui.idUser
+        JOIN instruments i ON ui.idInstrument = i.id
+        WHERE u.id = ?
+        GROUP BY u.id, u.userName, u.realName, u.birthday, u.avatarURL, u.city, u.biography`;
+        const [rows] = await db.execute(statement, [idUser]);
+        const user = rows[0];
+        user.instruments = user.instruments.split(",");
+        return user;
     },
 
     // LOGIN/REGISTER

@@ -5,7 +5,6 @@ const errorService = require("../services/error-service");
 const { sendResponse } = require("../utils/send-response");
 
 module.exports = (req, res, next) => {
-    console.log("El currentUser de Auth Guard: ", req.currentUser);
     if (!req.currentUser) {
         const err = errorService.invalidCredentials();
         return res.status(err.statusCode).json({
