@@ -101,9 +101,26 @@ module.exports = {
         WHERE id = ?
         `;
         const [rows] = await db.execute(statement, [id]);
-        return rows;
+        return rows[0];
     },
 
+    async updatePost(post) {
+        try {
+            const statement = `
+            UPDATE posts
+            SET title = ?, description = ?
+            WHERE id = ?`;
+
+            await db.execute(statement, [
+                post.title,
+                post.description,
+                post.id,
+            ]);
+        } catch (err) {
+            console.error(err);
+            throw err;
+        }
+    },
     // async saveValidationCode(code) {
     //     const statement = `
     //     INSERT INTO validationcodes(id, idUser, code)
