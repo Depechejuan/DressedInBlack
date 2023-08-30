@@ -121,6 +121,35 @@ module.exports = {
             throw err;
         }
     },
+
+    async getTour() {
+        const statement = `
+        SELECT * FROM tour`;
+        const [rows] = await db.execute(statement);
+        return rows;
+    },
+
+    async addTour(tour) {
+        const statement = `
+        INSERT INTO tour(id, tourName, tourDate, city, country, venue, soldOut, setlist)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        `;
+        await db.execute(statement, [
+            tour.id,
+            tour.tourName,
+            tour.tourDate,
+            tour.city,
+            tour.country,
+            tour.venue,
+            tour.soldOut,
+            tour.setlist,
+        ]);
+    },
+
+    async editTour(idTour) {
+        const statement = `UPDATE tour
+        SET [...]`;
+    },
     // async saveValidationCode(code) {
     //     const statement = `
     //     INSERT INTO validationcodes(id, idUser, code)
