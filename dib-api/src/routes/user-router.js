@@ -11,7 +11,11 @@ const { sendResponse } = require("../utils/send-response");
 const { register } = require("../controllers/user/register");
 const authGuard = require("../middlewares/auth-guard");
 const controlPanel = require("../controllers/user/control-panel");
-const { getFullUserById, getTour } = require("../services/db-service");
+const {
+    getFullUserById,
+    getTour,
+    getTourById,
+} = require("../services/db-service");
 
 const router = Router();
 
@@ -22,6 +26,11 @@ router.get("/about");
 
 router.get("/tour", json(), async (req, res) => {
     const tour = await getTour();
+    sendResponse(res, tour);
+});
+
+router.get("/tour/:id", json(), async (req, res) => {
+    const tour = await getTourById(req.params.id);
     sendResponse(res, tour);
 });
 

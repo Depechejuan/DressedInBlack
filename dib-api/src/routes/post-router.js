@@ -12,6 +12,7 @@ const { invalidCredentials } = require("../services/error-service");
 const newPost = require("../controllers/post/new-post");
 const editPost = require("../controllers/post/edit-post");
 const createTour = require("../controllers/post/create-tour");
+const editTour = require("../controllers/post/edit-tour");
 
 const router = Router();
 
@@ -51,13 +52,16 @@ router.post("/tour", authGuard, json(), async (req, res) => {
     if (!req.currentUser) {
         throw invalidCredentials();
     }
-    console.log("hay usuario");
     const token = req.currentUser.token;
-    console.log(token);
     const tourDate = await createTour(req.body, token);
-    console.log("se completo la consulta SQL");
-    console.log(tourDate);
     sendResponse(res, tourDate);
+});
+
+router.put("/tour/:id", authGuard, json(), async (req, res) => {
+    const idTour = req.params.id;
+    const tour = req.body;
+    const newTourDate = await editTour(idTour, tour);
+    sendResponse(res, newTourDate);
 });
 
 module.exports = router;

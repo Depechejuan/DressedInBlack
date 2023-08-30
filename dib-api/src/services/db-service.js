@@ -146,10 +146,29 @@ module.exports = {
         ]);
     },
 
-    async editTour(idTour) {
+    async editTourDate(tour) {
         const statement = `UPDATE tour
-        SET [...]`;
+        SET tourName = ?, tourDate = ?, city = ?, country = ?, venue = ?, soldOut = ?, setlist = ?
+        WHERE id = ?`;
+        await db.execute(statement, [
+            tour.tourName,
+            tour.tourDate,
+            tour.city,
+            tour.country,
+            tour.venue,
+            tour.soldOut,
+            tour.setlist,
+            tour.id,
+        ]);
     },
+
+    async getTourById(id) {
+        const statement = `
+        SELECT * FROM tour WHERE id = ?`;
+        const [rows] = await db.execute(statement, [id]);
+        return rows[0];
+    },
+
     // async saveValidationCode(code) {
     //     const statement = `
     //     INSERT INTO validationcodes(id, idUser, code)
