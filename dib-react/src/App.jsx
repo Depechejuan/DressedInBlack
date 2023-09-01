@@ -5,6 +5,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import  ContactUs from "./pages/Contact-us.jsx";
 import HomePage from './pages/Home-page';
 import NavBar from './components/Nav-bar';
+import Slider from './components/Slider';
+import { SliderIMG } from './components/Images-slider';
+
+
 
 // import Menu from './components/Menu'
 
@@ -13,6 +17,7 @@ function App() {
   return (
     <>
         <Router>
+          <Slider slides={SliderIMG}/>
           <HomePage />
             <main>
               <Routes>
