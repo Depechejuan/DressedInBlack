@@ -1,0 +1,1 @@
+// Here we will set all memeber cards and info about the band

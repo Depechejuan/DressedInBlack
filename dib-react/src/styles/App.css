@@ -1,0 +1,22 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    font-size: 1rem;
+    color: white;
+}
+
+body {
+    background-color: black;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
