@@ -1,12 +1,16 @@
 import { useState } from "react";
 import sendLogin from "../services/send-login";
 import saveToken from "../services/token/save-token";
+import { useNavigate } from "react-router-dom"; 
+
+import "../styles/login-form.css"
 
 function LoginForm() {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
     });
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const {name, value} = e.target;
@@ -19,18 +23,21 @@ function LoginForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = sendLogin(formData);
-            const tokenSaved = saveToken(response.token);
-
+            const response = await sendLogin(formData);
+            console.log(response);
+            saveToken(response);
+            navigate("/");
         } catch(err) {
             console.error(err);
         }
     }
 
+
+
     return(
         <section className="form">
             <form className="login-form" method="post" onSubmit={handleSubmit}>
-                <h3>Login</h3>
+                <h3 className="login-title">Login</h3>
                 <input
                     type="text"
                     name="email"
