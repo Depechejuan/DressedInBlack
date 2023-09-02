@@ -2,12 +2,16 @@ import './styles/App.css'
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+// import components and pages
 import  ContactUs from "./pages/Contact-us.jsx";
 import HomePage from './pages/Home-page';
 import NavBar from './components/Nav-bar';
 import Slider from './components/Slider';
-import { SliderIMG } from './components/Images-slider';
+import Tour from './components/Tour';
 
+// import utilities
+import { SliderIMG } from './components/Images-slider';
+import LoginPage from './pages/Login-page';
 
 
 // import Menu from './components/Menu'
@@ -18,14 +22,13 @@ function App() {
     <>
         <Router>
           <Slider slides={SliderIMG}/>
-          <HomePage />
             <main>
               <Routes>
+                <Route path="/" element={<HomePage />}></Route>
                 <Route path="/contact" element={<ContactUs />}></Route>
-                {/* <Route path="/diblog" element={<Login />}></Route>
-                <Route path="" element={}></Route>
-                <Route path="" element={}></Route>
-                <Route path="" element={}></Route>
+                <Route path="/tour" element={<Tour />}></Route>
+                <Route path="/diblog" element={<LoginPage />}></Route>
+                {/* <Route path="" element={}></Route>
                 <Route path="" element={}></Route>
                 <Route path="" element={}></Route> */}
               </Routes>

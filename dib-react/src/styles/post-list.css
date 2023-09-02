@@ -1,0 +1,22 @@
+.link-to-post {
+    text-decoration: none;
+    color: inherit;
+}
+
+.all-posts {
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.preview-post {
+    border: 2px solid transparent;
+    border-image: linear-gradient(#171618, #fcc23f);
+    border-image-slice: 1;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.post-title {
+    text-align: center;
+    margin: 0.3rem;
+}

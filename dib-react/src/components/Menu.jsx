@@ -37,7 +37,7 @@ function Menu({isMenuOpen}) {
                         <Link to="/">Quienes Somos</Link>
                     </li>
                     <li>
-                        <Link to="/">Tour</Link>
+                        <Link to="/tour">Tour</Link>
                     </li>
                     <li>
                         <Link to="/">Video</Link>

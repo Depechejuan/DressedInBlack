@@ -9,12 +9,9 @@
     top: 0;
     overflow: hidden;
     margin: 15px auto;
-    border: 2px solid transparent; /* Borde transparente de 2px */
-    border-image: linear-gradient(
-        #171618,
-        #fcc23f
-    ); /* Gradiente lineal como borde */
-    border-image-slice: 1; /* Esto es necesario para que el gradiente se aplique como borde completo */
+    border: 2px solid transparent;
+    border-image: linear-gradient(#171618, #fcc23f);
+    border-image-slice: 1;
 }
 
 .image {
