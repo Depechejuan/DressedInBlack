@@ -12,6 +12,7 @@ import Tour from './components/Tour';
 // import utilities
 import { SliderIMG } from './components/Images-slider';
 import LoginPage from './pages/Login-page';
+import PostForm from './forms/Post-Form';
 
 
 // import Menu from './components/Menu'
@@ -28,8 +29,8 @@ function App() {
                 <Route path="/contact" element={<ContactUs />}></Route>
                 <Route path="/tour" element={<Tour />}></Route>
                 <Route path="/diblog" element={<LoginPage />}></Route>
+                <Route path="/dibposts" element={<PostForm />}></Route>
                 {/* <Route path="" element={}></Route>
-                <Route path="" element={}></Route>
                 <Route path="" element={}></Route> */}
               </Routes>
             </main>

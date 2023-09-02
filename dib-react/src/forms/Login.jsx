@@ -3,7 +3,7 @@ import sendLogin from "../services/send-login";
 import saveToken from "../services/token/save-token";
 import { useNavigate } from "react-router-dom"; 
 
-import "../styles/login-form.css"
+import "../styles/forms.css"
 
 function LoginForm() {
     const [formData, setFormData] = useState({
@@ -55,7 +55,7 @@ function LoginForm() {
                     required
                 />
 
-                <button type="submit" className="login-btn">
+                <button type="submit" className="form-btn">
                     Log in
                 </button>
             </form>

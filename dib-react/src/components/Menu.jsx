@@ -25,7 +25,6 @@ function Menu({isMenuOpen}) {
         navigate("/")
     }
 
-
     return(
         <>
             <nav className={`${isMenuOpen ? "open" : ""} desktop-navbar`}>

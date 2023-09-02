@@ -26,7 +26,7 @@ router.get("/posts/:id", async (req, res) => {
     sendResponse(res, post);
 });
 
-router.post("/posts", authGuard, json(), async (req, res) => {
+router.post("/dibposts", authGuard, json(), async (req, res) => {
     if (!req.currentUser) {
         invalidCredentials();
     }

@@ -23,16 +23,48 @@
     display: none;
     position: absolute;
     padding: 15px;
-    border: 2px solid white;
     bottom: 50px;
     right: 15px;
     text-align: right;
+    background: linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.15) 0%,
+            rgba(0, 0, 0, 0.15) 100%
+        ),
+        radial-gradient(
+                at top center,
+                rgba(255, 255, 255, 0.4) 0%,
+                rgba(0, 0, 0, 0.4) 120%
+            )
+            #989898;
+    border: 2px solid transparent;
+    border-image: linear-gradient(#fcc23f, #171618);
+    border-image-slice: 1;
+    height: 0;
+    transition: height 2s ease-in-out;
 }
 
 .desktop-navbar.open {
     display: block;
+    height: auto;
 }
 
 .desktop-navbar > ul {
     list-style-type: none;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+    display: none;
+}
+
+ul > li > a {
+    text-decoration: none;
+    color: rgb(3, 50, 3);
 }
