@@ -169,6 +169,27 @@ module.exports = {
         return rows[0];
     },
 
+    async savePhotoUser(photo) {
+        const statement = `
+        INSERT INTO users_photos(id, idUser, photoURL)
+        VALUES(?, ?, ?)`;
+        await db.execute(statement, [photo.id, photo.idUser, photo.imageURL]);
+    },
+
+    async savePhotoPost(photo) {
+        const statement = `
+        INSERT INTO post_images(id, idPost, imageURL)
+        VALUES(?, ?, ?)`;
+        await db.execute(statement, [photo.id, photo.idPost, photo.imageURL]);
+    },
+
+    async savePhotoTour(photo) {
+        const statement = `
+        INSERT INTO users_photos(id, idTour, photoURL)
+        VALUES(?, ?, ?)`;
+        await db.execute(statement, [photo.id, photo.idTour, photo.imageURL]);
+    },
+
     // async saveValidationCode(code) {
     //     const statement = `
     //     INSERT INTO validationcodes(id, idUser, code)

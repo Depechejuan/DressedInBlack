@@ -2,6 +2,8 @@
 
 // libraries
 const { Router, json } = require("express");
+const multer = require("multer");
+const upload = multer();
 
 const authGuard = require("../middlewares/auth-guard");
 
@@ -13,6 +15,7 @@ const newPost = require("../controllers/post/new-post");
 const editPost = require("../controllers/post/edit-post");
 const createTour = require("../controllers/post/create-tour");
 const editTour = require("../controllers/post/edit-tour");
+const addPhotoToPost = require("../controllers/post/add-post-photo");
 
 const router = Router();
 
@@ -63,5 +66,21 @@ router.put("/tour/:id", authGuard, json(), async (req, res) => {
     const newTourDate = await editTour(idTour, tour);
     sendResponse(res, newTourDate);
 });
+
+router.put(
+    "/dibposts/:id/photos",
+    authGuard,
+    upload.array("photos", 3),
+    async (req, res) => {
+        const photos = req.files;
+        console.log(photos);
+        const sendPhotos = await addPhotoToPost(
+            req.params.id,
+            req.currentUser.id,
+            photos
+        );
+        sendResponse(res, sendPhotos);
+    }
+);
 
 module.exports = router;

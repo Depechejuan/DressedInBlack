@@ -57,6 +57,12 @@ function incomplete() {
     err.code = "INCOMPLETE";
 }
 
+function genericError() {
+    err = new Error("An error just ocurred");
+    err.status = 403;
+    err.code = "GENERIC_ERROR";
+}
+
 module.exports = {
     invalidCredentials,
     emailNotValidated,
@@ -66,4 +72,5 @@ module.exports = {
     unauthorized,
     notFound,
     incomplete,
+    genericError,
 };
