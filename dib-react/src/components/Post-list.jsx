@@ -5,6 +5,7 @@ import Loading from "./Loading";
 
 import "../styles/post-list.css"
 
+const host = import.meta.env.VITE_API_HOST;
 
 function PostList() {
     const [posts, setPosts] = useState([]);
@@ -34,7 +35,19 @@ console.log(posts);
                         <h3 className="post-title">{post.title}</h3>
                         <p className="post-date">{post.createdAt}</p>
                         <p className="post-description">{post.description}</p>
+                        <figure className="post-images">
+                            {post.imageURL.map((image, index) => (
+                            <img
+                                key={index}
+                                src={`${host}${image}`}
+                                alt={`image ${index - 1}`}
+                                className="image"
+                            />
+                            ))
+                            }
+                        </figure>
                     </Link>
+                    {/* HAY QUE CAMBIAR LAS RUTAS DEL BACK END PARA QUE SE GUARDEN EN EL PROYECTO DE FRONT !!!!! CREO QUE POR ESO NO SE VEN*/}
                 </article>
 
             ))}

@@ -26,6 +26,9 @@ app.use(express.json());
 app.use(validateToken);
 app.use(appRouter);
 
+const staticDirectory = path.join(__dirname, "/public/");
+app.use(express.static(staticDirectory));
+
 // Error Middleware
 app.use((err, req, res, next) => {
     console.log(err);

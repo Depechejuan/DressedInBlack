@@ -38,6 +38,7 @@ module.exports = {
             u.avatarURL, 
             u.city, 
             u.biography,
+            u.role,
             GROUP_CONCAT(i.id) AS instruments
         FROM users u
         JOIN user_instruments ui ON u.id = ui.idUser
@@ -89,7 +90,15 @@ module.exports = {
 
     async getAllPosts() {
         const statement = `
-        SELECT * FROM posts
+        SELECT
+            p.*,
+            JSON_ARRAYAGG(pp.imageURL) AS imageURL
+        FROM
+            posts p
+        LEFT JOIN
+            post_photos pp ON p.id = pp.idPost
+        GROUP BY
+        p.id;
         `;
         const [rows] = await db.execute(statement);
         return rows;
@@ -97,8 +106,17 @@ module.exports = {
 
     async getPostById(id) {
         const statement = `
-        SELECT * FROM posts
-        WHERE id = ?
+        SELECT
+            p.*,
+            JSON_ARRAYAGG(pp.imageURL) AS imageURL
+        FROM
+            posts p
+        LEFT JOIN
+            post_photos pp ON p.id = pp.idPost
+        WHERE
+            p.id = ?
+        GROUP BY
+            p.id;
         `;
         const [rows] = await db.execute(statement, [id]);
         return rows[0];
@@ -178,7 +196,7 @@ module.exports = {
 
     async savePhotoPost(photo) {
         const statement = `
-        INSERT INTO post_images(id, idPost, imageURL)
+        INSERT INTO post_photos(id, idPost, imageURL)
         VALUES(?, ?, ?)`;
         await db.execute(statement, [photo.id, photo.idPost, photo.imageURL]);
     },

@@ -6,6 +6,8 @@ import getUniquePost from "../services/get-unique-post";
 import Buttons from "./edit-delete-btn";
 import getToken from "../services/token/get-token";
 
+const host = import.meta.env.VITE_API_HOST;
+
 function UniquePost() {
     const [post, setPost] = useState({});
     const { id } = useParams();
@@ -24,6 +26,7 @@ function UniquePost() {
     }, [id]);
 
     console.log(post.data);
+
     if (!post.data) {
         return <Loading />;
     }
@@ -33,6 +36,20 @@ function UniquePost() {
                 <h3 className="post-title">{post.data.title}</h3>
                 <p className="post-date">{post.data.createdAt}</p>
                 <p className="post-description">{post.data.description}</p>
+                <figure className="post-images">
+                    {post.data.imageURL.map((image, index) => (
+                        <img
+                            key={index}
+                            src={`${host}${image}`}
+                            alt={`Dressed In Black - El mejor TRIBUTO a Depeche Mode de España`}
+                            className="image"
+                        />
+                    )) }
+
+
+
+
+                </figure>
                 {token && <Buttons />}
             </article>
     )

@@ -37,11 +37,11 @@ async function createTables(pool) {
             password VARCHAR(255) NOT NULL,
             email VARCHAR(120) NOT NULL UNIQUE,
             birthday TIMESTAMP NOT NULL,
-            acceptedTOS BOOLEAN NOT NULL,
-            avatarURL varchar(255),
             country VARCHAR(150),
             city VARCHAR(150),
             biography TEXT,
+            avatarURL varchar(255),
+            acceptedTOS BOOLEAN NOT NULL,
             validated BOOLEAN DEFAULT false,
             role ENUM('Admin', 'Moderador', 'Devotee', 'VIP') DEFAULT 'Devotee',
             createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -118,7 +118,7 @@ async function createTables(pool) {
     `);
 
     await pool.query(`
-        CREATE TABLE IF NOT EXISTS post_images(
+        CREATE TABLE IF NOT EXISTS post_photos(
             id CHAR(36) PRIMARY KEY,
             idPost CHAR(36) NOT NULL,
             imageURL VARCHAR(255),
