@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import getAllPost from "../services/get-all-posts";
 import Loading from "./Loading";
 
+
 import "../styles/post-list.css"
 
 const host = import.meta.env.VITE_API_HOST;
@@ -28,6 +29,7 @@ function PostList() {
 console.log(posts);
 
     return(
+        <>
         <section className="all-posts">
             {posts.data.map(post => (
                 <article className="preview-post" key={post.id}>
@@ -47,12 +49,12 @@ console.log(posts);
                             }
                         </figure>
                     </Link>
-                    {/* HAY QUE CAMBIAR LAS RUTAS DEL BACK END PARA QUE SE GUARDEN EN EL PROYECTO DE FRONT !!!!! CREO QUE POR ESO NO SE VEN*/}
                 </article>
 
             ))}
 
         </section>
+        </>
     );
 }
 

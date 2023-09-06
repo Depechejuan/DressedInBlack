@@ -16,6 +16,8 @@ const editPost = require("../controllers/post/edit-post");
 const createTour = require("../controllers/post/create-tour");
 const editTour = require("../controllers/post/edit-tour");
 const addPhotoToPost = require("../controllers/post/add-post-photo");
+const addPhotoToTour = require("../controllers/post/add-tour-photo");
+const addPhotoToUser = require("../controllers/post/add-user-photo");
 
 const router = Router();
 
@@ -70,13 +72,51 @@ router.put("/tour/:id", authGuard, json(), async (req, res) => {
 router.put(
     "/dibposts/:id/photos",
     authGuard,
-    upload.array("photos", 3),
+    upload.array("photos", 10),
     async (req, res) => {
         const photos = req.files;
         console.log(photos);
+        const method = "post";
         const sendPhotos = await addPhotoToPost(
+            method,
             req.params.id,
             req.currentUser.id,
+            photos
+        );
+        sendResponse(res, sendPhotos);
+    }
+);
+
+router.put(
+    "/tour/:id/photos",
+    authGuard,
+    upload.array("photos", 10),
+    async (req, res) => {
+        const photos = req.files;
+        console.log(photos);
+        const method = "tour";
+        const sendPhotos = await addPhotoToTour(
+            method,
+            req.params.id,
+            req.currentUser.id,
+            photos
+        );
+        sendResponse(res, sendPhotos);
+    }
+);
+
+router.put(
+    "/users/:id/photos",
+    authGuard,
+    upload.array("photos", 10),
+    async (req, res) => {
+        const photos = req.files;
+        console.log(photos);
+        const method = "user";
+        const sendPhotos = await addPhotoToUser(
+            method,
+            req.params.id,
+            req.currentUsre.id,
             photos
         );
         sendResponse(res, sendPhotos);

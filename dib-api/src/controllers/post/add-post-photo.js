@@ -11,8 +11,7 @@ const {
 } = require("../../services/error-service");
 const { saveFile } = require("../../services/file-service");
 
-async function addPhotoToPost(idPost, idUser, photos) {
-    const method = "post";
+async function addPhotoToPost(method, idPost, idUser, photos) {
     const savedPhotos = [];
 
     try {

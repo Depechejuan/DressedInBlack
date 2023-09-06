@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import getTour from "../services/get-tour";
 import Loading from "./Loading";
 
+const host = import.meta.env.VITE_API_HOST;
+
 function Tour() {
     const [tour, setTour] = useState([]);
     const [expandedEntries, setExpandedEntries] = useState([]);
@@ -48,6 +50,15 @@ function Tour() {
                                 {expandedEntries.includes(date.tourDate) && (
                                 <section className="date-details">
                                     <p>Setlist: {date.setlist}</p>
+                                    <figure className="tour-photos">
+                                        {date.imageURL.map((image, index) => (
+                                            <img
+                                                key={index}
+                                                src={`${host}${image}`}
+                                                alt="Dressed In Black - Tributo a DEPECHE MODE"
+                                            />
+                                        ))}
+                                    </figure>
                                 </section>
                             )}
                             </li>

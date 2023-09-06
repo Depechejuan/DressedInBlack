@@ -7,7 +7,7 @@ import  ContactUs from "./pages/Contact-us.jsx";
 import HomePage from './pages/Home-page';
 import NavBar from './components/Nav-bar';
 import Slider from './components/Slider';
-import Tour from './components/Tour';
+import TourPage from './pages/Tour-page';
 
 // import utilities
 import { SliderIMG } from './components/Images-slider';
@@ -28,7 +28,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<HomePage />}></Route>
                 <Route path="/contact" element={<ContactUs />}></Route>
-                <Route path="/tour" element={<Tour />}></Route>
+                <Route path="/tour" element={<TourPage />}></Route>
                 <Route path="/diblog" element={<LoginPage />}></Route>
                 <Route path="/dibposts" element={<PostForm />}></Route>
                 <Route path="/posts/:id" element={<UniquePost />}></Route>

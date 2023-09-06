@@ -1,30 +1,51 @@
 const { generateUUID } = require("../../services/crypto-services");
 const {
     getUserById,
-    savePhotoPost,
-    savePhotoTour,
+    getFullUserById,
     savePhotoUser,
 } = require("../../services/db-service");
-const { genericError } = require("../../services/error-service");
+const {
+    genericError,
+    notFound,
+    unauthorized,
+} = require("../../services/error-service");
 const { saveFile } = require("../../services/file-service");
 
 // method = [ user, post, tour]
 
-async function addPhoto(method, idMethod, photo) {
+async function addPhotoToUser(method, idUser, idUserEdit, photos) {
+    const savedPhotos = [];
     try {
-        const idPhoto = generateUUID();
-        const fileURL = await saveFile(method, idMethod, photo);
+        const user = await getUserById(idUserEdit);
+        const originalUser = await getFullUserById(idUser);
 
-        const methodToFunction = {
-            user: await savePhotoUser(photo),
-            post: await savePhotoPost(photo),
-            tour: await savePhotoTour(photo),
-        };
+        if (!user) {
+            notFound();
+        }
 
-        const savePhoto = methodToFunction[method];
+        if (user.idUser !== idUser && originalUser.role !== "Admin") {
+            unauthorized();
+        }
+        for (const photo of photos) {
+            const idPhoto = generateUUID();
+            const fileURL = await saveFile(method, idUserEdit, photo);
+            const response = await savePhotoUser({
+                id: idPhoto,
+                idUser: idUserEdit,
+                imageURL: fileURL,
+            });
+            savedPhotos.push({
+                id: idPhoto,
+                idUser: idUserEdit,
+                imageURL: fileURL,
+            });
+        }
+        console.log("savedPhotos = ", savedPhotos);
 
-        await savePhoto();
+        return savedPhotos;
     } catch (err) {
         throw genericError();
     }
 }
+
+module.exports = addPhotoToUser;

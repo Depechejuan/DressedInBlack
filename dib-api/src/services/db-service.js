@@ -98,7 +98,7 @@ module.exports = {
         LEFT JOIN
             post_photos pp ON p.id = pp.idPost
         GROUP BY
-        p.id;
+            p.id;
         `;
         const [rows] = await db.execute(statement);
         return rows;
@@ -142,7 +142,15 @@ module.exports = {
 
     async getTour() {
         const statement = `
-        SELECT * FROM tour`;
+        SELECT
+            t.*,
+            JSON_ARRAYAGG(tp.photoURL) AS imageURL
+        FROM
+            tour t
+        LEFT JOIN
+            tour_photos tp ON t.id = tp.idTour
+        GROUP BY
+            t.id`;
         const [rows] = await db.execute(statement);
         return rows;
     },
@@ -202,8 +210,10 @@ module.exports = {
     },
 
     async savePhotoTour(photo) {
+        console.log("la foto en savePhototoTour de dbservices");
+        console.log(photo);
         const statement = `
-        INSERT INTO users_photos(id, idTour, photoURL)
+        INSERT INTO tour_photos(id, idTour, photoURL)
         VALUES(?, ?, ?)`;
         await db.execute(statement, [photo.id, photo.idTour, photo.imageURL]);
     },

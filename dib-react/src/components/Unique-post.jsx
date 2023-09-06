@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 
 import Loading from "./Loading";
 import getUniquePost from "../services/get-unique-post";
-import Buttons from "./edit-delete-btn";
+import Buttons from "./Edit-delete-btn";
 import getToken from "../services/token/get-token";
 
 const host = import.meta.env.VITE_API_HOST;
@@ -32,6 +32,7 @@ function UniquePost() {
     }
     
     return(
+        <>
             <article className="unique-post-detail">
                 <h3 className="post-title">{post.data.title}</h3>
                 <p className="post-date">{post.data.createdAt}</p>
@@ -45,13 +46,11 @@ function UniquePost() {
                             className="image"
                         />
                     )) }
-
-
-
-
                 </figure>
                 {token && <Buttons />}
             </article>
+
+        </>
     )
 }
 
