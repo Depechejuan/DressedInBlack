@@ -2,6 +2,8 @@
 
 // libraries
 const { Router, json } = require("express");
+const multer = require("multer");
+const upload = multer();
 
 // cases
 const validateBody = require("../middlewares/validate-body");
@@ -15,7 +17,9 @@ const {
     getFullUserById,
     getTour,
     getTourById,
+    getAllUsersFull,
 } = require("../services/db-service");
+const addPhotoToUser = require("../controllers/post/add-user-photo");
 
 const router = Router();
 
@@ -40,8 +44,8 @@ router.get("/rider");
 
 router.get("/contact");
 
-router.get("/users/:id", json(), async (req, res) => {
-    const user = await getFullUserById(req.params.id);
+router.get("/users", json(), async (req, res) => {
+    const user = await getAllUsersFull();
     sendResponse(res, user);
 });
 
@@ -74,5 +78,24 @@ router.put("/users/:id", authGuard, json(), async (req, res) => {
     const info = await controlPanel(idUser, userInfo);
     sendResponse(res, info, undefined, 201);
 });
+
+router.put(
+    "/users/:id/photo",
+    authGuard,
+    upload.array("photos", 1),
+    async (req, res) => {
+        console.log("editando foto de usuario - Endpoint");
+        const photos = req.files;
+        console.log(photos);
+        const method = "user";
+        const sendPhotos = await addPhotoToUser(
+            method,
+            req.params.id,
+            req.currentUser.id,
+            photos
+        );
+        sendResponse(res, sendPhotos);
+    }
+);
 
 module.exports = router;

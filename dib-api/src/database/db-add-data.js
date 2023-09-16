@@ -12,23 +12,25 @@ async function addData(pool) {
 
     console.log("Creating users");
     await pool.query(
-        "INSERT INTO users (id, userName, realName, email, password, birthday, acceptedTOS, validated, role) " +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO users (id, userName, realName, email, password, birthday, acceptedTOS, validated, toShow, avatarURL, role) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
             DepechejuanID,
             "Depechejuan",
             "Juan León",
             "dressedinblackdm@gmail.com",
             hashedPassword,
-            "1990-01-01",
+            "1986-07-02",
             true,
             true,
+            "2",
+            "/users/juan.jpg",
             "Admin",
         ]
     );
     await pool.query(
-        "INSERT INTO users (id, userName, realName, email, password, birthday, acceptedTOS, validated, role) " +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO users (id, userName, realName, email, password, birthday, acceptedTOS, validated, toShow, avatarURL, role) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
             EscriID,
             "Escri",
@@ -38,13 +40,15 @@ async function addData(pool) {
             "1990-01-01",
             true,
             true,
+            "1",
+            "/users/escri.jpg",
             "Admin",
         ]
     );
 
     await pool.query(
-        "INSERT INTO users (id, userName, realName, email, password, birthday, acceptedTOS, validated, role) " +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO users (id, userName, realName, email, password, birthday, acceptedTOS, validated, toShow, avatarURL, role) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
             LuisID,
             "Luis",
@@ -54,13 +58,15 @@ async function addData(pool) {
             "1990-01-01",
             true,
             true,
+            "3",
+            "/users/luis.jpg",
             "Admin",
         ]
     );
 
     await pool.query(
-        "INSERT INTO users (id, userName, realName, email, password, birthday, acceptedTOS, validated, role) " +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO users (id, userName, realName, email, password, birthday, acceptedTOS, validated, toShow, avatarURL, role) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
             JaviID,
             "Javi",
@@ -70,13 +76,15 @@ async function addData(pool) {
             "1990-01-01",
             true,
             true,
+            "4",
+            "/users/javi.jpg",
             "Admin",
         ]
     );
 
     await pool.query(
-        "INSERT INTO users (id, userName, realName, email, password, birthday, acceptedTOS, validated, role) " +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO users (id, userName, realName, email, password, birthday, acceptedTOS, validated, toShow, avatarURL, role) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
             ManuID,
             "Manu",
@@ -86,6 +94,8 @@ async function addData(pool) {
             "1990-01-01",
             true,
             true,
+            "5",
+            "/users/manu.jpg",
             "Admin",
         ]
     );

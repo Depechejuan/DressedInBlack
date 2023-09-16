@@ -43,6 +43,7 @@ async function createTables(pool) {
             avatarURL varchar(255),
             acceptedTOS BOOLEAN NOT NULL,
             validated BOOLEAN DEFAULT false,
+            toShow TINYINT,
             role ENUM('Admin', 'Moderador', 'Devotee', 'VIP') DEFAULT 'Devotee',
             createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             modifiedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -73,7 +74,7 @@ async function createTables(pool) {
         CREATE TABLE IF NOT EXISTS users_photos (
             id CHAR(36) PRIMARY KEY,
             idUser CHAR(36),
-            photoURL VARCHAR(255) NOT NULL,
+            imageURL VARCHAR(255) NOT NULL,
             createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             modifiedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY (idUser) REFERENCES users (id) ON DELETE CASCADE
@@ -95,14 +96,14 @@ async function createTables(pool) {
     `);
 
     await pool.query(`
-            CREATE TABLE IF NOT EXISTS tour_photos (
-                id CHAR(36) PRIMARY KEY,
-                photoURL VARCHAR(255) NOT NULL,
-                idTour CHAR(36) NOT NULL,
-                createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                modifiedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                FOREIGN KEY (idTour) REFERENCES tour (id) ON DELETE CASCADE
-            );
+        CREATE TABLE IF NOT EXISTS tour_photos (
+            id CHAR(36) PRIMARY KEY,
+            imageURL VARCHAR(255) NOT NULL,
+            idTour CHAR(36) NOT NULL,
+            createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            modifiedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (idTour) REFERENCES tour (id) ON DELETE CASCADE
+        );
     `);
 
     await pool.query(`

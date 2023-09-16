@@ -28,7 +28,7 @@ async function addPhotoToUser(method, idUser, idUserEdit, photos) {
         }
         for (const photo of photos) {
             const idPhoto = generateUUID();
-            const fileURL = await saveFile(method, idUserEdit, photo);
+            const fileURL = await saveFile(method, "user", idUserEdit, photo);
             const response = await savePhotoUser({
                 id: idPhoto,
                 idUser: idUserEdit,

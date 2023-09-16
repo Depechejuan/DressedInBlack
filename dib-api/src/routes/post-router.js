@@ -105,22 +105,4 @@ router.put(
     }
 );
 
-router.put(
-    "/users/:id/photos",
-    authGuard,
-    upload.array("photos", 10),
-    async (req, res) => {
-        const photos = req.files;
-        console.log(photos);
-        const method = "user";
-        const sendPhotos = await addPhotoToUser(
-            method,
-            req.params.id,
-            req.currentUsre.id,
-            photos
-        );
-        sendResponse(res, sendPhotos);
-    }
-);
-
 module.exports = router;

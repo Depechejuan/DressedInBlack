@@ -14,6 +14,7 @@ import { SliderIMG } from './components/Images-slider';
 import LoginPage from './pages/Login-page';
 import PostForm from './forms/Post-Form';
 import UniquePost from './components/Unique-post';
+import AboutPage from './pages/About';
 
 
 // import Menu from './components/Menu'
@@ -32,8 +33,8 @@ function App() {
                 <Route path="/diblog" element={<LoginPage />}></Route>
                 <Route path="/dibposts" element={<PostForm />}></Route>
                 <Route path="/posts/:id" element={<UniquePost />}></Route>
+                <Route path="/about" element={<AboutPage />}></Route>
                 {/* <Route path="" element={}></Route>
-                <Route path="" element={}></Route>
                 <Route path="" element={}></Route>
                 <Route path="" element={}></Route>
                 <Route path="" element={}></Route> */}
