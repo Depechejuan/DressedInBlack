@@ -13,16 +13,16 @@ async function addTourData(pool) {
             "Spain",
             "El Volander",
             true,
-            `01. Pimpf
-            02. Behind The Wheel
-            03. Dream On (as presentation)
-            04. A Question Of Time
-            05. Stripped
-            06. Waiting For The Night
-            07. Walking In My Shoes (Acoustic)
-            08. Fly On The Windscreen
-            09. Dangerous (Acoustic)
-            10. Personal Jesus
+            `01. Pimpf \n
+            02. Behind The Wheel \n
+            03. Dream On (as presentation) \n
+            04. A Question Of Time \n
+            05. Stripped \n
+            06. Waiting For The Night \n
+            07. Walking In My Shoes (Acoustic) \n
+            08. Fly On The Windscreen \n
+            09. Dangerous (Acoustic) \n
+            10. Personal Jesus \n
             11. Never Let Me Down Again`,
         ]
     );

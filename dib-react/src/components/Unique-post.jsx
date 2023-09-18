@@ -25,8 +25,6 @@ function UniquePost() {
         fetchPost();
     }, [id]);
 
-    console.log(post.data);
-
     if (!post.data) {
         return <Loading />;
     }

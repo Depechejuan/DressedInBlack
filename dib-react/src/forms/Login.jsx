@@ -24,7 +24,6 @@ function LoginForm() {
         e.preventDefault();
         try {
             const response = await sendLogin(formData);
-            console.log(response);
             saveToken(response);
             navigate("/");
         } catch(err) {

@@ -4,7 +4,7 @@ import getToken from "../services/token/get-token";
 import getUserToken from "../services/token/get-user-token";
 import deleteToken from "../services/token/delete-token";
 
-function Menu({isMenuOpen}) {
+function Menu({isMenuOpen, closeMenu}) {
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(false)
 
@@ -18,6 +18,10 @@ function Menu({isMenuOpen}) {
             setIsLoggedIn(false)
         }
     }, []);
+    
+    const handleLinkClick = () => {
+        closeMenu();
+    }
 
     const handleLogOut = () => {
         deleteToken();
@@ -30,22 +34,22 @@ function Menu({isMenuOpen}) {
             <nav className={`${isMenuOpen ? "open" : ""} desktop-navbar`}>
                 <ul>
                     <li>
-                        <Link to="/">Home</Link>
+                        <Link to="/" onClick={handleLinkClick}>Home</Link>
                     </li>
                     <li>
-                        <Link to="/about">Quienes Somos</Link>
+                        <Link to="/about" onClick={handleLinkClick}>Quienes Somos</Link>
                     </li>
                     <li>
-                        <Link to="/tour">Tour</Link>
+                        <Link to="/tour" onClick={handleLinkClick}>Tour</Link>
                     </li>
                     <li>
-                        <Link to="/">Video</Link>
+                        <Link to="/" onClick={handleLinkClick}>Video</Link>
                     </li>
                     <li>
-                        <Link to="/">Rider</Link>
+                        <Link to="/" onClick={handleLinkClick}>Rider</Link>
                     </li>
                     <li>
-                        <Link to="/">Contactar</Link>
+                        <Link to="/" onClick={handleLinkClick}>Contactar</Link>
                     </li>
                     {isLoggedIn && (
                         <li>

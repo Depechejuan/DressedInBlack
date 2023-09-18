@@ -28,12 +28,11 @@ import "../styles/forms.css"
                     title: title,
                     description: description,
                 };
-                console.log(newPost);
                 setLoading(true);
                 setSubmitMessage('Enviando...');
 
                 const response = await createNewPost(newPost, token);
-                console.log(response.success);
+
                 if (response.success == true) {
                     navigate(`/posts/${response.data.id}`);
                 }

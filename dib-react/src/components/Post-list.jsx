@@ -23,7 +23,6 @@ function PostList() {
     if (posts.length === 0) {
         return <Loading />
     }
-console.log(posts);
 
     return(
         <>

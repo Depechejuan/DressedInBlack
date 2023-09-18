@@ -9,12 +9,16 @@ function NavBar() {
         setIsMenuOpen(!isMenuOpen)
     }
 
+    const closeMenu = () => {
+        setIsMenuOpen(false)
+    }
+
 
     return(
         <>
             <nav className="mobile-navbar">
                 <img onClick={handleMenuClick} className="menu-icon" src={menuIcon} alt="Menu"/>
-                <Menu isMenuOpen={isMenuOpen} />
+                <Menu isMenuOpen={isMenuOpen} closeMenu={closeMenu} />
             </nav>
         </>
     )

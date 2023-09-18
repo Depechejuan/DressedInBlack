@@ -113,7 +113,7 @@ async function addData(pool) {
             "5",
             "/users/manu.jpg",
             "Elche",
-            "El destino ha puesto a este guitarrista profesional del mundo del Black Metal en nuestro camino, pero esta vez, para ser nuestro nuevo bajista. \n Nuevo fan de la banda, que provée de profundidad de sonido en los temas más rock de la banda, y en algunos otros.",
+            "El destino ha puesto a este guitarrista profesional del mundo del Death Metal (HELLSOUND) en nuestro camino, pero esta vez, para ser nuestro nuevo bajista. \n Nuevo fan de la banda, que provée de profundidad de sonido en los temas más rock de la banda, y en algunos otros.",
             "Songs Of Faith And Devotion",
             "Rush",
             "Admin",

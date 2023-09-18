@@ -16,23 +16,18 @@ function Slider() {
         setCurrentImage(currentImage === 0 ? length - 1 : currentImage - 1);
     };
 
-    // Detecta el cambio en el ancho de la pantalla usando useEffect
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth <= 900) {
-                setSlides(SliderIMG); // Cambia a SliderIMG2 si el ancho es menor o igual a 900px
+                setSlides(SliderIMG);
             } else {
-                setSlides(SliderIMG2); // Vuelve a SliderIMG si el ancho es mayor que 900px
+                setSlides(SliderIMG2);
             }
         };
 
-        // Agrega un event listener para escuchar el cambio de tamaño de la pantalla
         window.addEventListener("resize", handleResize);
-
-        // Llama a handleResize al cargar la página
         handleResize();
 
-        // Limpia el event listener cuando el componente se desmonta
         return () => {
             window.removeEventListener("resize", handleResize);
         };
@@ -54,7 +49,7 @@ function Slider() {
                             key={index}
                         >
                             {index === currentImage && (
-                                <img src={slide.image} alt='travel image' className='image' />
+                                <img src={slide.image} alt='Dressed In Black' className='image' />
                             )}
                         </div>
                     );

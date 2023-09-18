@@ -53,7 +53,7 @@ function UserDetail() {
 
 
                     {u.biography.split('\n').map((line, index) => (
-                        <p key={index} className={`user-bio-${u.userName}`}>{line}</p>
+                        <p key={index+'key'} className={`user-bio-${u.userName}`}>{line}</p>
                     ))                
                     }
                     <p className={`user-fav-${u.userName}`}>Disco Favorito: {u.favAlbum} / Canción Favorita: {u.favSong}</p>
