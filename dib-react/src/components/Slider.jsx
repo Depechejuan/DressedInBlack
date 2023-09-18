@@ -2,8 +2,6 @@ import { useState } from "react";
 import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from 'react-icons/fa';
 import { SliderIMG } from "./Images-slider"
 
-import "../styles/slider.css"
-
 function Slider({slides}) {
     const [currentImage, setCurrentImage] = useState(0);
     

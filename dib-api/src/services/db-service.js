@@ -67,6 +67,8 @@ module.exports = {
             u.city, 
             u.biography,
             u.role,
+            u.favAlbum,
+            u.favSong,
             u.toShow,
             GROUP_CONCAT(i.id) AS instruments,
             up.imageURL AS ImageURL

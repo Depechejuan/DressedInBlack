@@ -17,6 +17,15 @@ import UniquePost from './components/Unique-post';
 import AboutPage from './pages/About';
 
 
+// css imports
+import "./styles/user-details.css"
+import "./styles/App.css"
+import "./styles/forms.css"
+import "./styles/post-list.css"
+import "./styles/slider.css"
+import "./styles/navbar.css"
+
+
 // import Menu from './components/Menu'
 
 function App() {

@@ -2,8 +2,6 @@ import menuIcon from "../assets/svg/menu-morado.svg"
 import { useState } from "react"
 import Menu from "./Menu";
 
-import "../styles/navbar.css"
-
 function NavBar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 

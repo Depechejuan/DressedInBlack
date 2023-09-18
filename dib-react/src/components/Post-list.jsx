@@ -3,9 +3,6 @@ import { Link } from "react-router-dom";
 import getAllPost from "../services/get-all-posts";
 import Loading from "./Loading";
 
-
-import "../styles/post-list.css"
-
 const host = import.meta.env.VITE_API_HOST;
 
 function PostList() {
