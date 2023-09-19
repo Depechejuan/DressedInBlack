@@ -1,3 +1,20 @@
+@font-face {
+    font-family: "DeltaTour";
+    src: url("../assets/fonts/delta-tour.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Helvetica-Light";
+    src: url("../assets/fonts/helvetica-light.otf") format("truetype");
+}
+@font-face {
+    font-family: "mftm";
+    src: url("../assets/fonts/mftm.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Martyr";
+    src: url("../assets/fonts/martyr.ttf") format("truetype");
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -8,9 +25,11 @@ body,
 html {
     height: 100%;
 }
+
 :root {
     font-size: 1rem;
     color: white;
+    font-family: "Helvetica-Light", "DeltaTour", "mftm", sans-serif;
 }
 
 body {
@@ -44,6 +63,23 @@ h1 {
 
 h2 {
     text-align: center;
+    font-family: "Helvetica-Light";
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+h3 {
+    font-family: "DeltaTour";
+}
+
+h4 {
+    font-family: "Martyr";
+    font-size: 25px;
+}
+
+p {
+    font-family: "mftm";
 }
 
 .thanks {

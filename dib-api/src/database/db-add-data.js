@@ -17,7 +17,7 @@ async function addData(pool) {
         [
             DepechejuanID,
             "Depechejuan",
-            "Juan León",
+            "Juan Leon",
             "dressedinblackdm@gmail.com",
             hashedPassword,
             "1986-07-02",
@@ -47,7 +47,7 @@ async function addData(pool) {
             "1",
             "/users/escri.jpg",
             "Elda",
-            "Cantante baritono, con un amplio espectro en el gusto musical, y una vitalidad inigualable sobre los escenarios.",
+            "Cantante baritono, con un amplio espectro en el gusto musical, y una vitalidad inigualable sobre los escenarios. \n Coleccionaba todas las rarezas y conciertos de la banda desde bien jóven, lo que le ha nutrido de los mejores matices de Dave Gahan de cada Tour.",
             "Violator",
             "Enjoy The Silence",
             "Admin",
@@ -66,7 +66,7 @@ async function addData(pool) {
             "1979-12-18",
             true,
             true,
-            "3",
+            "4",
             "/users/luis.jpg",
             "Valencia",
             "La magia en la guitarra. Guitarrista profesional, en directo y en estudio. A sus espaldas tiene grabaciones como []. \n No sólo es fan de Depeche, sino de muchísimos grupos y géneros más, lo que le proporciona una visión muy amplia de la música, añadiendo lo necesario para que las canciones lleguen al siguiente nivel.",
@@ -88,7 +88,7 @@ async function addData(pool) {
             "1981-11-23",
             true,
             true,
-            "4",
+            "3",
             "/users/javi.jpg",
             "Valencia",
             "Poca gente lo sabe, pero él fue el creador de los principales foros hispanohablantes de la banda. Desde bien joven aprendió a tocar la batería en varios estilos. \n Su trabajo en la batería se asemeja más al estilo de Alan Wilder que al de Christian Eigner",
@@ -186,6 +186,14 @@ async function addData(pool) {
         VALUES(?,?)
         `,
         [LuisID, "Guitarra"]
+    );
+
+    await pool.query(
+        `
+        INSERT INTO user_instruments (idUser, idInstrument)
+        VALUES(?,?)
+        `,
+        [LuisID, "Teclados"]
     );
 
     console.log("For Javi");

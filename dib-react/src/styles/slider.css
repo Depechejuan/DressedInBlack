@@ -67,3 +67,9 @@
     transition-duration: 1s;
     transform: scale(1.08);
 }
+
+@media screen and (min-width: 900px) {
+    .slider {
+        height: 350px;
+    }
+}
