@@ -48,7 +48,7 @@ async function createTables(pool) {
             validated BOOLEAN DEFAULT false,
             role ENUM('Admin', 'Moderador', 'Devotee', 'VIP') DEFAULT 'Devotee',
             createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            modifiedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            modifiedAt TIMESTAMP
         );
     `);
 
@@ -56,7 +56,7 @@ async function createTables(pool) {
         CREATE TABLE IF NOT EXISTS instruments (
             id VARCHAR(100) PRIMARY KEY,
             createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            modifiedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            modifiedAt TIMESTAMP
         );
     `);
 
@@ -66,7 +66,7 @@ async function createTables(pool) {
             idUser CHAR(36),
             idInstrument VARCHAR(100),
             createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            modifiedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            modifiedAt TIMESTAMP,
             FOREIGN KEY (idUser) REFERENCES users (id) ON DELETE CASCADE,
             FOREIGN KEY (idInstrument) REFERENCES instruments (id) ON DELETE CASCADE
         );
@@ -78,7 +78,7 @@ async function createTables(pool) {
             idUser CHAR(36),
             imageURL VARCHAR(255) NOT NULL,
             createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            modifiedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            modifiedAt TIMESTAMP,
             FOREIGN KEY (idUser) REFERENCES users (id) ON DELETE CASCADE
     )`);
 
@@ -93,7 +93,7 @@ async function createTables(pool) {
             soldOut BOOLEAN DEFAULT false,
             setlist TEXT NOT NULL,
             createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            modifiedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            modifiedAt TIMESTAMP
         );
     `);
 
@@ -103,11 +103,22 @@ async function createTables(pool) {
             imageURL VARCHAR(255) NOT NULL,
             idTour CHAR(36) NOT NULL,
             createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            modifiedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            modifiedAt TIMESTAMP,
             FOREIGN KEY (idTour) REFERENCES tour (id) ON DELETE CASCADE
         );
     `);
 
+    await pool.query(`
+        CREATE TABLE IF NOT EXISTS tour_videos(
+            id CHAR(36) PRIMARY KEY,
+            videoURL VARCHAR(255),
+            idTour CHAR(36) NOT NULL,
+            createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            modifiedAt TIMESTAMP,
+            FOREIGN KEY (idTour) REFERENCES tour (id) ON DELETE CASCADE
+        )
+    
+    `);
     await pool.query(`
         CREATE TABLE IF NOT EXISTS posts(
             id CHAR(36) PRIMARY KEY,
@@ -115,7 +126,7 @@ async function createTables(pool) {
             description TEXT NOT NULL,
             idUser CHAR(36) NOT NULL,
             createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            modifiedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            modifiedAt TIMESTAMP,
             FOREIGN KEY (idUser) REFERENCES users (id) ON DELETE CASCADE
         );
     `);
@@ -126,7 +137,7 @@ async function createTables(pool) {
             idPost CHAR(36) NOT NULL,
             imageURL VARCHAR(255),
             createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            modifiedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            modifiedAt TIMESTAMP,
             FOREIGN KEY (idPost) REFERENCES posts (id) ON DELETE CASCADE
         );
     `);
@@ -138,7 +149,7 @@ async function createTables(pool) {
             idUser CHAR(36) NOT NULL,
             idPost CHAR(36) NOT NULL,
             createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            modifiedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            modifiedAt TIMESTAMP,
             FOREIGN KEY (idUser) REFERENCES users (id) ON DELETE CASCADE,
             FOREIGN KEY (idPost) REFERENCES posts (id) ON DELETE CASCADE
         );

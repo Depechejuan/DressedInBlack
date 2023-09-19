@@ -1,11 +1,12 @@
-/*
-    Generic Details for User
+/* 
+    Details for Phones
 */
 
 article {
     border: 1px solid blue;
     padding: 1rem;
     margin-bottom: 1rem;
+    max-width: 1200px;
 }
 
 .user-name {
@@ -13,160 +14,185 @@ article {
     text-align: center;
 }
 
-/* 
+.user-article {
+    text-align: center;
+}
+
+.figure-user {
+    align-items: center;
+    width: 100%;
+}
+
+.user-img {
+    width: 80%;
+}
+
+.user-city-age {
+    text-align: center;
+}
+
+.user-instruments,
+.bio-user,
+.fav-user {
+    text-align: left;
+}
+
+@media screen and (min-width: 700px) {
+    /* 
     Special Details for Escri
 */
 
-.user-Escri {
-    display: grid;
-    grid-template-columns: 40% 60%;
-    gap: 10px;
-}
+    .user-Escri {
+        display: grid;
+        grid-template-columns: 40% 60%;
+        gap: 10px;
+    }
 
-.figure-Escri {
-    grid-column: 1;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    width: 100%;
-}
+    .figure-Escri {
+        grid-column: 1;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+    }
 
-.user-photo-Escri {
-    width: 100%;
-}
+    .user-photo-Escri {
+        width: 100%;
+    }
 
-.city-Escri {
-    text-align: center;
-    flex-grow: 1;
-}
+    .city-Escri {
+        text-align: center;
+        flex-grow: 1;
+    }
 
-.user-info-Escri p {
-    text-align: left;
-    align-self: flex-start;
-    margin-bottom: 2rem;
-}
+    .user-info-Escri p {
+        text-align: left;
+        align-self: flex-start;
+        margin-bottom: 2rem;
+    }
 
-/* 
+    /* 
     Special Details for Juan
 */
 
-.user-Depechejuan {
-    display: grid;
-    grid-template-columns: auto auto;
-    grid-template-rows: auto auto;
-    gap: 10px;
-}
+    .user-Depechejuan {
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-template-rows: auto auto;
+        gap: 10px;
+    }
 
-.user-Depechejuan .user-info-Depechejuan {
-    grid-row: 2 / 3;
-    grid-column: 1 / 2;
-}
+    .user-Depechejuan .user-info-Depechejuan {
+        grid-row: 2 / 3;
+        grid-column: 1 / 2;
+    }
 
-.user-Depechejuan .figure-Depechejuan {
-    grid-row: 2 / 3;
-    grid-column: 2 / 3;
-}
+    .user-Depechejuan .figure-Depechejuan {
+        grid-row: 2 / 3;
+        grid-column: 2 / 3;
+    }
 
-.user-Depechejuan .figure-Depechejuan img.user-photo-Depechejuan {
-    width: 100%;
-}
+    .user-Depechejuan .figure-Depechejuan img.user-photo-Depechejuan {
+        width: 100%;
+    }
 
-.user-Depechejuan .city-Depechejuan {
-    text-align: center;
-}
+    .user-Depechejuan .city-Depechejuan {
+        text-align: center;
+    }
 
-.user-Depechejuan .user-info-Depechejuan p {
-    text-align: right;
-    margin-bottom: 2rem;
-}
+    .user-Depechejuan .user-info-Depechejuan p {
+        text-align: right;
+        margin-bottom: 2rem;
+    }
 
-/* 
+    /* 
     Special Details for Luis
 */
 
-.user-Luis {
-    display: grid;
-    grid-template-columns: 40% 60%;
-    gap: 10px;
-}
+    .user-Luis {
+        display: grid;
+        grid-template-columns: 40% 60%;
+        gap: 10px;
+    }
 
-.figure-Luis {
-    grid-column: 1;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    width: 100%;
-}
+    .figure-Luis {
+        grid-column: 1;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+    }
 
-.user-photo-Luis {
-    width: 100%;
-}
+    .user-photo-Luis {
+        width: 100%;
+    }
 
-.city-Luis {
-    text-align: center;
-    flex-grow: 1;
-}
+    .city-Luis {
+        text-align: center;
+        flex-grow: 1;
+    }
 
-.user-info-Luis p {
-    text-align: left;
-    align-self: flex-start;
-    margin-bottom: 2rem;
-}
+    .user-info-Luis p {
+        text-align: left;
+        align-self: flex-start;
+        margin-bottom: 2rem;
+    }
 
-/* 
+    /* 
     Special Details for Javi
 */
 
-.user-Javi {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
+    .user-Javi {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
 
-.user-Javi h3,
-.user-Javi .figure-Javi,
-.user-Javi .user-info-Javi {
-    width: 60%;
-    max-width: 100%;
-    margin-bottom: 10px;
-}
+    .user-Javi h3,
+    .user-Javi .figure-Javi,
+    .user-Javi .user-info-Javi {
+        width: 60%;
+        max-width: 100%;
+        margin-bottom: 10px;
+    }
 
-.user-Javi .figure-Javi img {
-    width: 100%;
-    max-width: 100%;
-}
+    .user-Javi .figure-Javi img {
+        width: 100%;
+        max-width: 100%;
+    }
 
-/* 
+    /* 
     Special Details for Manu
 */
 
-.user-Manu {
-    display: grid;
-    grid-template-columns: auto auto;
-    grid-template-rows: auto auto;
-    gap: 10px;
-}
+    .user-Manu {
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-template-rows: auto auto;
+        gap: 10px;
+    }
 
-.user-Manu .user-info-Manu {
-    grid-row: 2 / 3;
-    grid-column: 1 / 2;
-}
+    .user-Manu .user-info-Manu {
+        grid-row: 2 / 3;
+        grid-column: 1 / 2;
+    }
 
-.user-Manu .figure-Manu {
-    grid-row: 2 / 3;
-    grid-column: 2 / 3;
-}
+    .user-Manu .figure-Manu {
+        grid-row: 2 / 3;
+        grid-column: 2 / 3;
+    }
 
-.user-Manu .figure-Manu img.user-photo-Manu {
-    width: 100%;
-}
+    .user-Manu .figure-Manu img.user-photo-Manu {
+        width: 100%;
+    }
 
-.user-Manu .city-Manu {
-    text-align: center;
-}
+    .user-Manu .city-Manu {
+        text-align: center;
+    }
 
-.user-Manu .user-info-Manu p {
-    text-align: right;
-    margin-bottom: 2rem;
+    .user-Manu .user-info-Manu p {
+        text-align: right;
+        margin-bottom: 2rem;
+    }
 }

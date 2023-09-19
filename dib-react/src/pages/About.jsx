@@ -24,6 +24,7 @@ function AboutPage() {
         Cada concierto al que se asiste es diferente. Nunca repetimos Setlist debido a los más de 70 temas disponible para interpretar con una producción muy cuidada.
         </p>
 
+    <h3>Dressed In Black son: </h3>
         <UserDetail />
 
 

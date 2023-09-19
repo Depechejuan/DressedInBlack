@@ -188,7 +188,10 @@ module.exports = {
         LEFT JOIN
             tour_photos tp ON t.id = tp.idTour
         GROUP BY
-            t.id`;
+            t.id
+        ORDER BY
+            t.tourDate DESC;
+        `;
         const [rows] = await db.execute(statement);
         return rows;
     },

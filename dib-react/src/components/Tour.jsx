@@ -31,44 +31,68 @@ function Tour() {
     if (!tour) {
         return <Loading />
     }
+    const tourByNames = tour.reduce((acc, date) => {
+        if (!acc[date.tourName]) {
+            acc[date.tourName] = [];
+        }
+        acc[date.tourName].push(date);
+        return acc;
+    }, {});
 
     return (
-            <section className="tour">
-                <article className="tour-details">
-                    <ul>
-                        {tour.map((date, index ) => (
-                            <li key={index}>
-                                <a href={`#${date.tourDate}`}
-                                onClick={() => toggleEntry(date.tourDate)}>
-                                    {new Date(date.tourDate).toLocaleDateString("es-ES", {
-                                    year: "numeric",
-                                    month: "2-digit",
-                                    day: "2-digit",
-                                    })}{" "}
-                                    - {date.venue}, {date.city}, ({date.country})
-                                </a>
-                                {expandedEntries.includes(date.tourDate) && (
-                                <section className="date-details">
-                                    <p>Setlist: {date.setlist}</p>
-                                    <figure className="tour-photos">
-                                        {date.imageURL.map((image, index) => (
-                                            <img
-                                                key={index}
-                                                src={`${host}${image}`}
-                                                alt="Dressed In Black - Tributo a DEPECHE MODE"
-                                            />
-                                        ))}
-                                    </figure>
-                                </section>
-                            )}
-                            </li>
-                        ))}
-
-
-                    </ul>
-                </article>
-            </section>
+        <section className="tour">
+            <article className="tour-details">
+                <ul>
+                    {Object.keys(tourByNames).map((tourName) => (
+                        <li key={tourName}>
+                            <h2>{tourName}:</h2>
+                            <ul>
+                                {tourByNames[tourName].map((date, index) => (
+                                    <li key={index}>
+                                        <a
+                                            href={`#${date.tourDate}`}
+                                            onClick={() => toggleEntry(date.tourDate)}
+                                        >
+                                            {new Date(date.tourDate).toLocaleDateString(
+                                                "es-ES",
+                                                {
+                                                    year: "numeric",
+                                                    month: "2-digit",
+                                                    day: "2-digit",
+                                                }
+                                            )}{" "}
+                                            - {date.venue}, {date.city}, ({date.country})
+                                        </a>
+                                        {expandedEntries.includes(date.tourDate) && (
+                                            <section className="date-details">
+                                                <span>
+                                                    Setlist:
+                                                    <br />
+                                                    {date.setlist.split("\n").map((line, i) => (
+                                                        <p key={i + index}>{line}</p>
+                                                    ))}
+                                                </span>
+                                                <figure className="tour-photos">
+                                                    {date.imageURL.map((image, index) => (
+                                                        <img
+                                                            key={index}
+                                                            src={`${host}${image}`}
+                                                            alt="Dressed In Black - Tributo a DEPECHE MODE"
+                                                        />
+                                                    ))}
+                                                </figure>
+                                            </section>
+                                        )}
+                                    </li>
+                                ))}
+                            </ul>
+                        </li>
+                    ))}
+                </ul>
+            </article>
+        </section>
     );
 }
+
 
 export default Tour;

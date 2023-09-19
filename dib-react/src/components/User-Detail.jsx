@@ -38,25 +38,25 @@ function UserDetail() {
     return(
         <>
         {user.data.map(u => (
-            <article className={`user-${u.userName}`} key={user.toShow}>
-                <h3 className="user-name">
+            <article className={`user-${u.userName} user-article`} key={user.toShow}>
+                <h4 className="user-name">
                     {u.realName}
-                </h3>
-                <figure className={`figure-${u.userName}`}>
+                </h4>
+                <figure className={`figure-${u.userName} figure-user`}>
                     <img className={`user-photo-${u.userName} user-img`} src={`${host}${u.avatarURL}`} alt={u.realName}></img>
                     <p className={`user-city-age city-${u.userName}`}>{u.city}, {calculateAge(u.birthday)} años</p>
                 </figure>
-                <section className={`user-info-${u.userName}`}>
+                <section className={`user-info-${u.userName} user-section`}>
                     <p className={`user-instruments instruments-${u.userName}`}>
                         {u.instruments.split(',').join(', ')}
                     </p>
 
 
                     {u.biography.split('\n').map((line, index) => (
-                        <p key={index+'key'} className={`user-bio-${u.userName}`}>{line}</p>
+                        <p key={index} className={`user-bio-${u.userName} bio-user`}>{line}</p>
                     ))                
                     }
-                    <p className={`user-fav-${u.userName}`}>Disco Favorito: {u.favAlbum} / Canción Favorita: {u.favSong}</p>
+                    <p className={`user-fav-${u.userName} fav-user`}>Disco Favorito: {u.favAlbum} / Canción Favorita: {u.favSong}</p>
                 </section>
             </article>
         ))}
