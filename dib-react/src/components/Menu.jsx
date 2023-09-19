@@ -49,7 +49,7 @@ function Menu({isMenuOpen, closeMenu}) {
                         <Link to="/" onClick={handleLinkClick}>Rider</Link>
                     </li>
                     <li>
-                        <Link to="/" onClick={handleLinkClick}>Contactar</Link>
+                        <Link to="/contact" onClick={handleLinkClick}>Contactar</Link>
                     </li>
                     {isLoggedIn && (
                         <li>

@@ -13,6 +13,7 @@ import LoginPage from './pages/Login-page';
 import PostForm from './forms/Post-Form';
 import UniquePost from './components/Unique-post';
 import AboutPage from './pages/About';
+import TourForm from './forms/Tour-Form.jsx';
 
 
 // css imports
@@ -24,7 +25,7 @@ import "./styles/post-list.css"
 import "./styles/slider.css"
 import "./styles/navbar.css"
 import "./styles/buttons.css"
-
+import "./styles/contact.css"
 
 // import Menu from './components/Menu'
 
@@ -39,11 +40,17 @@ function App() {
                 <Route path="/" element={<HomePage />}></Route>
                 <Route path="/contact" element={<ContactUs />}></Route>
                 <Route path="/tour" element={<TourPage />}></Route>
-                <Route path="/diblog" element={<LoginPage />}></Route>
-                <Route path="/dibposts" element={<PostForm />}></Route>
                 <Route path="/posts/:id" element={<UniquePost />}></Route>
                 <Route path="/about" element={<AboutPage />}></Route>
+                {/* Routes to Forms*/}
+                <Route path="/diblog" element={<LoginPage />}></Route>
+                <Route path="/dibposts" element={<PostForm />}></Route>
+                <Route path="/dibtour" element={<TourForm />}></Route>
                 {/* <Route path="" element={}></Route>
+                <Route path="" element={}></Route>
+                <Route path="" element={}></Route>
+                <Route path="" element={}></Route>
+                <Route path="" element={}></Route>
                 <Route path="" element={}></Route>
                 <Route path="" element={}></Route>
                 <Route path="" element={}></Route> */}

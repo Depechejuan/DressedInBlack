@@ -18,7 +18,6 @@ function TourForm() {
     const navigate = useNavigate();
     const token = getToken();
 
-
     useEffect(() => {
         if (!token) {
             navigate("/");
