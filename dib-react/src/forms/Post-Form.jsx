@@ -44,15 +44,15 @@ import "../styles/forms.css"
         }  
 
         const handleCancel = () => {
-            setTitle('')
+            setTitle('');
             setDescription('');
             setLoading(true);
             setCancelMessage('Canceled');
 
             setTimeout(() => {
-                setCancelMessage('')
-                setLoading(false)
-            }, 1000)
+                setCancelMessage('');
+                setLoading(false);
+            }, 1000);
         }
 
         return(

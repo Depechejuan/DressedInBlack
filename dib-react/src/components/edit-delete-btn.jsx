@@ -3,8 +3,8 @@
 function Buttons() {
     return (
         <>
-            <button>Edit</button>
-            <button>Delete</button>
+            <button className="developer-only-btn">Edit</button>
+            <button className="developer-only-btn">Delete</button>
         </>
     )
 }

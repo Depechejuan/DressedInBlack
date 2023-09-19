@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import getTour from "../services/get-tour";
 import Loading from "./Loading";
+import Buttons from "./Edit-delete-btn";
 
 const host = import.meta.env.VITE_API_HOST;
 
@@ -40,14 +41,15 @@ function Tour() {
     }, {});
 
     return (
-        <section className="tour">
+        <>
             <article className="tour-details">
-                <ul>
+                <ul className="tour-full">
                     {Object.keys(tourByNames).map((tourName) => (
                         <li key={tourName}>
                             <h2>{tourName}:</h2>
-                            <ul>
+                            <ul className="tour-filter">
                                 {tourByNames[tourName].map((date, index) => (
+                                    <>
                                     <li key={index}>
                                         <a
                                             href={`#${date.tourDate}`}
@@ -84,13 +86,15 @@ function Tour() {
                                             </section>
                                         )}
                                     </li>
+                                    <Buttons />
+                                    </>
                                 ))}
                             </ul>
                         </li>
                     ))}
                 </ul>
             </article>
-        </section>
+        </>
     );
 }
 

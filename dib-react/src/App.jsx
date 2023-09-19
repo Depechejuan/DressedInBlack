@@ -1,5 +1,3 @@
-import './styles/App.css'
-
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // import components and pages
@@ -18,12 +16,14 @@ import AboutPage from './pages/About';
 
 
 // css imports
+import './styles/App.css'
 import "./styles/user-details.css"
 import "./styles/App.css"
 import "./styles/forms.css"
 import "./styles/post-list.css"
 import "./styles/slider.css"
 import "./styles/navbar.css"
+import "./styles/buttons.css"
 
 
 // import Menu from './components/Menu'
