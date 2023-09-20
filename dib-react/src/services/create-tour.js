@@ -3,7 +3,7 @@ const host = import.meta.env.VITE_API_HOST;
 async function createNewTour(tour, token) {
     try {
         const response = await fetch(`${host}/tour`, {
-            metod: "POST",
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 Authorization: token,

@@ -1,6 +1,6 @@
 import {useNavigate} from "react-router-dom"
 import getToken from "../services/token/get-token"
-import {useState, useEffect} from "react"
+import {useState, useEffect, useRef} from "react"
 import createNewTour from "../services/create-tour";
 
 
@@ -12,11 +12,15 @@ function TourForm() {
     const [venue, setVenue] = useState('');
     const [soldOut, setSoldOut] = useState(true);
     const [setlist, setSetlist] = useState('');
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
+    const [photo, setPhoto] = useState(null);
+    const [photoPreview, setPhotoPreview] = useState(null);
     const [submitMessage, setSubmitMessage] = useState('');
     const [cancelMessage, setCancelMessage] = useState('');
     const navigate = useNavigate();
     const token = getToken();
+
+    const fileInputRef = useRef()
 
     useEffect(() => {
         if (!token) {
@@ -42,7 +46,16 @@ function TourForm() {
 
             const response = await createNewTour(newTour, token);
 
-            if (response.sucess == true) {
+            if (response.success == true) {
+                // const tourId = response.data.id;
+
+                // if (photo == null) {
+                //     navigate(`/tour`);
+                // }
+
+                // if (photo !== null) {
+                //     const photoSended = await //enviar photo a post en services.
+                // }
                 navigate(`/tour`);
             }
         } catch (err) {
@@ -66,6 +79,22 @@ function TourForm() {
             setLoading(false);
         }, 1000);
     }
+
+    const handlePhotoChange = (e) => {
+        const selectedPhoto = e.target.files[0];
+        setPhoto(selectedPhoto);
+
+        if (selectedPhoto) {
+            const reader = new FileReader();
+            reader.onloadend = () =>  {
+                setPhotoPreview(reader.result);
+            };
+            reader.readAsDataURL(selectedPhoto)
+        } else {
+            setPhotoPreview(null)
+        }
+    }
+
 
     return (
         <>
@@ -109,13 +138,6 @@ function TourForm() {
                         onChange={(e) => setVenue(e.target.value)}
                         required
                     />
-                    <input 
-                        type=""
-                        name=""
-                        placeholder=""
-                        onChange={(e) => setSoldOut(e.target.value)}
-                        required
-                    />
                     <textarea 
                         type="text"
                         name="Setlist"
@@ -123,10 +145,21 @@ function TourForm() {
                         onChange={(e) => setSetlist(e.target.value)}
                         required
                     />
-                    <select>
+                    <select className="form-boolean">
                         <option value="true">True</option>
                         <option value="false">False</option>
                     </select>
+
+                    <div className="custom-file-input">
+                        <input 
+                            type="file"
+                            accept="image/*"
+                            onChange={handlePhotoChange}
+                            ref={fileInputRef}
+                            id="fileInput"
+                            className="photo-input"
+                        />
+                    </div>
                     <div className="btn-container">
                         <button
                             type="submit"
