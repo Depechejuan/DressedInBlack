@@ -47,6 +47,8 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    justify-content: center; /* Centra verticalmente */
+    align-items: center; /* Centra horizontalmente */
 }
 
 main {
@@ -56,6 +58,7 @@ main {
     display: flex;
     justify-content: center;
     width: 100%;
+    max-width: 1200px;
 }
 
 h1 {

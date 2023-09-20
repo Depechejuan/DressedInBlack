@@ -1,7 +1,10 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import getTour from "../services/get-tour";
 import Loading from "./Loading";
 import Buttons from "./Edit-delete-btn";
+import CreateBtn from "./Create-btn";
+
 
 const host = import.meta.env.VITE_API_HOST;
 
@@ -43,6 +46,9 @@ function Tour() {
     return (
         <>
             <article className="tour-details">
+            <Link to="/dibtour">
+                <CreateBtn method={'Tour'} />
+            </Link>
                 <ul className="tour-full">
                     {Object.keys(tourByNames).map((tourName) => (
                         <li key={tourName}>

@@ -62,6 +62,7 @@ function UserDetail() {
                 </section>
             </article>
         ))}
+        
         </>
     )
 }

@@ -3,7 +3,6 @@ import getToken from "../services/token/get-token"
 import {useState, useEffect, useRef} from "react"
 import createNewTour from "../services/create-tour";
 
-
 function TourForm() {
     const [tourName, setTourName] = useState('');
     const [tourDate, setTourDate] = useState('');
@@ -14,9 +13,10 @@ function TourForm() {
     const [setlist, setSetlist] = useState('');
     const [loading, setLoading] = useState(false);
     const [photo, setPhoto] = useState(null);
+    const [selectedPhotos, setSelectedPhotos] = useState([]);
     const [photoPreview, setPhotoPreview] = useState(null);
-    const [submitMessage, setSubmitMessage] = useState('');
-    const [cancelMessage, setCancelMessage] = useState('');
+    const [submitting, setSubmitting] = useState(false); // Estado para el botón de submit
+    const [cancelling, setCancelling] = useState(false); // Estado para el botón de cancel
     const navigate = useNavigate();
     const token = getToken();
 
@@ -41,8 +41,8 @@ function TourForm() {
                 setlist,
             }
 
-            setLoading(true);
-            setSubmitMessage('Enviando...')
+            setSubmitting(true); // Cambiamos el estado del botón de submit
+            setSubmitting("Enviando...");
 
             const response = await createNewTour(newTour, token);
 
@@ -71,27 +71,44 @@ function TourForm() {
         setVenue('');
         setSoldOut(true);
         setSetlist('');
+        fileInputRef.current.value = '';
+        setSelectedPhotos([])
+        setPhotoPreview(null)
         setLoading(true);
-        setCancelMessage('Cancelled');
+        setCancelling('Cancelled');
 
         setTimeout(() => {
-            setCancelMessage('');
+            setCancelling(false);
             setLoading(false);
         }, 1000);
     }
 
     const handlePhotoChange = (e) => {
-        const selectedPhoto = e.target.files[0];
-        setPhoto(selectedPhoto);
+        const selectedFiles  = e.target.files;
+        // setPhoto(selectedFiles);
 
-        if (selectedPhoto) {
+        if (selectedFiles.length > 10) {
+            alert("No puedes seleccionar más de 10 imágenes");
+            e.target.value = null;
+            return;
+        }
+
+        const newSelectedPhotos = [];
+        for (let i = 0; i < selectedFiles.length; i++) {
+            const selectedPhoto = selectedFiles[i];
+            newSelectedPhotos.push(selectedPhoto);
+        }
+        setSelectedPhotos(newSelectedPhotos);
+
+
+        if (selectedFiles.length > 0) {
             const reader = new FileReader();
-            reader.onloadend = () =>  {
+            reader.onloadend = () => {
                 setPhotoPreview(reader.result);
             };
-            reader.readAsDataURL(selectedPhoto)
+            reader.readAsDataURL(selectedFiles[0]); // Solo muestra la previsualización de la primera foto
         } else {
-            setPhotoPreview(null)
+            setPhotoPreview(null);
         }
     }
 
@@ -111,7 +128,7 @@ function TourForm() {
                         required
                     />
                     <input 
-                        type="text"
+                        type="date"
                         name="tourDate"
                         placeholder="Tour Date"
                         onChange={(e) => setTourDate(e.target.value)}
@@ -129,6 +146,7 @@ function TourForm() {
                         name="country"
                         placeholder="Country"
                         onChange={(e) => setCountry(e.target.value)}
+                        defaultValue="España"
                         required
                     />
                     <input 
@@ -149,12 +167,23 @@ function TourForm() {
                         <option value="true">True</option>
                         <option value="false">False</option>
                     </select>
-
                     <div className="custom-file-input">
+                            {selectedPhotos.length > 0 && 
+                            <>
+                                <div className="photo-preview-container">
+                                    {selectedPhotos.map((photo, index) => (
+                                    <img
+                                    key={index}
+                                    src={URL.createObjectURL(photo)} alt="Preview"
+                                    className="photo-preview" />
+                                    ))}
+                                </div>
+                            </>}
                         <input 
                             type="file"
                             accept="image/*"
                             onChange={handlePhotoChange}
+                            multiple
                             ref={fileInputRef}
                             id="fileInput"
                             className="photo-input"
@@ -163,18 +192,18 @@ function TourForm() {
                     <div className="btn-container">
                         <button
                             type="submit"
-                            className={`form-btn ${loading ? 'submitted' : ''}`}
+                            className={`form-btn ${submitting ? 'submitted' : ''}`}
                             onClick={(e) => {
                                 e.stopPropagation()
                         }}>
-                            {loading ? 'Submitted' : 'Create'}
+                            {submitting ? 'Submitted' : 'Create'}
                         </button>
                         <button
                             type="button"
                             onClick={handleCancel}
-                            className={`cancel-button ${loading ? 'cancelled' : ''}`}
+                            className={`cancel-button ${cancelling ? 'cancelled' : ''}`}
                             >
-                            {loading ? 'Cancelled' : 'Cancel'}
+                            {cancelling ? 'Cancelled' : 'Cancel'}
                         </button>
                     </div>
                 </form>
