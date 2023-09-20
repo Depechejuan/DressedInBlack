@@ -92,6 +92,7 @@ router.put(
     authGuard,
     upload.array("photos", 10),
     async (req, res) => {
+        console.log("Subiendo fotos...");
         const photos = req.files;
         console.log(photos);
         const method = "tour";

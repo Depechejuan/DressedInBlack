@@ -9,9 +9,6 @@ const { saveFile } = require("../../services/file-service");
 
 async function addPhotoToTour(method, idTour, idUser, photos) {
     const savedPhotos = [];
-    console.log(method);
-    console.log(idTour);
-    console.log(idUser);
 
     try {
         console.log("Entramos en addPhotoToTour");
@@ -39,7 +36,6 @@ async function addPhotoToTour(method, idTour, idUser, photos) {
                 imageURL: fileURL,
             });
         }
-        console.log("SavedPhotos = ", savedPhotos);
 
         return savedPhotos;
     } catch (err) {

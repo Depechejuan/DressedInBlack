@@ -2,6 +2,7 @@ import {useNavigate} from "react-router-dom"
 import getToken from "../services/token/get-token"
 import {useState, useEffect, useRef} from "react"
 import createNewTour from "../services/create-tour";
+import sendPhoto from "../services/send-photos";
 
 function TourForm() {
     const [tourName, setTourName] = useState('');
@@ -12,11 +13,10 @@ function TourForm() {
     const [soldOut, setSoldOut] = useState(true);
     const [setlist, setSetlist] = useState('');
     const [loading, setLoading] = useState(false);
-    const [photo, setPhoto] = useState(null);
     const [selectedPhotos, setSelectedPhotos] = useState([]);
     const [photoPreview, setPhotoPreview] = useState(null);
-    const [submitting, setSubmitting] = useState(false); // Estado para el botón de submit
-    const [cancelling, setCancelling] = useState(false); // Estado para el botón de cancel
+    const [submitting, setSubmitting] = useState(false);
+    const [cancelling, setCancelling] = useState(false);
     const navigate = useNavigate();
     const token = getToken();
 
@@ -40,22 +40,32 @@ function TourForm() {
                 soldOut,
                 setlist,
             }
-
+            let photos = selectedPhotos;
+            console.log(photos);
+            console.log(photos.length);
             setSubmitting(true); // Cambiamos el estado del botón de submit
             setSubmitting("Enviando...");
 
             const response = await createNewTour(newTour, token);
 
             if (response.success == true) {
-                // const tourId = response.data.id;
+                const idTour = response.data.newTour.id;
+                const type = "tour";
 
-                // if (photo == null) {
-                //     navigate(`/tour`);
-                // }
+                if (photos.length == 0) {
+                    navigate(`/tour`);
+                }
 
-                // if (photo !== null) {
-                //     const photoSended = await //enviar photo a post en services.
-                // }
+                if (photos.length > 0) {
+                    console.log("cumple este if");
+                    const photosSended = await sendPhoto(type, idTour, photos, token);
+                    console.log(photosSended);
+                    if (photosSended.success == true) {
+                        navigate(`/tour`);
+                    } else {
+                        console.log("Error sending photo:", photosSended.error);
+                    }
+                }
                 navigate(`/tour`);
             }
         } catch (err) {
@@ -85,8 +95,6 @@ function TourForm() {
 
     const handlePhotoChange = (e) => {
         const selectedFiles  = e.target.files;
-        // setPhoto(selectedFiles);
-
         if (selectedFiles.length > 10) {
             alert("No puedes seleccionar más de 10 imágenes");
             e.target.value = null;

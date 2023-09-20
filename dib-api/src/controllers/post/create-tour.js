@@ -7,7 +7,6 @@ const { sendResponse } = require("../../utils/send-response");
 
 async function createTour(data, token) {
     try {
-        console.log(data);
         const user = parseJWT(token);
 
         if (!user) {
@@ -27,8 +26,6 @@ async function createTour(data, token) {
             soldOut: data.soldOut,
             setlist: data.setlist,
         };
-
-        console.log(newTour);
 
         await addTour(newTour);
         return {
