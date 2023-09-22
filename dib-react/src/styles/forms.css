@@ -94,8 +94,8 @@ select {
     flex-wrap: wrap;
     justify-content: center;
     max-width: 900px;
-    margin: 20px auto; /* Espaciado exterior de 20px en todas las direcciones */
-    gap: 20px; /* Espacio de 20px entre las fotos */
+    margin: 20px auto;
+    gap: 20px;
 }
 
 .photo-preview {

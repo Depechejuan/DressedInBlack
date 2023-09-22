@@ -13,10 +13,43 @@
     border-image: linear-gradient(#171618, #fcc23f);
     border-image-slice: 1;
     padding: 0.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 3rem;
 }
 
 .post-title {
     text-align: center;
+    font-size: 3rem;
     margin: 0.3rem;
+}
+
+.preview-post,
+.unique-post-detail,
+.link-to-post {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.post-images {
+    display: flex;
+    justify-content: center;
+    max-width: 850px;
+    gap: 20px;
+}
+
+.image-container {
+    display: flex;
+    flex-wrap: wrap; /* Hace que las imágenes se envuelvan cuando no caben en el contenedor */
+    justify-content: center; /* Centra horizontalmente las imágenes */
+    width: 100%; /* Ocupa todo el ancho disponible del contenedor padre */
+}
+
+.every-post-image {
+    max-width: calc(33.33% - 20px); /* Tamaño máximo de cada imagen */
+    width: 100%; /* Ajusta el ancho de cada imagen al 100% del contenedor */
+    height: auto;
+    object-fit: contain;
+    object-position: center center;
+    margin: 10px; /* Espaciado entre imágenes */
 }

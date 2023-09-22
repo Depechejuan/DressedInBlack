@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import getAllPost from "../services/get-all-posts";
 import Loading from "./Loading";
+import Buttons from "./Edit-delete-btn";
+import Dates from "./Dates";
 
 const host = import.meta.env.VITE_API_HOST;
 
@@ -26,12 +28,12 @@ function PostList() {
 
     return(
         <>
-        <section className="all-posts">
+        <section className="post-list">
             {posts.data.map(post => (
                 <article className="preview-post" key={post.id}>
                     <Link className="link-to-post" to={`/posts/${post.id}`}>
                         <h3 className="post-title">{post.title}</h3>
-                        <p className="post-date">{post.createdAt}</p>
+                        <Dates date={post.createdAt} />
                         <p className="post-description">{post.description}</p>
                         <figure className="post-images">
                             {post.imageURL.map((image, index) => (
@@ -45,8 +47,10 @@ function PostList() {
                             }
                         </figure>
                     </Link>
+                    <section className="buttons-center">
+                        <Buttons />
+                    </section>
                 </article>
-
             ))}
 
         </section>

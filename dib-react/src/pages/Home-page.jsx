@@ -9,12 +9,12 @@ import CreateBtn from "../components/Create-btn";
         const method = 'Post';
 
         return(
-            <>
+            <section className="all-posts">
                 <h1>Dressed In Black</h1>
                 <h2>Tributo a Depeche Mode</h2>
                 {token && <Link to="/dibposts"><CreateBtn method={method} /></Link>}
                 <PostList />
-            </>
+            </section>
         )
     }
 

@@ -5,6 +5,7 @@ import Loading from "./Loading";
 import getUniquePost from "../services/get-unique-post";
 import Buttons from "./Edit-delete-btn";
 import getToken from "../services/token/get-token";
+import Dates from "./Dates";
 
 const host = import.meta.env.VITE_API_HOST;
 
@@ -33,17 +34,20 @@ function UniquePost() {
         <>
             <article className="unique-post-detail">
                 <h3 className="post-title">{post.data.title}</h3>
-                <p className="post-date">{post.data.createdAt}</p>
+                <Dates date={post.data.createdAt} />
                 <p className="post-description">{post.data.description}</p>
                 <figure className="post-images">
+                    <div className="image-container">
                     {post.data.imageURL.map((image, index) => (
+                        // Add "Link" to a preview page / modal
                         <img
                             key={index}
                             src={`${host}${image}`}
                             alt={`Dressed In Black - El mejor TRIBUTO a Depeche Mode de España`}
-                            className="image"
+                            className="every-post-image"
                         />
                     )) }
+                    </div>
                 </figure>
                 {token && <Buttons />}
             </article>

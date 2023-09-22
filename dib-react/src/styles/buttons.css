@@ -18,3 +18,9 @@
     background-color: #6b6b6b;
     color: #00ff00;
 }
+
+.buttons-center {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
