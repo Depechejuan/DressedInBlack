@@ -9,7 +9,12 @@ const authGuard = require("../middlewares/auth-guard");
 
 // cases
 const { sendResponse } = require("../utils/send-response");
-const { getAllPosts, getPostById } = require("../services/db-service");
+const {
+    getAllPosts,
+    getPostById,
+    deletePost,
+    getPhotoIDfromPostID,
+} = require("../services/db-service");
 const { invalidCredentials } = require("../services/error-service");
 const newPost = require("../controllers/post/new-post");
 const editPost = require("../controllers/post/edit-post");
@@ -18,15 +23,17 @@ const editTour = require("../controllers/post/edit-tour");
 const addPhotoToPost = require("../controllers/post/add-post-photo");
 const addPhotoToTour = require("../controllers/post/add-tour-photo");
 const addPhotoToUser = require("../controllers/post/add-user-photo");
+const deleteType = require("../controllers/post/delete-type");
+const { deleteFile } = require("../services/file-service");
 
 const router = Router();
 
-router.get("/posts", async (req, res) => {
+router.get("/dibposts", async (req, res) => {
     const posts = await getAllPosts();
     sendResponse(res, posts);
 });
 
-router.get("/posts/:id", async (req, res) => {
+router.get("/dibposts/:id", async (req, res) => {
     const post = await getPostById(req.params.id);
     sendResponse(res, post);
 });
@@ -41,7 +48,7 @@ router.post("/dibposts", authGuard, json(), async (req, res) => {
     sendResponse(res, buildResponse, undefined, 201);
 });
 
-router.put("/posts/:id", authGuard, json(), async (req, res) => {
+router.put("/dibposts/:id", authGuard, json(), async (req, res) => {
     if (!req.currentUser) {
         throw invalidCredentials();
     }
@@ -92,9 +99,7 @@ router.put(
     authGuard,
     upload.array("photos", 10),
     async (req, res) => {
-        console.log("Subiendo fotos...");
         const photos = req.files;
-        console.log(photos);
         const method = "tour";
         const sendPhotos = await addPhotoToTour(
             method,
@@ -105,5 +110,32 @@ router.put(
         sendResponse(res, sendPhotos);
     }
 );
+
+router.delete("/dibposts/:id", authGuard, json(), async (req, res) => {
+    if (!req.currentUser) {
+        throw new Error("INVALID_CREDENTIALS");
+    }
+    const idUser = req.currentUser.id;
+    const post = await getPostById(req.params.id);
+    const photos = await getPhotoIDfromPostID(req.params.id);
+    console.log(photos.length);
+
+    if (post.idUser !== idUser) {
+        invalidCredentials();
+    }
+    const type = "post";
+    // eliminar todas las fotos de la BBDD
+    if (photos.length > 0) {
+        const delphoto = await deleteType(type, photos[0].idPhoto);
+        const delfile = await deleteFile(
+            type,
+            req.params.id,
+            photos[0].idPhoto
+        );
+    }
+    // eliminar el post de la BBDD
+    const del = await deletePost(req.params.id);
+    sendResponse(res, del);
+});
 
 module.exports = router;

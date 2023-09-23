@@ -251,12 +251,43 @@ module.exports = {
     },
 
     async savePhotoTour(photo) {
-        console.log("la foto en savePhototoTour de dbservices");
-        console.log(photo);
         const statement = `
         INSERT INTO tour_photos(id, idTour, imageURL)
         VALUES(?, ?, ?)`;
         await db.execute(statement, [photo.id, photo.idTour, photo.imageURL]);
+    },
+
+    async deletePost(id) {
+        await db.execute("DELETE FROM posts WHERE id = ?", [id]);
+    },
+
+    async deleteAllPhotoByPostID(id) {
+        const statement = `
+        DELETE FROM post_photos WHERE idPost = ?`;
+        await db.execute(statement, [id]);
+    },
+
+    async deletePhotoByTourID(id) {
+        const statement = `
+        DELETE FROM tour_photos WHERE idTour = ?`;
+        await db.execute(statement, [id]);
+    },
+
+    async getPhotoIDfromPostID(id) {
+        const statement = `
+        SELECT pp.idPost, JSON_ARRAYAGG(pp.id) AS idPhoto, p.idUser AS idUser
+        FROM post_photos pp
+        JOIN posts p ON pp.idPost = p.id
+        WHERE pp.idPost = ?
+        GROUP BY pp.idPost, p.idUser;`;
+        const [rows] = await db.execute(statement, [id]);
+        return rows;
+    },
+
+    async deleteUniquePhotoByID(id) {
+        const statement = `
+        DELETE FROM post_photos WHERE id = ?`;
+        await db.execute(statement, [id]);
     },
 
     // async saveValidationCode(code) {
