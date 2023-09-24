@@ -1,17 +1,20 @@
 "use strict";
 
-const { deleteUniquePhotoByID } = require("../../services/db-service");
+const {
+    deleteUniquePhotoByID,
+    deleteAllPhotosByTypeID,
+} = require("../../services/db-service");
+const { deleteFile } = require("../../services/file-service");
 
-async function deleteType(type, idPhotos) {
-    if (type == "post") {
-        for (const id of idPhotos) {
-            await deleteUniquePhotoByID(id);
-        }
+async function deleteType(endpoint, type, id, idPhotos) {
+    if (endpoint === "full") {
+        // delete local folder
+        await deleteFile(endpoint, type, id);
+        // delete post by id on database
+        await deleteAllPhotosByTypeID(type, id);
     }
 
-    if (type == "tour") {
-        // deletePhotoByTourID(idType);
-    }
+    // insert only 1 photo case
 }
 
 module.exports = deleteType;

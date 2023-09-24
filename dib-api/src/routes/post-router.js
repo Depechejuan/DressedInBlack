@@ -123,18 +123,20 @@ router.delete("/dibposts/:id", authGuard, json(), async (req, res) => {
     if (post.idUser !== idUser) {
         invalidCredentials();
     }
+    // delete files and database entry
     const type = "post";
-    // eliminar todas las fotos de la BBDD
+    const endpoint = "full";
     if (photos.length > 0) {
-        const delphoto = await deleteType(type, photos[0].idPhoto);
-        const delfile = await deleteFile(
+        const delphoto = await deleteType(
+            endpoint,
             type,
             req.params.id,
             photos[0].idPhoto
         );
     }
-    // eliminar el post de la BBDD
+    // delete post from database
     const del = await deletePost(req.params.id);
+
     sendResponse(res, del);
 });
 

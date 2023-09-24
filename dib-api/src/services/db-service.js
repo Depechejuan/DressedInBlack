@@ -284,6 +284,14 @@ module.exports = {
         return rows;
     },
 
+    async deleteAllPhotosByTypeID(type, id) {
+        const entry = type + "_photos";
+        console.log("Type on database:" + entry);
+        const statement = `
+        DELETE FROM ${entry} WHERE idPost = ?`;
+        await db.execute(statement, [id]);
+    },
+
     async deleteUniquePhotoByID(id) {
         const statement = `
         DELETE FROM post_photos WHERE id = ?`;

@@ -28,31 +28,38 @@ async function saveFile(method, id, idPhoto, photo) {
     }
 }
 
-async function deleteFile(type, id, idPhotos) {
+async function deleteFile(endpoint, type, id, idPhotos) {
     try {
         console.log("deleting photos from directory");
-        for (const photo of idPhotos) {
-            const directory = path.join(
+        const directory = path.join(__dirname, `../../public/${type}/${id}`);
+
+        if (endpoint == "full") {
+            console.log("deleting full directory: ", directory);
+            const directoryExists = await fs
+                .access(directory)
+                .then(() => true)
+                .catch(() => false);
+            if (directoryExists) {
+                await fs.rm(directory, { recursive: true });
+                console.log(`Directory deleted: ${directory}`);
+            }
+        }
+
+        if (endpoint == "unique") {
+            const filePath = path.join(
                 __dirname,
                 `../../public/${type}/${id}/${photo}.webp`
             );
-            const folderPath = path.join(directory);
-
-            // Verificar si el directorio existe antes de intentar eliminarlo
+            console.log("Deleting ", filePath);
             const directoryExists = await fs
-                .access(folderPath)
+                .access(filePath)
                 .then(() => true)
                 .catch(() => false);
-
             if (directoryExists) {
-                console.log("Deleting photo ", photo);
-                await fs.rmdir(folderPath, { recursive: true });
-                console.log(`Deleted directory: ${folderPath}`);
-            } else {
-                console.log(`Directory does not exist: ${folderPath}`);
+                await fs.rm(filePath, { recursive: true });
+                console.log(`File deleted: ${filePath}`);
             }
         }
-        console.log("Done?");
     } catch (err) {
         console.error("Error deleting file", err);
     }
@@ -62,3 +69,30 @@ module.exports = {
     saveFile,
     deleteFile,
 };
+
+// for (const photo of idPhotos) {
+//     const filePath = path.join(
+//         __dirname,
+//         `../../public/${type}/${id}/${photo}.webp`
+//     );
+//     const directory = path.join(
+//         __dirname,
+//         `../../public/${type}/${id}`
+//     );
+//     console.log(directory);
+//     const folderPath = path.join(directory);
+
+//     // Verificar si el directorio existe antes de intentar eliminarlo
+//     const directoryExists = await fs
+//         .access(folderPath)
+//         .then(() => true)
+//         .catch(() => false);
+
+//     if (directoryExists) {
+//         console.log("Deleting photo ", photo);
+//         await fs.rm(folderPath, { recursive: true });
+//         await fs.rmdir(folderPath);
+//         console.log(`Deleted directory: ${folderPath}`);
+// } else {
+//     console.log(`Directory does not exist: ${folderPath}`);
+// }
