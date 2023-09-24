@@ -292,9 +292,11 @@ module.exports = {
         await db.execute(statement, [id]);
     },
 
-    async deleteUniquePhotoByID(id) {
+    async deleteUniquePhotoByID(type, id) {
+        const entry = type + "_photos";
+        console.log("Type on database:" + entry);
         const statement = `
-        DELETE FROM post_photos WHERE id = ?`;
+        DELETE FROM ${entry} WHERE id = ?`;
         await db.execute(statement, [id]);
     },
 

@@ -28,10 +28,13 @@ async function saveFile(method, id, idPhoto, photo) {
     }
 }
 
-async function deleteFile(endpoint, type, id, idPhotos) {
+async function deleteFile(endpoint, type, idType, idPhoto) {
     try {
         console.log("deleting photos from directory");
-        const directory = path.join(__dirname, `../../public/${type}/${id}`);
+        const directory = path.join(
+            __dirname,
+            `../../public/${type}/${idType}`
+        );
 
         if (endpoint == "full") {
             console.log("deleting full directory: ", directory);
@@ -48,7 +51,7 @@ async function deleteFile(endpoint, type, id, idPhotos) {
         if (endpoint == "unique") {
             const filePath = path.join(
                 __dirname,
-                `../../public/${type}/${id}/${photo}.webp`
+                `../../public/${type}/${idType}/${idPhoto}.webp`
             );
             console.log("Deleting ", filePath);
             const directoryExists = await fs

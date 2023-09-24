@@ -14,6 +14,7 @@ const {
     getPostById,
     deletePost,
     getPhotoIDfromPostID,
+    getPhotoByID,
 } = require("../services/db-service");
 const { invalidCredentials } = require("../services/error-service");
 const newPost = require("../controllers/post/new-post");
@@ -138,6 +139,27 @@ router.delete("/dibposts/:id", authGuard, json(), async (req, res) => {
     const del = await deletePost(req.params.id);
 
     sendResponse(res, del);
+});
+
+router.delete("/dibposts/:id/:idPhoto", authGuard, json(), async (req, res) => {
+    if (!req.currentUser) {
+        throw new Error("INVALID_CREDENTIALS");
+    }
+    // id de la foto
+    const idPhoto = req.params.idPhoto.replace(".webp", "");
+    console.log("ID de la foto: ", idPhoto);
+
+    // id del post
+    const idType = req.params.id;
+    console.log("ID del post: ", idType);
+    const idUser = req.currentUser.id;
+    const type = "post";
+    const endpoint = "unique";
+
+    // delete photos:
+    const deletePhoto = await deleteType(endpoint, type, idType, idPhoto);
+    console.log(deletePhoto);
+    sendResponse(res);
 });
 
 module.exports = router;
