@@ -1,0 +1,22 @@
+.rider {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.rider-logo {
+    width: 50%;
+    display: flex;
+    margin: 0 auto;
+}
+
+.rider-main-title,
+.rider-sub-title {
+    margin: 1rem;
+}
+
+.sub-rider {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+}

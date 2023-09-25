@@ -47,9 +47,6 @@ function PostList() {
                             }
                         </figure>
                     </Link>
-                    <section className="buttons-center">
-                        <Buttons id={post.id} data={post} type={"dibposts"} />
-                    </section>
                 </article>
             ))}
 

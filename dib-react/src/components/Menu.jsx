@@ -46,7 +46,7 @@ function Menu({isMenuOpen, closeMenu}) {
                         <Link to="/" onClick={handleLinkClick}>Video</Link>
                     </li>
                     <li>
-                        <Link to="/" onClick={handleLinkClick}>Rider</Link>
+                        <Link to="/rider" onClick={handleLinkClick}>Rider</Link>
                     </li>
                     <li>
                         <Link to="/contact" onClick={handleLinkClick}>Contactar</Link>

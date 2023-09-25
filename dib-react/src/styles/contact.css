@@ -1,5 +1,4 @@
 .contact-card {
-    width: 300px;
     background-color: #787878;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
@@ -9,12 +8,18 @@
     border-style: solid;
     border-image: linear-gradient(to top, #c2b17a, #fcc23f);
     border-image-slice: 1;
+    margin: 0 auto;
+    margin-bottom: 3rem;
 }
 
 .contact-title {
     font-size: 24px;
     margin-bottom: 10px;
     color: #ffffff;
+}
+
+.contact-content {
+    display: flex;
 }
 
 .band-image {
@@ -30,15 +35,21 @@
 }
 
 .contact-info {
-    text-align: center;
+    text-align: left;
+}
+
+.contact-name {
+    font-size: 1rem;
+}
+
+.contact-data {
+    font-size: 0.7rem;
 }
 
 .icon {
     margin-right: 10px;
-    font-size: 20px;
-    vertical-align: middle;
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
 }
 
 .social-icons {
@@ -52,7 +63,7 @@
     color: inherit;
 }
 
-@media screen and (min-width: 700px) {
+/* @media screen and (min-width: 700px) {
     .contact-card {
         display: flex;
         flex-direction: column;
@@ -70,4 +81,4 @@
     .contact-info {
         flex: 0 0 60%;
     }
-}
+} */

@@ -21,15 +21,16 @@ function contactUs() {
                     <img src={logoContact} />
                 </figure>
                 <div className="contact-info">
-                    <h2>Juan León</h2>
-                    <p>
-                        <img className="icon phone-icon" src={Phone} />
-                        /&nbsp;&nbsp;
+                    <h5 className="contact-name">Juan León</h5>
+                    <p className="contact-data">
                         <img className="icon phone-icon" src={Whatsapp} />
                         <a className="link-contact" href="tel:633127448">633127448</a>
                     </p>
-                    <p>
-                        <img  className="icon mail-icon" src={Email} /> <a className="link-contact"  href="mailto:email@gmail.com">dressedinblackdm@gmail.com</a>
+                    <p className="contact-data">
+                        <img  className="icon mail-icon" src={Email} />
+                        <a className="link-contact"  href="mailto:dressedinblackdm@gmail.com">
+                            dressedinblackdm@gmail.com
+                        </a>
                     </p>
                 </div>
             </section>
@@ -38,7 +39,6 @@ function contactUs() {
                     <a href="https://www.facebook.com/dressedinblackband"><img src={Facebook} className="icon"/></a>
                     <a href="https://www.instagram.com/dressedinblackdm"><img src={Instagram} className="icon"/></a>
                     <a href="https://www.tiktok.com/@dressedinblackdm"><img src={Tiktok} className="icon"/></a>
-
                 </div>
         </article>
     )

@@ -52,12 +52,22 @@ body {
 }
 
 main {
-    flex-grow: 1;
+    /* flex-grow: 1; */
     overflow-y: auto;
     padding: 20px;
     display: flex;
     width: 100%;
     max-width: 1200px;
+}
+
+.banner {
+    max-width: 1200px; /* Ancho máximo */
+    width: 100%; /* Ancho máximo de la pantalla */
+    height: auto; /* Altura se ajusta automáticamente para mantener la relación de aspecto */
+    min-height: 150px; /* Altura mínima */
+    max-height: 400px; /* Altura máxima */
+    margin: 0 auto;
+    position: sticky;
 }
 
 h1 {
@@ -87,4 +97,8 @@ p {
 
 .thanks {
     margin-bottom: 50px;
+}
+
+ul {
+    list-style: none;
 }

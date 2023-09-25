@@ -13,9 +13,10 @@ const host = import.meta.env.VITE_API_HOST;
 
 function UniquePost() {
     const [post, setPost] = useState({});
+    const [isEditPostVisible, setIsEditPostVisible] = useState(false);
+
     const { id } = useParams();
     const token = getToken();
-    const [isEditFormVisible, setIsEditFormVisible] = useState(false);
 
     useEffect(() => {
         async function fetchPost() {
@@ -29,9 +30,10 @@ function UniquePost() {
         fetchPost();
     }, [id]);
 
-    const toggleEditFormVisibility = () => {
-        setIsEditFormVisible(!isEditFormVisible);
-    };
+    const handleEditClick = () => {
+        setIsEditPostVisible(!isEditPostVisible); // Cambia el estado de visibilidad al hacer clic en el botón "Edit"
+    }
+
 
     if (!post.data) {
         return <Loading />;
@@ -56,12 +58,12 @@ function UniquePost() {
                     )) }
                     </div>
                 </figure>
-                {token && <Buttons id={id} data={post.data} type={"post"} />}
-                {/* {isEditFormVisible && (
+                {token && <button className="developer-only-btn" onClick={handleEditClick}>Enable Edit</button>}
+                
+                {isEditPostVisible &&
                     <EditPost id={id} data={post.data} />
-                )} */}
+                }
             </article>
-
         </>
     )
 }

@@ -1,11 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // import components and pages
-import  ContactUs from "./pages/Contact-us.jsx";
+import ContactUs from "./pages/Contact-us.jsx";
 import HomePage from './pages/Home-page';
 import NavBar from './components/Nav-bar';
 import Slider from './components/Slider';
 import TourPage from './pages/Tour-page';
+import EditPost from './forms/Edit-Post.jsx';
+import RiderPage from './pages/Rider.jsx';
 
 // import utilities
 import { SliderIMG } from './components/Images-slider';
@@ -26,7 +28,8 @@ import "./styles/slider.css"
 import "./styles/navbar.css"
 import "./styles/buttons.css"
 import "./styles/contact.css"
-import EditPost from './forms/Edit-Post.jsx';
+import "./styles/rider.css"
+import Banner from './components/Banner.jsx';
 
 // import Menu from './components/Menu'
 
@@ -35,7 +38,8 @@ function App() {
   return (
     <>
         <Router>
-          <Slider slides={SliderIMG}/>
+          {/* <Slider slides={SliderIMG}/> */}
+          <Banner />
             <main>
               <Routes>
                 <Route path="/" element={<HomePage />}></Route>
@@ -43,13 +47,13 @@ function App() {
                 <Route path="/tour" element={<TourPage />}></Route>
                 <Route path="/posts/:id" element={<UniquePost />}></Route>
                 <Route path="/about" element={<AboutPage />}></Route>
+                <Route path="/rider" element={<RiderPage />}></Route>
                 {/* Routes to Forms*/}
                 <Route path="/diblog" element={<LoginPage />}></Route>
                 <Route path="/dibposts" element={<PostForm />}></Route>
                 <Route path="/dibtour" element={<TourForm />}></Route>
                 <Route path="/editPost" element={<EditPost />}></Route>
                 {/* <Route path="" element={}></Route>
-                <Route path="" element={}></Route>
                 <Route path="" element={}></Route>
                 <Route path="" element={}></Route>
                 <Route path="" element={}></Route>

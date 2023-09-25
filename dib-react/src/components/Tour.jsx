@@ -89,10 +89,10 @@ function Tour() {
                                                         />
                                                     ))}
                                                 </figure>
+                                                <Buttons id={date.id} data={date} type={"tour"} />
                                             </section>
                                         )}
                                     </li>
-                                    <Buttons id={date.id} data={date} type={"tour"} />
                                     </>
                                 ))}
                             </ul>

@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import deleteEntry from "../services/delete-entry";
 import getToken from "../services/token/get-token";
 
