@@ -1,12 +1,19 @@
+import { Link } from "react-router-dom";
 import deleteEntry from "../services/delete-entry";
 import getToken from "../services/token/get-token";
 
+function Buttons({id, data, type}) {
+    const token = getToken();
 
-function Buttons({id}) {
-    const token = getToken()
+    // const handleEditClick = async () => {
+    //     if (type == "post") {
+
+    //     }
+    // }
+
     const handleDeleteClick = async () => {
         try {
-            const type = "dibpost";
+            console.log(type, id, token);
             await deleteEntry(type, id, token);
         } catch (err) {
             console.error(err);
@@ -16,9 +23,9 @@ function Buttons({id}) {
     return (
         <>
             <button className="developer-only-btn">Edit</button>
-            <button className="developer-only-btn" >Delete</button>
+            <button className="developer-only-btn" onClick={handleDeleteClick}>Delete</button>
         </>
     )
 }
-
+// 
 export default Buttons;

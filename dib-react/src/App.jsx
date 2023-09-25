@@ -26,6 +26,7 @@ import "./styles/slider.css"
 import "./styles/navbar.css"
 import "./styles/buttons.css"
 import "./styles/contact.css"
+import EditPost from './forms/Edit-Post.jsx';
 
 // import Menu from './components/Menu'
 
@@ -46,8 +47,8 @@ function App() {
                 <Route path="/diblog" element={<LoginPage />}></Route>
                 <Route path="/dibposts" element={<PostForm />}></Route>
                 <Route path="/dibtour" element={<TourForm />}></Route>
+                <Route path="/editPost" element={<EditPost />}></Route>
                 {/* <Route path="" element={}></Route>
-                <Route path="" element={}></Route>
                 <Route path="" element={}></Route>
                 <Route path="" element={}></Route>
                 <Route path="" element={}></Route>

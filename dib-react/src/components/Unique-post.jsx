@@ -6,6 +6,8 @@ import getUniquePost from "../services/get-unique-post";
 import Buttons from "./Edit-delete-btn";
 import getToken from "../services/token/get-token";
 import Dates from "./Dates";
+import EditPost from "../forms/Edit-Post";
+
 
 const host = import.meta.env.VITE_API_HOST;
 
@@ -13,6 +15,7 @@ function UniquePost() {
     const [post, setPost] = useState({});
     const { id } = useParams();
     const token = getToken();
+    const [isEditFormVisible, setIsEditFormVisible] = useState(false);
 
     useEffect(() => {
         async function fetchPost() {
@@ -25,6 +28,10 @@ function UniquePost() {
         }
         fetchPost();
     }, [id]);
+
+    const toggleEditFormVisibility = () => {
+        setIsEditFormVisible(!isEditFormVisible);
+    };
 
     if (!post.data) {
         return <Loading />;
@@ -49,7 +56,10 @@ function UniquePost() {
                     )) }
                     </div>
                 </figure>
-                {token && <Buttons />}
+                {token && <Buttons id={id} data={post.data} type={"post"} />}
+                {/* {isEditFormVisible && (
+                    <EditPost id={id} data={post.data} />
+                )} */}
             </article>
 
         </>

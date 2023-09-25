@@ -1,15 +1,16 @@
 const host = import.meta.env.VITE_API_HOST;
 
-const deleteEntry = async (type, id, token) => {
+const editPost = async (idPost, data, token) => {
     try {
-        console.log(type);
-        console.log(id);
-        const response = await fetch(`${host}/${type}/${id}`, {
-            method: "DELETE",
+        const response = await fetch(`${host}/dibposts/${idPost}`, {
+            method: "PUT",
             headers: {
+                "Content-Type": "application/json",
                 Authorization: token,
             },
+            body: JSON.stringify(data),
         });
+
         const body = await response.json();
         if (!response.ok) {
             throw new Error("Something Went Wrong");
@@ -20,4 +21,4 @@ const deleteEntry = async (type, id, token) => {
     }
 };
 
-export default deleteEntry;
+export default editPost;

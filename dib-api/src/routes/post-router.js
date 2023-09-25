@@ -12,9 +12,13 @@ const { sendResponse } = require("../utils/send-response");
 const {
     getAllPosts,
     getPostById,
+    getTourByID,
     deletePost,
+    deleteTour,
     getPhotoIDfromPostID,
+    getPhotoIDfromTourID,
     getPhotoByID,
+    getUserById,
 } = require("../services/db-service");
 const { invalidCredentials } = require("../services/error-service");
 const newPost = require("../controllers/post/new-post");
@@ -141,6 +145,33 @@ router.delete("/dibposts/:id", authGuard, json(), async (req, res) => {
     sendResponse(res, del);
 });
 
+router.delete("/tour/:id", authGuard, json(), async (req, res) => {
+    const idUser = req.currentUser.id;
+    const userRole = await getUserById(idUser);
+    if (!req.currentUser || userRole.role !== "Admin") {
+        throw new Error("INVALID_CREDENTIALS");
+    }
+
+    const tour = await getTourByID(req.params.id);
+    const photos = await getPhotoIDfromTourID(req.params.id);
+    console.log(photos.length);
+
+    // delete files and database entry
+    const type = "tour";
+    const endpoint = "full";
+    if (photos.length > 0) {
+        const delphoto = await deleteType(
+            endpoint,
+            type,
+            req.params.id,
+            photos[0].idPhoto
+        );
+    }
+    // delete post from database
+    const del = await deleteTour(req.params.id);
+    sendResponse(res);
+});
+
 router.delete("/dibposts/:id/:idPhoto", authGuard, json(), async (req, res) => {
     if (!req.currentUser) {
         throw new Error("INVALID_CREDENTIALS");
@@ -158,7 +189,23 @@ router.delete("/dibposts/:id/:idPhoto", authGuard, json(), async (req, res) => {
 
     // delete photos:
     const deletePhoto = await deleteType(endpoint, type, idType, idPhoto);
-    console.log(deletePhoto);
+    sendResponse(res, deletePhoto);
+});
+
+router.delete("/tour/:id/:idPhoto", authGuard, json(), async (req, res) => {
+    const idUser = req.currentUser.id;
+    const userRole = await getUserById(idUser);
+    if (!req.currentUser || userRole.role !== "Admin") {
+        throw new Error("INVALID_CREDENTIALS");
+    }
+
+    const idPhoto = req.params.idPhoto.replace(".webp", "");
+    const idType = req.params.id;
+    const type = "tour";
+    const endpoint = "unique";
+
+    // delete post from database
+    const del = await deleteType(endpoint, type, idType, idPhoto);
     sendResponse(res);
 });
 

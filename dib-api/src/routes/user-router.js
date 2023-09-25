@@ -16,7 +16,7 @@ const controlPanel = require("../controllers/user/control-panel");
 const {
     getFullUserById,
     getTour,
-    getTourById,
+    getTourByID,
     getAllUsersFull,
 } = require("../services/db-service");
 const addPhotoToUser = require("../controllers/post/add-user-photo");
@@ -34,8 +34,9 @@ router.get("/tour", json(), async (req, res) => {
 });
 
 router.get("/tour/:id", json(), async (req, res) => {
-    const tour = await getTourById(req.params.id);
-    sendResponse(res, tour);
+    console.log("tour");
+    const tour = await getTourByID(req.params.id);
+    sendResponse(res, tour, 200);
 });
 
 router.get("/video");

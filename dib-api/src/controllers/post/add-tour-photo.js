@@ -1,6 +1,6 @@
 const { generateUUID } = require("../../services/crypto-services");
 const {
-    getTourById,
+    getTourByID,
     getFullUserById,
     savePhotoTour,
 } = require("../../services/db-service");
@@ -11,15 +11,10 @@ async function addPhotoToTour(method, idTour, idUser, photos) {
     const savedPhotos = [];
 
     try {
-        console.log("Entramos en addPhotoToTour");
-        const tour = await getTourById(idTour);
-        const originalUser = await getFullUserById(idUser);
+        const tour = await getTourByID(idTour);
 
         if (!tour) {
             notFound();
-        }
-        if (tour.idUser !== idUser && originalUser.role !== "Admin") {
-            unauthorized();
         }
 
         for (const photo of photos) {

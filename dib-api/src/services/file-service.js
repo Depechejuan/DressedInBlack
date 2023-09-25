@@ -30,21 +30,18 @@ async function saveFile(method, id, idPhoto, photo) {
 
 async function deleteFile(endpoint, type, idType, idPhoto) {
     try {
-        console.log("deleting photos from directory");
         const directory = path.join(
             __dirname,
             `../../public/${type}/${idType}`
         );
 
         if (endpoint == "full") {
-            console.log("deleting full directory: ", directory);
             const directoryExists = await fs
                 .access(directory)
                 .then(() => true)
                 .catch(() => false);
             if (directoryExists) {
                 await fs.rm(directory, { recursive: true });
-                console.log(`Directory deleted: ${directory}`);
             }
         }
 
@@ -53,14 +50,12 @@ async function deleteFile(endpoint, type, idType, idPhoto) {
                 __dirname,
                 `../../public/${type}/${idType}/${idPhoto}.webp`
             );
-            console.log("Deleting ", filePath);
             const directoryExists = await fs
                 .access(filePath)
                 .then(() => true)
                 .catch(() => false);
             if (directoryExists) {
                 await fs.rm(filePath, { recursive: true });
-                console.log(`File deleted: ${filePath}`);
             }
         }
     } catch (err) {

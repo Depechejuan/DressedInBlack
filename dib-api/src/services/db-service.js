@@ -22,7 +22,7 @@ module.exports = {
 
     async getUserById(idUser) {
         const statement = `
-        SELECT id, userName, avatarURL
+        SELECT id, userName, avatarURL, role
         FROM users
         WHERE id = ?`;
         const [rows] = await db.execute(statement, [idUser]);
@@ -229,9 +229,19 @@ module.exports = {
         ]);
     },
 
-    async getTourById(id) {
+    async getTourByID(id) {
         const statement = `
-        SELECT * FROM tour WHERE id = ?`;
+        SELECT
+            t.*,
+            JSON_ARRAYAGG(tp.imageURL) AS imageURL
+        FROM
+            tour t
+        LEFT JOIN
+            tour_photos tp ON t.id = tp.idTour
+        WHERE
+            t.id = ?
+        GROUP BY
+            t.id;`;
         const [rows] = await db.execute(statement, [id]);
         return rows[0];
     },
@@ -261,6 +271,10 @@ module.exports = {
         await db.execute("DELETE FROM posts WHERE id = ?", [id]);
     },
 
+    async deleteTour(id) {
+        await db.execute("DELETE FROM tour WHERE id = ?", [id]);
+    },
+
     async deleteAllPhotoByPostID(id) {
         const statement = `
         DELETE FROM post_photos WHERE idPost = ?`;
@@ -275,26 +289,45 @@ module.exports = {
 
     async getPhotoIDfromPostID(id) {
         const statement = `
-        SELECT pp.idPost, JSON_ARRAYAGG(pp.id) AS idPhoto, p.idUser AS idUser
-        FROM post_photos pp
-        JOIN posts p ON pp.idPost = p.id
-        WHERE pp.idPost = ?
-        GROUP BY pp.idPost, p.idUser;`;
+        SELECT
+            pp.idPost, JSON_ARRAYAGG(pp.id) AS idPhoto, p.idUser AS idUser
+        FROM
+            post_photos pp
+        JOIN
+            posts p ON pp.idPost = p.id
+        WHERE
+            pp.idPost = ?
+        GROUP BY
+            pp.idPost, p.idUser;`;
+        const [rows] = await db.execute(statement, [id]);
+        return rows;
+    },
+
+    async getPhotoIDfromTourID(id) {
+        const statement = `
+        SELECT
+            tp.idTour, JSON_ARRAYAGG(tp.id) AS idPhoto
+        FROM
+            tour_photos tp
+        JOIN
+            tour t ON tp.idTour = t.id
+        WHERE
+            tp.idTour = ?
+        GROUP BY
+            tp.idTour;`;
         const [rows] = await db.execute(statement, [id]);
         return rows;
     },
 
     async deleteAllPhotosByTypeID(type, id) {
         const entry = type + "_photos";
-        console.log("Type on database:" + entry);
         const statement = `
-        DELETE FROM ${entry} WHERE idPost = ?`;
+        DELETE FROM ${entry} WHERE id${type} = ?`;
         await db.execute(statement, [id]);
     },
 
     async deleteUniquePhotoByID(type, id) {
         const entry = type + "_photos";
-        console.log("Type on database:" + entry);
         const statement = `
         DELETE FROM ${entry} WHERE id = ?`;
         await db.execute(statement, [id]);

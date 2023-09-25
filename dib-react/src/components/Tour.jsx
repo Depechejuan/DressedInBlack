@@ -92,7 +92,7 @@ function Tour() {
                                             </section>
                                         )}
                                     </li>
-                                    <Buttons />
+                                    <Buttons id={date.id} data={date} type={"tour"} />
                                     </>
                                 ))}
                             </ul>
