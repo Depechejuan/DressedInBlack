@@ -3,7 +3,6 @@
 import UserDetail from "../components/User-Detail";
 
 
-
 function AboutPage() {
 
     return (

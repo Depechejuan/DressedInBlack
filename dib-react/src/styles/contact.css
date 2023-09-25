@@ -63,7 +63,7 @@
     color: inherit;
 }
 
-/* @media screen and (min-width: 700px) {
+@media screen and (min-width: 700px) {
     .contact-card {
         display: flex;
         flex-direction: column;
@@ -81,4 +81,4 @@
     .contact-info {
         flex: 0 0 60%;
     }
-} */
+}

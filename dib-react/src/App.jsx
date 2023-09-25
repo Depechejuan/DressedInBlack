@@ -8,12 +8,13 @@ import Slider from './components/Slider';
 import TourPage from './pages/Tour-page';
 import EditPost from './forms/Edit-Post.jsx';
 import RiderPage from './pages/Rider.jsx';
+import Banner from './components/Banner.jsx';
+import UniquePost from './components/Unique-post';
 
 // import utilities
-import { SliderIMG } from './components/Images-slider';
+// import { SliderIMG } from './components/Images-slider';
 import LoginPage from './pages/Login-page';
 import PostForm from './forms/Post-Form';
-import UniquePost from './components/Unique-post';
 import AboutPage from './pages/About';
 import TourForm from './forms/Tour-Form.jsx';
 
@@ -29,7 +30,6 @@ import "./styles/navbar.css"
 import "./styles/buttons.css"
 import "./styles/contact.css"
 import "./styles/rider.css"
-import Banner from './components/Banner.jsx';
 
 // import Menu from './components/Menu'
 
@@ -37,9 +37,9 @@ function App() {
 
   return (
     <>
+        <Banner />
         <Router>
           {/* <Slider slides={SliderIMG}/> */}
-          <Banner />
             <main>
               <Routes>
                 <Route path="/" element={<HomePage />}></Route>
