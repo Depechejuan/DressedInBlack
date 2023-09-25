@@ -8,6 +8,11 @@ article {
     max-width: 1200px;
 }
 
+.quienes-somos {
+    padding: 1rem;
+    width: 100%;
+}
+
 .user-name {
     grid-column: 1 / 3;
     text-align: center;

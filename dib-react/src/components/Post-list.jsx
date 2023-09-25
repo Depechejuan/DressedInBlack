@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import getAllPost from "../services/get-all-posts";
 import Loading from "./Loading";
-import Buttons from "./Edit-delete-btn";
 import Dates from "./Dates";
 
 const host = import.meta.env.VITE_API_HOST;
@@ -35,17 +34,18 @@ function PostList() {
                         <h3 className="post-title">{post.title}</h3>
                         <Dates date={post.createdAt} />
                         <p className="post-description">{post.description}</p>
-                        <figure className="post-images">
-                            {post.imageURL.map((image, index) => (
-                            <img
-                                key={index}
-                                src={`${host}${image}`}
-                                alt={`image ${index - 1}`}
-                                className="image"
-                            />
-                            ))
-                            }
-                        </figure>
+                        <div className="image-container">
+                            <figure className="post-images">
+                                {post.imageURL.map((image, index) => (
+                                <img
+                                    key={index}
+                                    src={`${host}${image}`}
+                                    alt={`image ${index - 1}`}
+                                    className="image"
+                                />
+                                ))}
+                            </figure>
+                        </div>
                     </Link>
                 </article>
             ))}

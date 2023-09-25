@@ -44,7 +44,7 @@ function Tour() {
     }, {});
 
     return (
-        <>
+        <section className="tour-container">
             <article className="tour-details">
             <Link to="/dibtour">
                 <CreateBtn method={'Tour'} />
@@ -100,7 +100,7 @@ function Tour() {
                     ))}
                 </ul>
             </article>
-        </>
+        </section>
     );
 }
 

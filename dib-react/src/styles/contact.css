@@ -1,8 +1,12 @@
+.contact-container {
+    margin-top: 1rem;
+}
+
 .contact-card {
     background-color: #787878;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
-    padding: 20px;
+    padding: 0.5rem;
     text-align: center;
     border-width: 2px;
     border-style: solid;
@@ -10,10 +14,11 @@
     border-image-slice: 1;
     margin: 0 auto;
     margin-bottom: 3rem;
+    width: 100%;
 }
 
 .contact-title {
-    font-size: 24px;
+    font-size: 20px;
     margin-bottom: 10px;
     color: #ffffff;
 }
@@ -25,6 +30,9 @@
 .band-image {
     display: flex;
     justify-content: center;
+    flex: 0 0 40%;
+    display: grid;
+    margin: 0 auto;
 }
 
 .band-image > img {
@@ -36,20 +44,26 @@
 
 .contact-info {
     text-align: left;
+    flex: 0 0 60%;
 }
 
 .contact-name {
     font-size: 1rem;
+    text-align: center;
 }
 
 .contact-data {
-    font-size: 0.7rem;
+    font-size: 0.5rem;
 }
 
 .icon {
     margin-right: 10px;
     width: 15px;
     height: 15px;
+}
+
+.mail-icon {
+    text-align: center;
 }
 
 .social-icons {
@@ -63,6 +77,44 @@
     color: inherit;
 }
 
+@media screen and (min-width: 350px) {
+    .contact-data {
+        font-size: 0.7rem;
+    }
+}
+
+@media screen and (min-width: 400px) {
+    .contact-data {
+        font-size: 0.8rem;
+    }
+    .contact-name {
+        font-size: 1.5rem;
+    }
+    .icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .contact-title {
+        font-size: 2rem;
+    }
+}
+
+@media screen and (min-width: 500px) {
+    .contact-data {
+        font-size: 1.1rem;
+    }
+
+    .social-icons .icon {
+        width: 35px;
+        height: 35px;
+    }
+
+    .contact-container {
+        margin-top: 2rem;
+    }
+}
+
 @media screen and (min-width: 700px) {
     .contact-card {
         display: flex;
@@ -73,12 +125,11 @@
         display: flex;
     }
 
-    .band-image {
-        flex: 0 0 40%;
-        display: grid;
+    .contact-container {
+        margin: 0 auto;
     }
 
-    .contact-info {
-        flex: 0 0 60%;
+    .contact-title {
+        font-size: 2.5rem;
     }
 }

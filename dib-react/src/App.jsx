@@ -37,8 +37,8 @@ function App() {
 
   return (
     <>
-        <Banner />
         <Router>
+        <Banner />
           {/* <Slider slides={SliderIMG}/> */}
             <main>
               <Routes>
