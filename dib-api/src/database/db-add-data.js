@@ -5,10 +5,25 @@ async function addData(pool) {
     const plainPassowrd = process.env.ADMINPASS;
     const hashedPassword = await hashPassword(plainPassowrd);
     const DepechejuanID = generateUUID();
-    const JaviID = generateUUID();
+    const DepechejuanName = process.env.USER1NAME;
+    const DepechejuanEmail = process.env.USER1EMAIL;
+    const DepechejuanDate = process.env.USER1DATE;
     const EscriID = generateUUID();
+    const EscriName = process.env.USER2NAME;
+    const EscriEmail = process.env.USER2EMAIL;
+    const EscriDate = process.env.USER2DATE;
     const LuisID = generateUUID();
+    const LuisName = process.env.USER3NAME;
+    const LuisEmail = process.env.USER3EMAIL;
+    const LuisDate = process.env.USER3DATE;
+    const JaviID = generateUUID();
+    const JaviName = process.env.USER4NAME;
+    const JaviEmail = process.env.USER4EMAIL;
+    const JaviDate = process.env.USER4DATE;
     const ManuID = generateUUID();
+    const ManuName = process.env.USER5NAME;
+    const ManuEmail = process.env.USER5EMAIL;
+    const ManuDate = process.env.USER5DATE;
 
     console.log("Creating users");
     await pool.query(
@@ -17,10 +32,10 @@ async function addData(pool) {
         [
             DepechejuanID,
             "Depechejuan",
-            "Juan Leon",
-            "dressedinblackdm@gmail.com",
+            DepechejuanName,
+            DepechejuanEmail,
             hashedPassword,
-            "1986-07-02",
+            DepechejuanDate,
             true,
             true,
             "2",
@@ -38,10 +53,10 @@ async function addData(pool) {
         [
             EscriID,
             "Escri",
-            "Javier Escribano",
-            "escribano101@gmail.com",
+            EscriName,
+            EscriEmail,
             hashedPassword,
-            "1989-07-29",
+            EscriDate,
             true,
             true,
             "1",
@@ -60,10 +75,10 @@ async function addData(pool) {
         [
             LuisID,
             "Luis",
-            "Luis Alcober",
-            "luis_alcober@hotmail.com",
+            LuisName,
+            LuisEmail,
             hashedPassword,
-            "1979-12-18",
+            LuisDate,
             true,
             true,
             "4",
@@ -82,10 +97,10 @@ async function addData(pool) {
         [
             JaviID,
             "Javi",
-            "Javier Redondo",
-            "javirefe@hotmail.com",
+            JaviName,
+            JaviEmail,
             hashedPassword,
-            "1981-11-23",
+            JaviDate,
             true,
             true,
             "3",
@@ -104,10 +119,10 @@ async function addData(pool) {
         [
             ManuID,
             "Manu",
-            "Manuel Cuesta",
-            "manuelcuesta@hotmail.com",
+            ManuName,
+            ManuEmail,
             hashedPassword,
-            "1990-07-17",
+            ManuDate,
             true,
             true,
             "5",

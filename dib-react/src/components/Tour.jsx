@@ -80,14 +80,21 @@ function Tour() {
                                                         <p key={i + index}>{line}</p>
                                                     ))}
                                                 </span>
-                                                <figure className="tour-photos">
-                                                    {date.imageURL.map((image, index) => (
+                                                <figure className="post-images">
+                                                    {date.imageURL.some((image) => image !== null) ? (
+                                                    date.imageURL.map((image, index) =>
+                                                        image !== null ? (
                                                         <img
                                                             key={index}
                                                             src={`${host}${image}`}
-                                                            alt="Dressed In Black - Tributo a DEPECHE MODE"
+                                                            alt={`Dressed In Black - TRIBUTO a Depeche Mode de España`}
+                                                            className="every-post-image"
                                                         />
-                                                    ))}
+                                                        ) : null
+                                                    )
+                                                    ) : (
+                                                    <></>
+                                                    )}
                                                 </figure>
                                                 <Buttons id={date.id} data={date} type={"tour"} />
                                             </section>

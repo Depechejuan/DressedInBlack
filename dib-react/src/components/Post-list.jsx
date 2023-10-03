@@ -35,15 +35,21 @@ function PostList() {
                         <Dates date={post.createdAt} />
                         <p className="post-description">{post.description}</p>
                         <div className="image-container">
-                            <figure className="post-images">
-                                {post.imageURL.map((image, index) => (
-                                <img
-                                    key={index}
-                                    src={`${host}${image}`}
-                                    alt={`image ${index - 1}`}
-                                    className="image"
-                                />
-                                ))}
+                        <figure className="post-images">
+                                {post.imageURL.some((image) => image !== null) ? (
+                                post.imageURL.map((image, index) =>
+                                    image !== null ? (
+                                    <img
+                                        key={index}
+                                        src={`${host}${image}`}
+                                        alt={`Dressed In Black - TRIBUTO a Depeche Mode de España`}
+                                        className="every-post-image"
+                                    />
+                                    ) : null
+                                )
+                                ) : (
+                                <></>
+                                )}
                             </figure>
                         </div>
                     </Link>

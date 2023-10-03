@@ -30,6 +30,8 @@ import "./styles/navbar.css"
 import "./styles/buttons.css"
 import "./styles/contact.css"
 import "./styles/rider.css"
+import "./styles/tour.css"
+import UniqueTour from './components/Unique-Tour.jsx';
 
 // import Menu from './components/Menu'
 
@@ -48,13 +50,13 @@ function App() {
                 <Route path="/posts/:id" element={<UniquePost />}></Route>
                 <Route path="/about" element={<AboutPage />}></Route>
                 <Route path="/rider" element={<RiderPage />}></Route>
+                <Route path="/tour/:id" element={<UniqueTour />}></Route>
                 {/* Routes to Forms*/}
                 <Route path="/diblog" element={<LoginPage />}></Route>
                 <Route path="/dibposts" element={<PostForm />}></Route>
                 <Route path="/dibtour" element={<TourForm />}></Route>
                 <Route path="/editPost" element={<EditPost />}></Route>
                 {/* <Route path="" element={}></Route>
-                <Route path="" element={}></Route>
                 <Route path="" element={}></Route>
                 <Route path="" element={}></Route>
                 <Route path="" element={}></Route>

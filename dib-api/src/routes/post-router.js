@@ -62,7 +62,7 @@ router.put("/dibposts/:id", authGuard, json(), async (req, res) => {
     const payload = req.body;
     const post = await editPost(idPost, idUser, payload);
     console.log("Post en Endpoint", post);
-    sendResponse(res);
+    sendResponse(res, payload);
 });
 
 router.post("/tour", authGuard, json(), async (req, res) => {

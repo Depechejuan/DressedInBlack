@@ -18,7 +18,6 @@ async function editPost(idPost, idUser, payload) {
 
     const editedPost = Object.assign({}, oldPost, payload);
     const post = await updatePost(editedPost);
-    console.log("post en editpost", post);
     return post;
 }
 

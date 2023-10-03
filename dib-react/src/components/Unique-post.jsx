@@ -3,11 +3,9 @@ import { useParams } from "react-router-dom";
 
 import Loading from "./Loading";
 import getUniquePost from "../services/get-unique-post";
-import Buttons from "./Edit-delete-btn";
 import getToken from "../services/token/get-token";
 import Dates from "./Dates";
 import EditPost from "../forms/Edit-Post";
-
 
 const host = import.meta.env.VITE_API_HOST;
 
@@ -29,13 +27,21 @@ function UniquePost() {
         }
         fetchPost();
     }, [id]);
+    console.log(post);
 
     const handleEditClick = () => {
-        setIsEditPostVisible(!isEditPostVisible); // Cambia el estado de visibilidad al hacer clic en el botón "Edit"
+        setIsEditPostVisible(!isEditPostVisible);
+    }
+    
+    const handleEditPostHide = () => {
+        setIsEditPostVisible(false);
     }
 
+    const updatePost = (updatedPost) => {
+        setPost(updatedPost);
+    };
 
-    if (!post.data) {
+    if (!post?.data) {
         return <Loading />;
     }
     
@@ -45,24 +51,35 @@ function UniquePost() {
                 <h3 className="post-title">{post.data.title}</h3>
                 <Dates date={post.data.createdAt} />
                 <p className="post-description">{post.data.description}</p>
-                <figure className="post-images">
-                    <div className="image-container">
-                    {post.data.imageURL.map((image, index) => (
-                        // Add "Link" to a preview page / modal
-                        <img
-                            key={index}
-                            src={`${host}${image}`}
-                            alt={`Dressed In Black - El mejor TRIBUTO a Depeche Mode de España`}
-                            className="every-post-image"
-                        />
-                    )) }
-                    </div>
-                </figure>
+                <div className="image-container">
+                    <figure className="post-images">
+                        {post.data.imageURL.some((image) => image !== null) ? (
+                        post.data.imageURL.map((image, index) =>
+                            image !== null ? (
+                            <img
+                                key={index}
+                                src={`${host}${image}`}
+                                alt={`Dressed In Black - TRIBUTO a Depeche Mode de España`}
+                                className="every-post-image"
+                            />
+                            ) : null
+                        )
+                        ) : (
+                        <></>
+                        )}
+                    </figure>
+                </div>
                 {token && <button className="developer-only-btn" onClick={handleEditClick}>Enable Edit</button>}
                 
-                {isEditPostVisible &&
-                    <EditPost id={id} data={post.data} />
-                }
+                {isEditPostVisible && (
+                <EditPost
+                    id={id}
+                    data={post.data}
+                    onHide={handleEditPostHide}
+                    updatePost={updatePost}
+                    post={post} // Pasa el estado 'post'
+                />
+                )}
             </article>
         </>
     )

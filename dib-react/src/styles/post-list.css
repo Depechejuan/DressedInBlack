@@ -19,8 +19,17 @@
 
 .post-title {
     text-align: center;
-    font-size: 3rem;
+    font-size: 1.5rem;
     margin: 0.3rem;
+}
+
+.post-date {
+    font-size: 0.5rem;
+    text-align: right;
+}
+
+.post-description {
+    margin-left: 0;
 }
 
 .preview-post,
@@ -34,27 +43,25 @@
 }
 
 .post-images {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    max-width: 200px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    justify-items: center;
     gap: 20px;
 }
 
-.image-container {
-    display: flex;
-    flex-wrap: wrap; /* Hace que las imágenes se envuelvan cuando no caben en el contenedor */
-    justify-content: center; /* Centra horizontalmente las imágenes */
-    width: 100%; /* Ocupa todo el ancho disponible del contenedor padre */
+.image-preview,
+.every-post-image {
+    max-width: 100%;
+    align-self: center;
 }
 
-.every-post-image {
-    max-width: calc(33.33% - 20px); /* Tamaño máximo de cada imagen */
-    width: 100%; /* Ajusta el ancho de cada imagen al 100% del contenedor */
-    height: auto;
-    object-fit: contain;
-    object-position: center center;
-    margin: 10px; /* Espaciado entre imágenes */
+.post-description {
+    white-space: pre-line;
+    margin-bottom: 2rem;
+}
+
+.image-container {
+    margin-bottom: 2rem;
 }
 
 @media screen and (min-width: 600px) {

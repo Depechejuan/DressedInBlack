@@ -1,0 +1,20 @@
+section .tour-title {
+    text-align: center;
+    font-size: 2rem;
+}
+
+.tour-name {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.tour-filter {
+    list-style-type: disc;
+    color: rgb(68, 112, 24);
+    margin-left: 10px;
+}
+
+.date-details {
+    color: white;
+}

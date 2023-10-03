@@ -124,4 +124,5 @@ select {
 
 textarea {
     height: 10rem;
+    white-space: pre-line;
 }

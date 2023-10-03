@@ -136,7 +136,9 @@ module.exports = {
         LEFT JOIN
             post_photos pp ON p.id = pp.idPost
         GROUP BY
-            p.id;
+            p.id
+        ORDER BY
+            p.createdAt DESC;
         `;
         const [rows] = await db.execute(statement);
         return rows;
