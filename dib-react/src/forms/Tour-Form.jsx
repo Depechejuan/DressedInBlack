@@ -9,13 +9,14 @@ function TourForm() {
     const [tourName, setTourName] = useState('');
     const [tourDate, setTourDate] = useState('');
     const [city, setCity] = useState('');
-    const [country, setCountry] = useState('');
+    const [country, setCountry] = useState('España');
     const [venue, setVenue] = useState('');
     const [soldOut, setSoldOut] = useState(true);
     const [setlist, setSetlist] = useState('');
     const [loading, setLoading] = useState(false);
     const [selectedPhotos, setSelectedPhotos] = useState([]);
     const [photoPreview, setPhotoPreview] = useState(null);
+    const [youtubeLinks, setYoutubeLinks] = useState([""]);
     const [submitting, setSubmitting] = useState(false);
     const [cancelling, setCancelling] = useState(false);
     const navigate = useNavigate();
@@ -29,6 +30,24 @@ function TourForm() {
         }
     },);
 
+    const handleAddMore = () => {
+        setYoutubeLinks([...youtubeLinks, ""]);
+    };
+
+    const handleRemoveLast = () => {
+        if (youtubeLinks.length > 1) {
+            const newLinks = [...youtubeLinks];
+            newLinks.pop();
+            setYoutubeLinks(newLinks);
+        }
+    };
+
+    const handleYoutubeLinkChange = (e, index) => {
+        const newLinks = [...youtubeLinks];
+        newLinks[index] = e.target.value;
+        setYoutubeLinks(newLinks);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -41,16 +60,19 @@ function TourForm() {
                 soldOut,
                 setlist,
             }
+            console.log(newTour)
             let photos = selectedPhotos;
             console.log(photos);
             console.log(photos.length);
-            setSubmitting(true); // Cambiamos el estado del botón de submit
+            setSubmitting(true);
             setSubmitting("Enviando...");
 
             const response = await createNewTour(newTour, token);
-
+            console.log(response.success);
+            console.log(response.data.fullTour);
             if (response.success == true) {
-                const idTour = response.data.newTour.id;
+                console.log("La repuesta es OK");
+                const idTour = response.data.fullTour.id;
                 const type = "tour";
 
                 if (photos.length == 0) {
@@ -61,7 +83,7 @@ function TourForm() {
                     console.log("cumple este if");
                     const photosSended = await sendPhoto(type, idTour, photos, token);
                     console.log(photosSended);
-                    if (photosSended.success == true) {
+                    if (photosSended.ok == true) {
                         navigate(`/tour`);
                     } else {
                         console.log("Error sending photo:", photosSended.error);
@@ -123,7 +145,6 @@ function TourForm() {
 
 
     return (
-        <>
             <section className="form">
                 <form className="create-tour-form" method="post" onSubmit={handleSubmit}>
                     <h3 className="create-tour-date">
@@ -172,13 +193,36 @@ function TourForm() {
                         onChange={(e) => setSetlist(e.target.value)}
                         required
                     />
+
+                {youtubeLinks.map((link, index) => (
+                        <input
+                            key={index}
+                            type="text"
+                            name={`youtubeLink${index}`}
+                            placeholder="Youtube URL"
+                            className="youtube"
+                            value={link}
+                            onChange={(e) => handleYoutubeLinkChange(e, index)}
+                            required
+                        />
+                ))}
+                <div>
+                    <button type="button" onClick={handleAddMore} className="add-button">
+                        Añadir más
+                    </button>
+                    {youtubeLinks.length > 1 && (
+                        <button type="button" onClick={handleRemoveLast} className="remove-button">
+                            Eliminar último
+                        </button>
+                    )}
+                </div>
+
                     <select className="form-boolean">
                         <option value="true">True</option>
                         <option value="false">False</option>
                     </select>
                     <div className="custom-file-input">
                             {selectedPhotos.length > 0 && 
-                            <>
                                 <div className="photo-preview-container">
                                     {selectedPhotos.map((photo, index) => (
                                     <img
@@ -186,8 +230,7 @@ function TourForm() {
                                     src={URL.createObjectURL(photo)} alt="Preview"
                                     className="photo-preview" />
                                     ))}
-                                </div>
-                            </>}
+                                </div>}
                         <input 
                             type="file"
                             accept="image/*"
@@ -217,7 +260,6 @@ function TourForm() {
                     </div>
                 </form>
             </section>
-        </>
     )
 }
 

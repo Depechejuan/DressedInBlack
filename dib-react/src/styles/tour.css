@@ -18,3 +18,8 @@ section .tour-title {
 .date-details {
     color: white;
 }
+
+.tour-video {
+    display: flex;
+    margin: 1rem;
+}

@@ -43,6 +43,15 @@ function Tour() {
         return acc;
     }, {});
 
+    function getVideoId(url) {
+        const parts = url.split("v=");
+        if (parts.length === 2) {
+            return parts[1];
+        } else {
+            return null;
+        }
+    }
+
     return (
         <section className="tour-container">
             <article className="tour-details">
@@ -96,6 +105,21 @@ function Tour() {
                                                     <></>
                                                     )}
                                                 </figure>
+                                                <div className="tour-video">
+                                                {date.videoURL && date.videoURL.length > 0 ? (
+                                                    date.videoURL.map((url, index) => (
+                                                        <iframe
+                                                            key={index}
+                                                            src={`https://www.youtube.com/embed/${getVideoId(url)}`}
+                                                            title="Dressed In Black - Tributo a DEPECHE MODE"
+                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                            allowfullscreen
+                                                        />
+                                                    ))
+                                                ) : (
+                                                    <></>
+                                                )}
+                                            </div>
                                                 <Buttons id={date.id} data={date} type={"tour"} />
                                             </section>
                                         )}

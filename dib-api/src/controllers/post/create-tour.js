@@ -1,12 +1,13 @@
 "use strict";
 
 const { parseJWT, generateUUID } = require("../../services/crypto-services");
-const { addTour } = require("../../services/db-service");
+const { addTour, addVideoToTour } = require("../../services/db-service");
 const { notAuth } = require("../../services/error-service");
 const { sendResponse } = require("../../utils/send-response");
 
 async function createTour(data, token) {
     try {
+        console.log(data);
         const user = parseJWT(token);
 
         if (!user) {
@@ -28,8 +29,24 @@ async function createTour(data, token) {
         };
 
         await addTour(newTour);
+
+        const videos = [];
+        if (Array.isArray(data.videoURL) && data.videoURL.length > 0) {
+            for (const videoURL of data.videoURL) {
+                const video = {
+                    id: generateUUID(),
+                    videoURL,
+                    idTour: newTour.id,
+                };
+                await addVideoToTour(video);
+                videos.push(video);
+            }
+        }
+
+        const fullTour = { ...newTour, videos };
+        console.log(fullTour);
         return {
-            newTour,
+            fullTour,
         };
     } catch (err) {
         console.error(err);

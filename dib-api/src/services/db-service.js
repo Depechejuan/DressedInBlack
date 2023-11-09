@@ -90,12 +90,12 @@ module.exports = {
     },
 
     // LOGIN/REGISTER
-    async saveUser(user) {
-        const statement = `
-        INSERT INTO users(
-            id, userName, realName, password, birthday, acceptdTOS, validated, role
-        )`;
-    },
+    // async saveUser(user) {
+    //     const statement = `
+    //     INSERT INTO users(
+    //         id, userName, realName, password, birthday, acceptdTOS, validated, role
+    //     )`;
+    // },
 
     async updateUser(idUser, edit) {
         const statement = `
@@ -113,7 +113,6 @@ module.exports = {
     },
 
     // POST
-
     async createPost(post) {
         const statement = `
         INSERT INTO posts(id, title, description, idUser)
@@ -124,6 +123,20 @@ module.exports = {
             post.description,
             post.idUser,
         ]);
+        return [rows];
+    },
+
+    async addVideoToPost(video) {
+        const statement = `
+        INSERT INTO post_videos (id, videoURL, idPost)
+        VALUES(?, ?, ?)
+        `;
+        const rows = await db.execute(statement, [
+            video.id,
+            video.videoURL,
+            video.idPost,
+        ]);
+        return [rows];
     },
 
     async getAllPosts() {
@@ -184,7 +197,10 @@ module.exports = {
         const statement = `
         SELECT
             t.*,
-            JSON_ARRAYAGG(tp.imageURL) AS imageURL
+            JSON_ARRAYAGG(tp.imageURL) AS imageURL,
+            (SELECT JSON_ARRAYAGG(videoURL)
+                FROM tour_videos tv
+                WHERE tv.idTour = t.id) AS videoURL
         FROM
             tour t
         LEFT JOIN
@@ -203,7 +219,7 @@ module.exports = {
         INSERT INTO tour(id, tourName, tourDate, city, country, venue, soldOut, setlist)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         `;
-        await db.execute(statement, [
+        const rows = await db.execute(statement, [
             tour.id,
             tour.tourName,
             tour.tourDate,
@@ -213,6 +229,20 @@ module.exports = {
             tour.soldOut,
             tour.setlist,
         ]);
+        return [rows];
+    },
+
+    async addVideoToTour(video) {
+        const statement = `
+        INSERT INTO tour_videos (id, videoURL, idTour)
+        VALUES(?, ?, ?)
+        `;
+        const rows = await db.execute(statement, [
+            video.id,
+            video.videoURL,
+            video.idTour,
+        ]);
+        return [rows];
     },
 
     async editTourDate(tour) {
