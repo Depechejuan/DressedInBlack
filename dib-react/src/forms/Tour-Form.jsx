@@ -9,7 +9,7 @@ function TourForm() {
     const [tourName, setTourName] = useState('');
     const [tourDate, setTourDate] = useState('');
     const [city, setCity] = useState('');
-    const [country, setCountry] = useState('España');
+    const [country, setCountry] = useState('');
     const [venue, setVenue] = useState('');
     const [soldOut, setSoldOut] = useState(true);
     const [setlist, setSetlist] = useState('');
@@ -51,6 +51,7 @@ function TourForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            const filteredLinks = youtubeLinks.filter((link) => link.trim() !== '');
             const newTour = {
                 tourName,
                 tourDate,
@@ -59,6 +60,7 @@ function TourForm() {
                 venue,
                 soldOut,
                 setlist,
+                videoURL: filteredLinks.length > 0 ? filteredLinks : undefined,
             }
             console.log(newTour)
             let photos = selectedPhotos;
@@ -176,7 +178,6 @@ function TourForm() {
                         name="country"
                         placeholder="Country"
                         onChange={(e) => setCountry(e.target.value)}
-                        defaultValue="España"
                         required
                     />
                     <input 
@@ -203,7 +204,6 @@ function TourForm() {
                             className="youtube"
                             value={link}
                             onChange={(e) => handleYoutubeLinkChange(e, index)}
-                            required
                         />
                 ))}
                 <div>

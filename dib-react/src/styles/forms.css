@@ -73,8 +73,14 @@ select {
     transition: background 2s ease, transform 2s ease;
 }
 
+.cancel-button:hover {
+    transition: background 2s ease, transform 2s ease;
+    background: linear-gradient(45deg, #ff3333, #ff9999);
+    transform: scale(1.05);
+}
+
 .cancel-button.canceled {
-    background: linear-gradient(45deg, #ff9999, #ff3333);
+    background: linear-gradient(45deg, #ff3333, #ff9999);
 }
 
 /* 

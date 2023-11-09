@@ -54,6 +54,7 @@ function Tour() {
 
     return (
         <section className="tour-container">
+            <h2>Dressed In Black Tour History</h2>
             <article className="tour-details">
             <Link to="/dibtour">
                 <CreateBtn method={'Tour'} />
@@ -61,10 +62,9 @@ function Tour() {
                 <ul className="tour-full">
                     {Object.keys(tourByNames).map((tourName) => (
                         <li key={tourName}>
-                            <h2>{tourName}:</h2>
+                            <h3>{tourName}:</h3>
                             <ul className="tour-filter">
                                 {tourByNames[tourName].map((date, index) => (
-                                    <>
                                     <li key={index}>
                                         <a
                                             href={`#${date.tourDate}`}
@@ -113,7 +113,7 @@ function Tour() {
                                                             src={`https://www.youtube.com/embed/${getVideoId(url)}`}
                                                             title="Dressed In Black - Tributo a DEPECHE MODE"
                                                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                                            allowfullscreen
+                                                            allowFullScreen
                                                         />
                                                     ))
                                                 ) : (
@@ -124,7 +124,6 @@ function Tour() {
                                             </section>
                                         )}
                                     </li>
-                                    </>
                                 ))}
                             </ul>
                         </li>
