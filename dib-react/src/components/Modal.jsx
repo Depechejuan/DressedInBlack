@@ -28,9 +28,7 @@ const Modal = ({type, visible, autoCloseTimeout}) => {
         switch(type) {
             case "delete":
                 return(
-                    <>
                         <p>¿Estás seguro que deseas eliminar el post?</p>
-                    </>
                 );
             case "miau":
                 return(
@@ -40,9 +38,7 @@ const Modal = ({type, visible, autoCloseTimeout}) => {
                 return (
                     <>
                         {showDefault && (
-                            <>
                                 <h2>Tributo a Depeche Mode</h2>
-                            </>
                         )}
                     </>
                 )

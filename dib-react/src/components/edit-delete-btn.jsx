@@ -1,14 +1,16 @@
 import deleteEntry from "../services/delete-entry";
 import getToken from "../services/token/get-token";
+import { useNavigate } from "react-router-dom";
 
 function Buttons({id, data, type}) {
     const token = getToken();
+    const navigate = useNavigate();
 
-    // const handleEditClick = async () => {
-    //     if (type == "post") {
+    const handleEditClick = () => {
+        navigate(`/tour/${id}`)
+    };
 
-    //     }
-    // }
+
 
     const handleDeleteClick = async () => {
         try {
@@ -21,7 +23,9 @@ function Buttons({id, data, type}) {
 
     return (
         <>
-            <button className="developer-only-btn">Edit</button>
+            <button className="developer-only-btn" onClick={handleEditClick}>
+                Edit
+            </button>
             <button className="developer-only-btn" onClick={handleDeleteClick}>Delete</button>
         </>
     )

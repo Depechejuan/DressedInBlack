@@ -43,19 +43,10 @@ function UniqueTour() {
             <section>
             <span>
                 Setlist:
-                {/* <br />
-                {tour.setlist.split("\n").map((line, i) => (
-                    <p key={i}>{line}</p>
-                ))} */}
+
             </span>
             <figure className="tour-photos">
-                {/* {tour.imageURL.map((image, index) => (
-                    <img
-                        key={index}
-                        src={`${host}${image}`}
-                        alt="Dressed In Black - Tributo a DEPECHE MODE"
-                    />
-                ))} */}
+
             </figure>
             </section>
             </article>

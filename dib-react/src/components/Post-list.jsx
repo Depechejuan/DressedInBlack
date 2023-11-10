@@ -26,7 +26,6 @@ function PostList() {
     }
 
     return(
-        <>
         <section className="post-list">
             {posts.data.map(post => (
                 <article className="preview-post" key={post.id}>
@@ -57,7 +56,6 @@ function PostList() {
             ))}
 
         </section>
-        </>
     );
 }
 

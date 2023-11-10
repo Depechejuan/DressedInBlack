@@ -30,7 +30,6 @@ function Menu({isMenuOpen, closeMenu}) {
     }
 
     return(
-        <>
             <nav className={`${isMenuOpen ? "open" : ""} desktop-navbar`}>
                 <ul>
                     <li>
@@ -58,7 +57,6 @@ function Menu({isMenuOpen, closeMenu}) {
                 )}
                 </ul>
             </nav>
-        </>
     );
 }
 

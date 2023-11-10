@@ -46,7 +46,6 @@ function UniquePost() {
     }
     
     return(
-        <>
             <article className="unique-post-detail">
                 <h3 className="post-title">{post.data.title}</h3>
                 <Dates date={post.data.createdAt} />
@@ -81,7 +80,6 @@ function UniquePost() {
                 />
                 )}
             </article>
-        </>
     )
 }
 

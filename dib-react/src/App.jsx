@@ -38,7 +38,6 @@ import UniqueTour from './components/Unique-Tour.jsx';
 function App() {
 
   return (
-    <>
         <Router>
         <Banner />
           {/* <Slider slides={SliderIMG}/> */}
@@ -56,8 +55,8 @@ function App() {
                 <Route path="/dibposts" element={<PostForm />}></Route>
                 <Route path="/dibtour" element={<TourForm />}></Route>
                 <Route path="/editPost" element={<EditPost />}></Route>
+                <Route path="/editTour" element={<UniqueTour />}></Route>
                 {/* <Route path="" element={}></Route>
-                <Route path="" element={}></Route>
                 <Route path="" element={}></Route>
                 <Route path="" element={}></Route>
                 <Route path="" element={}></Route> */}
@@ -66,7 +65,6 @@ function App() {
           <NavBar />
           {/* <Menu /> */}
         </Router>
-    </>
   )
 }
 
