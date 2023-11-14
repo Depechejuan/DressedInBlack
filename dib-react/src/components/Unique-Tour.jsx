@@ -1,36 +1,40 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import getUniqueTour from "../services/get-unique-tour";
+import EditTourForm from "../forms/Tour-Edit";
 
 const host = import.meta.env.VITE_API_HOST;
 
 function UniqueTour() {
     const [tour, setTour] = useState({});
-
-
     const {id} = useParams();
 
+    useEffect(()=> {
+        async function fetchTour() {
+            try {
+                const data = await getUniqueTour(id)
+                setTour(data.data)
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        fetchTour();
+    }, [id])
 
-    async function fetchTour() {
-        try {
-            const data = await getUniqueTour(id)
-            setTour(data.data)
-        } catch (err) {
-            console.error(err);
+    function getVideoId(url) {
+        const parts = url.split("v=");
+        if (parts.length === 2) {
+            return parts[1];
+        } else {
+            return null;
         }
     }
-
-    useEffect(() => {
-        fetchTour();
-    })
-
-    console.log(tour.setlist);
 
     return (
         <section className="tour-container">
             <article className="unique-tour-detail">
-                <h3>{tour.tourName}</h3>
-            <h4>
+                <h3 className="tour-name-title">{tour.tourName}</h3>
+            <h4 className="tour-city-title">
                 {new Date(tour.tourDate).toLocaleDateString(
                     "es-ES",
                     {
@@ -40,16 +44,51 @@ function UniqueTour() {
                     }
                 )} {tour.venue}, {tour.city}, ({tour.country})
             </h4>
-            <section>
+            <section className="date-details">
             <span>
                 Setlist:
-
+                <br />
+                {tour.setlist && tour.setlist.split("\n").map((line, i) => (
+                    <p key={i}>{line}</p>
+                ))}
             </span>
-            <figure className="tour-photos">
-
+            <figure className="post-images">
+                {tour.imageURL && tour.imageURL.some((image) => image !== null) ? (
+                tour.imageURL.map((image, index) =>
+                    image !== null ? (
+                    <img
+                        key={index}
+                        src={`${host}${image}`}
+                        alt={`Dressed In Black - TRIBUTO a Depeche Mode de España`}
+                        className="every-post-image"
+                    />
+                    ) : null
+                )
+                ) : (
+                <></>
+                )}
             </figure>
+            {console.log(tour)}
+            <div className="tour-video">
+                {tour.videoURL && tour.videoURL.length > 0 ? (
+                    tour.videoURL.map((url, index) => (
+                        <iframe
+                            key={index}
+                            src={`https://www.youtube.com/embed/${getVideoId(url)}`}
+                            title="Dressed In Black - Tributo a DEPECHE MODE"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowFullScreen
+                        />
+                    ))
+                ) : (
+                    <></>
+                )}
+            </div>
+            
             </section>
             </article>
+
+            <EditTourForm tourData={tour} id={id} />
         </section>
     )
 }

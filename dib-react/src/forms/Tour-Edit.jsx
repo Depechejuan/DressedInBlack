@@ -1,11 +1,11 @@
 import {useState, useEffect, useRef} from "react"
 import {useNavigate} from "react-router-dom"
 
-import createNewTour from "../services/create-tour";
 import getToken from "../services/token/get-token"
 import sendPhoto from "../services/send-photos";
+import editTour from "../services/edit-tour";
 
-function TourForm() {
+function EditTourForm({ tourData, id }) {
     const [tourName, setTourName] = useState('');
     const [tourDate, setTourDate] = useState('');
     const [city, setCity] = useState('');
@@ -16,12 +16,13 @@ function TourForm() {
     const [loading, setLoading] = useState(false);
     const [selectedPhotos, setSelectedPhotos] = useState([]);
     const [photoPreview, setPhotoPreview] = useState(null);
+    const [youtubeLinks, setYoutubeLinks] = useState([""]);
     const [submitting, setSubmitting] = useState(false);
     const [cancelling, setCancelling] = useState(false);
     const navigate = useNavigate();
     const token = getToken();
 
-    const fileInputRef = useRef()
+    const fileInputRef = useRef();
 
     useEffect(() => {
         if (!token) {
@@ -29,10 +30,41 @@ function TourForm() {
         }
     },);
 
+    useEffect(() => {
+        if (tourData) {
+            setTourName(tourData.tourName || '');
+            setTourDate(tourData.tourDate || '');
+            setCity(tourData.city || '');
+            setCountry(tourData.country || '');
+            setVenue(tourData.venue || '');
+            setSoldOut(tourData.souldOut || true);
+            setSetlist(tourData.setlist || '');
+            setYoutubeLinks(tourData.videoURL || [""]);
+        }
+    }, [tourData]);
+
+    const handleAddMore = () => {
+        setYoutubeLinks(prevLinks => [...prevLinks, ""]);
+    };
+    
+    const handleRemoveLast = () => {
+        if (youtubeLinks.length > 1) {
+            setYoutubeLinks(prevLinks => prevLinks.slice(0, -1));
+        }
+    };
+    
+    const handleYoutubeLinkChange = (e, index) => {
+        setYoutubeLinks(prevLinks => {
+            const newLinks = [...prevLinks];
+            newLinks[index] = e.target.value;
+            return newLinks;
+        });
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const newTour = {
+            const tourEdit = {
                 tourName,
                 tourDate,
                 city,
@@ -42,15 +74,13 @@ function TourForm() {
                 setlist,
             }
             let photos = selectedPhotos;
-            console.log(photos);
-            console.log(photos.length);
-            setSubmitting(true); // Cambiamos el estado del botón de submit
+            setSubmitting(true);
             setSubmitting("Enviando...");
 
-            const response = await createNewTour(newTour, token);
+            const response = await editTour(id, tourEdit, token);
 
             if (response.success == true) {
-                const idTour = response.data.newTour.id;
+                const idTour = id;
                 const type = "tour";
 
                 if (photos.length == 0) {
@@ -123,102 +153,127 @@ function TourForm() {
 
 
     return (
-        <>
-            <section className="form">
-                <form className="create-tour-form" method="post" onSubmit={handleSubmit}>
-                    <h3 className="create-tour-date">
-                        Tour
-                    </h3>
-                    <input 
-                        type="text"
-                        name="tourName"
-                        placeholder="Tour Name"
-                        onChange={(e) => setTourName(e.target.value)}
-                        required
-                    />
-                    <input 
-                        type="date"
-                        name="tourDate"
-                        placeholder="Tour Date"
-                        onChange={(e) => setTourDate(e.target.value)}
-                        required
-                    />
-                    <input 
-                        type="text"
-                        name="city"
-                        placeholder="City"
-                        onChange={(e) => setCity(e.target.value)}
-                        required
-                    />
-                    <input 
-                        type="text"
-                        name="country"
-                        placeholder="Country"
-                        onChange={(e) => setCountry(e.target.value)}
-                        defaultValue="España"
-                        required
-                    />
-                    <input 
-                        type="text"
-                        name="venue"
-                        placeholder="Venue"
-                        onChange={(e) => setVenue(e.target.value)}
-                        required
-                    />
-                    <textarea 
-                        type="text"
-                        name="Setlist"
-                        placeholder="Setlist"
-                        onChange={(e) => setSetlist(e.target.value)}
-                        required
-                    />
-                    <select className="form-boolean">
-                        <option value="true">True</option>
-                        <option value="false">False</option>
-                    </select>
-                    <div className="custom-file-input">
-                            {selectedPhotos.length > 0 && 
-                            <>
-                                <div className="photo-preview-container">
-                                    {selectedPhotos.map((photo, index) => (
-                                    <img
-                                    key={index}
-                                    src={URL.createObjectURL(photo)} alt="Preview"
-                                    className="photo-preview" />
-                                    ))}
-                                </div>
-                            </>}
-                        <input 
-                            type="file"
-                            accept="image/*"
-                            onChange={handlePhotoChange}
-                            multiple
-                            ref={fileInputRef}
-                            id="fileInput"
-                            className="photo-input"
-                        />
-                    </div>
-                    <div className="btn-container">
-                        <button
-                            type="submit"
-                            className={`form-btn ${submitting ? 'submitted' : ''}`}
-                            onClick={(e) => {
-                                e.stopPropagation()
-                        }}>
-                            {submitting ? 'Submitted' : 'Create'}
-                        </button>
-                        <button
-                            type="button"
-                            onClick={handleCancel}
-                            className={`cancel-button ${cancelling ? 'cancelled' : ''}`}
-                            >
-                            {cancelling ? 'Cancelled' : 'Cancel'}
-                        </button>
-                    </div>
-                </form>
-            </section>
-        </>
+        <section className="form">
+        <form className="create-tour-form" method="post" onSubmit={handleSubmit}>
+            <h3 className="create-tour-date">
+                Tour
+            </h3>
+            {console.log(tourName)}
+            <input 
+                type="text"
+                name="tourName"
+                placeholder="Tour Name"
+                value={tourName}  // Utiliza el estado local en lugar de tourData.tourName
+                onChange={(e) => setTourName(e.target.value)}
+                required
+                />
+            <input 
+                type="date"
+                name="tourDate"
+                placeholder="Tour Date"
+                onChange={(e) => setTourDate(e.target.value)}
+                value={tourDate} // TOFIX
+                required
+            />
+            <input 
+                type="text"
+                name="city"
+                placeholder="City"
+                onChange={(e) => setCity(e.target.value)}
+                value={city}
+                required
+            />
+            <input 
+                type="text"
+                name="country"
+                placeholder="Country"
+                onChange={(e) => setCountry(e.target.value)}
+                value={country}
+                required
+            />
+            <input 
+                type="text"
+                name="venue"
+                placeholder="Venue"
+                onChange={(e) => setVenue(e.target.value)}
+                value={venue}
+                required
+            />
+            <textarea 
+                type="text"
+                name="Setlist"
+                placeholder="Setlist"
+                onChange={(e) => setSetlist(e.target.value)}
+                value={setlist}
+                required
+            />
+
+            {youtubeLinks.map((link, index) => (
+                <input
+                    key={index}
+                    type="text"
+                    name={`youtubeLink${index}`}
+                    placeholder="Youtube URL"
+                    className="youtube"
+                    value={youtubeLinks ? youtubeLinks[index] : link}
+                    onChange={(e) => handleYoutubeLinkChange(e, index)}
+                />
+            ))}
+            <div>
+            <button type="button" onClick={handleAddMore} className="add-button">
+                Añadir más
+            </button>
+            {youtubeLinks.length > 1 && (
+                <button type="button" onClick={handleRemoveLast} className="remove-button">
+                    Eliminar último
+                </button>
+            )}
+        </div>
+
+            <select className="form-boolean">
+                <option value="true">True</option>
+                <option value="false">False</option>
+            </select>
+            <div className="custom-file-input">
+                    {selectedPhotos.length > 0 && 
+                        <div className="photo-preview-container">
+                            {selectedPhotos.map((photo, index) => (
+                            <img
+                            key={index}
+                            src={URL.createObjectURL(photo)} alt="Preview"
+                            className="photo-preview" />
+                            ))}
+                        </div>}
+                <input 
+                    type="file"
+                    accept="image/*"
+                    onChange={handlePhotoChange}
+                    multiple
+                    ref={fileInputRef}
+                    id="fileInput"
+                    className="photo-input"
+                />
+            </div>
+            <div className="btn-container">
+                <button
+                    type="submit"
+                    className={`form-btn ${submitting ? 'submitted' : ''}`}
+                    onClick={(e) => {
+                        e.stopPropagation()
+                }}>
+                    {submitting ? 'Submitted' : 'Create'}
+                </button>
+                <button
+                    type="button"
+                    onClick={handleCancel}
+                    className={`cancel-button ${cancelling ? 'cancelled' : ''}`}
+                    >
+                    {cancelling ? 'Cancelled' : 'Cancel'}
+                </button>
+            </div>
+        </form>
+    </section>
     )
 }
 
-export default TourForm;
+export default EditTourForm;

@@ -227,7 +227,8 @@ function TourForm() {
                                     {selectedPhotos.map((photo, index) => (
                                     <img
                                     key={index}
-                                    src={URL.createObjectURL(photo)} alt="Preview"
+                                    src={URL.createObjectURL(photo)}
+                                    alt="Preview"
                                     className="photo-preview" />
                                     ))}
                                 </div>}

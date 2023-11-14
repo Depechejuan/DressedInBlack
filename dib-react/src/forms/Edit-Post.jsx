@@ -63,7 +63,6 @@ const EditPost = ({ id, data, onHide, updatePost, post }) => {
     };
 
 
-
     const handleCancel = () => {
         setTitle("");
         setDescription("");

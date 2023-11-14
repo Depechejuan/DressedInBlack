@@ -23,12 +23,20 @@ function Buttons({id, data, type}) {
 
     return (
         <>
-            <button className="developer-only-btn" onClick={handleEditClick}>
-                Edit
-            </button>
-            <button className="developer-only-btn" onClick={handleDeleteClick}>Delete</button>
+            {token ? (
+                <>
+                    <button className="developer-only-btn" onClick={handleEditClick}>
+                        Edit
+                    </button>
+                    <button className="developer-only-btn" onClick={handleDeleteClick}>
+                        Delete
+                    </button>
+                </>
+            ) : (
+                <></>
+            )}
         </>
     )
 }
-// 
+
 export default Buttons;

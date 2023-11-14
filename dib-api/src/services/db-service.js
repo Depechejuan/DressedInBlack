@@ -265,7 +265,10 @@ module.exports = {
         const statement = `
         SELECT
             t.*,
-            JSON_ARRAYAGG(tp.imageURL) AS imageURL
+            JSON_ARRAYAGG(tp.imageURL) AS imageURL,
+            (SELECT JSON_ARRAYAGG(videoURL)
+                FROM tour_videos tv
+                WHERE tv.idTour = t.id) AS videoURL
         FROM
             tour t
         LEFT JOIN
