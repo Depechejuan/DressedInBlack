@@ -245,6 +245,10 @@ module.exports = {
         return [rows];
     },
 
+    async deleteURLfromTour(id) {
+        await db.execute(`DELETE FROM tour_videos WHERE idTour = ?`, [id]);
+    },
+
     async editTourDate(tour) {
         const statement = `UPDATE tour
         SET tourName = ?, tourDate = ?, city = ?, country = ?, venue = ?, soldOut = ?, setlist = ?

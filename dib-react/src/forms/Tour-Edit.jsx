@@ -72,6 +72,7 @@ function EditTourForm({ tourData, id }) {
                 venue,
                 soldOut,
                 setlist,
+                videoURL: youtubeLinks,
             }
             let photos = selectedPhotos;
             setSubmitting(true);
