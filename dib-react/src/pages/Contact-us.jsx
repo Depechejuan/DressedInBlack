@@ -5,12 +5,15 @@ import Instagram from '../assets/svg/instagram.svg';
 import Email from '../assets/svg/gmail.svg';
 import Whatsapp from '../assets/svg/whatsapp.svg';
 import Tiktok from '../assets/svg/tiktok.svg';
+import ContactForm from '../forms/Contact-Form';
 
 
 function contactUs() {
 
     return (
         <article className="contact-container">
+            <ContactForm />
+            <br />
             <section className="contact-card">
                 <h3 className="contact-title">
                     Dressed In Black
