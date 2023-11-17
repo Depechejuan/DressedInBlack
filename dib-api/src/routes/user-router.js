@@ -20,6 +20,7 @@ const {
     getAllUsersFull,
 } = require("../services/db-service");
 const addPhotoToUser = require("../controllers/post/add-user-photo");
+const mailer = require("../services/mailer");
 
 const router = Router();
 
@@ -51,7 +52,6 @@ router.get("/users", json(), async (req, res) => {
 });
 
 // POST
-
 router.post("/dibreg", json(), async (req, res) => {
     const result = await register(req.body);
     sendResponse(res, result);
@@ -71,8 +71,15 @@ router.post("/diblog", json(), async (req, res) => {
     }
 });
 
-// PUT
+// mail
+router.post("/dibcontact", json(), async (req, res) => {
+    const mail = req.body;
+    console.log(mail);
+    await mailer(mail);
+    sendResponse(res);
+});
 
+// PUT
 router.put("/users/:id", authGuard, json(), async (req, res) => {
     const idUser = req.params.id;
     const userInfo = req.body;

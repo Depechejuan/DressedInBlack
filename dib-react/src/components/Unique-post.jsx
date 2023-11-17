@@ -6,6 +6,7 @@ import getUniquePost from "../services/get-unique-post";
 import getToken from "../services/token/get-token";
 import Dates from "./Dates";
 import EditPost from "../forms/Edit-Post";
+import deleteUniquePhoto from "../services/delete-unique-photo";
 
 const host = import.meta.env.VITE_API_HOST;
 
@@ -28,6 +29,10 @@ function UniquePost() {
         fetchPost();
     }, [id]);
     console.log(post);
+
+    function deletePhoto(idPhoto) {
+        deleteUniquePhoto(idPhoto, token)
+    }
 
     const handleEditClick = () => {
         setIsEditPostVisible(!isEditPostVisible);
@@ -52,21 +57,30 @@ function UniquePost() {
                 <p className="post-description">{post.data.description}</p>
                 <div className="image-container">
                     <figure className="post-images">
-                        {post.data.imageURL.some((image) => image !== null) ? (
+                    {post.data.imageURL && post.data.imageURL.some((image) => image !== null) ? (
                         post.data.imageURL.map((image, index) =>
                             image !== null ? (
-                            <img
-                                key={index}
-                                src={`${host}${image}`}
-                                alt={`Dressed In Black - TRIBUTO a Depeche Mode de España`}
-                                className="every-post-image"
-                            />
+                                <div key={index} className="image-container">
+                                    <img
+                                        src={`${host}${image}`}
+                                        alt={`Dressed In Black - TRIBUTO a Depeche Mode de España`}
+                                        className="every-post-image"
+                                    />
+                                    {token && (
+                                        <button
+                                            className="delete-photo-button"
+                                            onClick={() => deletePhoto(image)}
+                                        >
+                                            X
+                                        </button>
+                                    )}
+                                </div>
                             ) : null
                         )
-                        ) : (
+                    ) : (
                         <></>
-                        )}
-                    </figure>
+                    )}
+                </figure>
                 </div>
                 {token && <button className="developer-only-btn" onClick={handleEditClick}>Enable Edit</button>}
                 

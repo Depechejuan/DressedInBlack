@@ -67,30 +67,3 @@ module.exports = {
     saveFile,
     deleteFile,
 };
-
-// for (const photo of idPhotos) {
-//     const filePath = path.join(
-//         __dirname,
-//         `../../public/${type}/${id}/${photo}.webp`
-//     );
-//     const directory = path.join(
-//         __dirname,
-//         `../../public/${type}/${id}`
-//     );
-//     console.log(directory);
-//     const folderPath = path.join(directory);
-
-//     // Verificar si el directorio existe antes de intentar eliminarlo
-//     const directoryExists = await fs
-//         .access(folderPath)
-//         .then(() => true)
-//         .catch(() => false);
-
-//     if (directoryExists) {
-//         console.log("Deleting photo ", photo);
-//         await fs.rm(folderPath, { recursive: true });
-//         await fs.rmdir(folderPath);
-//         console.log(`Deleted directory: ${folderPath}`);
-// } else {
-//     console.log(`Directory does not exist: ${folderPath}`);
-// }

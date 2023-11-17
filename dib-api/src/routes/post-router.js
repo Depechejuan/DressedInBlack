@@ -172,7 +172,7 @@ router.delete("/tour/:id", authGuard, json(), async (req, res) => {
     sendResponse(res);
 });
 
-router.delete("/dibposts/:id/:idPhoto", authGuard, json(), async (req, res) => {
+router.delete("/post/:id/:idPhoto", authGuard, json(), async (req, res) => {
     if (!req.currentUser) {
         throw new Error("INVALID_CREDENTIALS");
     }

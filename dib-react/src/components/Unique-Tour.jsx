@@ -2,12 +2,15 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import getUniqueTour from "../services/get-unique-tour";
 import EditTourForm from "../forms/Tour-Edit";
+import getToken from "../services/token/get-token";
+import deleteUniquePhoto from "../services/delete-unique-photo";
 
 const host = import.meta.env.VITE_API_HOST;
 
 function UniqueTour() {
     const [tour, setTour] = useState({});
     const {id} = useParams();
+    const token = getToken();
 
     useEffect(()=> {
         async function fetchTour() {
@@ -19,7 +22,11 @@ function UniqueTour() {
             }
         }
         fetchTour();
-    }, [id])
+    }, [id]);
+
+    function deletePhoto(idPhoto) {
+        deleteUniquePhoto(idPhoto, token)
+    }
 
     function getVideoId(url) {
         const parts = url.split("v=");
@@ -54,18 +61,27 @@ function UniqueTour() {
             </span>
             <figure className="post-images">
                 {tour.imageURL && tour.imageURL.some((image) => image !== null) ? (
-                tour.imageURL.map((image, index) =>
-                    image !== null ? (
-                    <img
-                        key={index}
-                        src={`${host}${image}`}
-                        alt={`Dressed In Black - TRIBUTO a Depeche Mode de España`}
-                        className="every-post-image"
-                    />
-                    ) : null
-                )
+                    tour.imageURL.map((image, index) =>
+                        image !== null ? (
+                            <div key={index} className="image-container">
+                                <img
+                                    src={`${host}${image}`}
+                                    alt={`Dressed In Black - TRIBUTO a Depeche Mode de España`}
+                                    className="every-post-image"
+                                />
+                                {token && (
+                                    <button
+                                        className="delete-photo-button"
+                                        onClick={() => deletePhoto(image)}
+                                    >
+                                        X
+                                    </button>
+                                )}
+                            </div>
+                        ) : null
+                    )
                 ) : (
-                <></>
+                    <></>
                 )}
             </figure>
             {console.log(tour)}
