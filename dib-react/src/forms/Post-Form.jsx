@@ -8,9 +8,10 @@ import sendPhoto from "../services/send-photos";
     function PostForm() {
         const [title, setTitle] = useState('');
         const [description, setDescription] = useState('');
+        const [youtubeLinks, setYoutubeLinks] = useState([""]);
         const [loading, setLoading] = useState(false);
         const [selectedPhotos, setSelectedPhotos] = useState([]);
-        const [photoPreview, setPhotoPreview] = useState(null)
+        const [photoPreview, setPhotoPreview] = useState(null);
         const [submitting, setSubmitting] = useState(false);
         const [cancelling, setCancelling] = useState(false);
         const navigate = useNavigate();
@@ -23,14 +24,35 @@ import sendPhoto from "../services/send-photos";
                 navigate("/")
             }
         },);
+
+        const handleAddMore = () => {
+            setYoutubeLinks([...youtubeLinks, ""]);
+        };
         
+        const handleRemoveLast = () => {
+            if (youtubeLinks.length > 1) {
+                const newLinks = [...youtubeLinks];
+                newLinks.pop();
+                setYoutubeLinks(newLinks);
+            }
+        };
+    
+        const handleYoutubeLinkChange = (e, index) => {
+            const newLinks = [...youtubeLinks];
+            newLinks[index] = e.target.value;
+            setYoutubeLinks(newLinks);
+        };
 
         const handleSubmit = async (e) => {
             e.preventDefault();
             try {
+                const filteredLinks = youtubeLinks.filter((link) => link.trim() !== '');
+
                 const newPost = {
                     title: title,
                     description: description,
+                    videoURL: filteredLinks.length > 0 ? filteredLinks : undefined,
+
                 };
                 let photos = selectedPhotos;
                 setSubmitting(true);
@@ -62,8 +84,9 @@ import sendPhoto from "../services/send-photos";
             fileInputRef.current.value = '';
             setSelectedPhotos([]);
             setLoading(true);
-            setPhotoPreview(null)
-            setLoading(true)
+            setPhotoPreview(null);
+            setYoutubeLinks([''])
+            setLoading(true);
             setCancelling('Canceled');
 
             setTimeout(() => {
@@ -118,18 +141,38 @@ import sendPhoto from "../services/send-photos";
                         onChange={(e) => setDescription(e.target.value)}
                         required
                     />
+
+                    {youtubeLinks.map((link, index) => (
+                            <input
+                                key={index}
+                                type="text"
+                                name={`youtubeLink${index}`}
+                                placeholder="Youtube URL"
+                                className="youtube"
+                                value={link}
+                                onChange={(e) => handleYoutubeLinkChange(e, index)}
+                            />
+                    ))}
+                    <div>
+                        <button type="button" onClick={handleAddMore} className="add-button">
+                            Añadir más
+                        </button>
+                        {youtubeLinks.length > 1 && (
+                            <button type="button" onClick={handleRemoveLast} className="remove-button">
+                                Eliminar último
+                            </button>
+                    )}
+                    </div>
                     <div className="custom-file-input">
                         {selectedPhotos.length > 0 && 
-                        <>
-                            <div className="photo-preview-container">
-                                {selectedPhotos.map((photo, index) => (
-                                <img
-                                key={index}
-                                src={URL.createObjectURL(photo)} alt="Preview"
-                                className="photo-preview" />
-                                ))}
-                            </div>
-                        </>}
+                        <div className="photo-preview-container">
+                            {selectedPhotos.map((photo, index) => (
+                            <img
+                            key={index}
+                            src={URL.createObjectURL(photo)} alt="Preview"
+                            className="photo-preview" />
+                            ))}
+                        </div>}
                         <input 
                             type="file"
                             accept="image/*"

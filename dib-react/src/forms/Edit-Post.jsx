@@ -11,6 +11,7 @@ const EditPost = ({ id, data, onHide, updatePost, post }) => {
     const [title, setTitle] = useState(data.title || "");
     const [description, setDescription] = useState(data.description || "");
     const [loading, setLoading] = useState(false);
+    const [youtubeLinks, setYoutubeLinks] = useState([""]);
     const [selectedPhotos, setSelectedPhotos] = useState([]);
     const [submitting, setSubmitting] = useState(false);
     const [cancelling, setCancelling] = useState(false);
@@ -25,12 +26,33 @@ const EditPost = ({ id, data, onHide, updatePost, post }) => {
         }
     },)
 
+    const handleAddMore = () => {
+        setYoutubeLinks([...youtubeLinks, ""]);
+    };
+    
+    const handleRemoveLast = () => {
+        if (youtubeLinks.length > 1) {
+            const newLinks = [...youtubeLinks];
+            newLinks.pop();
+            setYoutubeLinks(newLinks);
+        }
+    };
+
+    const handleYoutubeLinkChange = (e, index) => {
+        const newLinks = [...youtubeLinks];
+        newLinks[index] = e.target.value;
+        setYoutubeLinks(newLinks);
+    };
+
     const handleSubmit = async (e) => {
+        const filteredLinks = youtubeLinks.filter((link) => link.trim() !== '');
+
         e.preventDefault();
         try {
         const newPost = {
             title: title,
             description: description,
+            videoURL: filteredLinks.length > 0 ? filteredLinks : undefined,
         };
         let photos = selectedPhotos;
         setSubmitting(true);
@@ -114,6 +136,28 @@ const EditPost = ({ id, data, onHide, updatePost, post }) => {
                 required
             />
             {/* Sección para las imágenes existentes */}
+
+            {youtubeLinks.map((link, index) => (
+                <input
+                    key={index}
+                    type="text"
+                    name={`youtubeLink${index}`}
+                    placeholder="Youtube URL"
+                    className="youtube"
+                    value={link}
+                    onChange={(e) => handleYoutubeLinkChange(e, index)}
+                />
+            ))}
+            <div>
+                <button type="button" onClick={handleAddMore} className="add-button">
+                    Añadir más
+                </button>
+                {youtubeLinks.length > 1 && (
+                    <button type="button" onClick={handleRemoveLast} className="remove-button">
+                        Eliminar último
+                    </button>
+            )}
+            </div>
         <div className="existing-photos">
         <p>Fotos previas</p>
         {data.imageURL.map((image, index) => (

@@ -25,6 +25,17 @@ function PostList() {
         return <Loading />
     }
 
+    function getVideoId(url) {
+        if (url && typeof url === 'string') {
+            const parts = url.split("v=");
+            if (parts.length === 2) {
+                return parts[1];
+            }
+        }
+        return null;
+    }
+    
+    console.log(posts)
     return(
         <section className="post-list">
             {posts.data.map(post => (
@@ -51,6 +62,25 @@ function PostList() {
                                 )}
                             </figure>
                         </div>
+
+                        <div className="tour-video">
+                            {post.videoURL && post.videoURL.length > 0 ? (
+                                post.videoURL.map((url, index) => (
+                                    url !== null ? (
+                                        <iframe
+                                            key={index}
+                                            src={`https://www.youtube.com/embed/${getVideoId(url)}`}
+                                            title="Dressed In Black - Tributo a DEPECHE MODE"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                            allowFullScreen
+                                        />
+                                    ) : null
+                                ))
+                            ) : (
+                                <></>
+                            )}
+                        </div>
+
                     </Link>
                 </article>
             ))}

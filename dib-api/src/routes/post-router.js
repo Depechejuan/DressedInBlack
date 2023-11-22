@@ -35,6 +35,7 @@ const router = Router();
 
 router.get("/dibposts", async (req, res) => {
     const posts = await getAllPosts();
+    const videos = [];
     sendResponse(res, posts);
 });
 
@@ -50,7 +51,7 @@ router.post("/dibposts", authGuard, json(), async (req, res) => {
     const token = req.currentUser.token;
     const post = await newPost(req.body, token, res);
     const buildResponse = { ...req.body, ...post.post };
-    sendResponse(res, buildResponse, undefined, 201);
+    sendResponse(res, buildResponse, undefined, 200);
 });
 
 router.put("/dibposts/:id", authGuard, json(), async (req, res) => {

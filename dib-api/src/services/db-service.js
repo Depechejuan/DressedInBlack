@@ -143,11 +143,14 @@ module.exports = {
         const statement = `
         SELECT
             p.*,
-            JSON_ARRAYAGG(pp.imageURL) AS imageURL
+            JSON_ARRAYAGG(pp.imageURL) AS imageURL,
+            JSON_ARRAYAGG(pv.videoURL) AS videoURL
         FROM
             posts p
         LEFT JOIN
             post_photos pp ON p.id = pp.idPost
+        LEFT JOIN
+            post_videos pv ON p.id = pv.idPost
         GROUP BY
             p.id
         ORDER BY
@@ -160,8 +163,11 @@ module.exports = {
     async getPostById(id) {
         const statement = `
         SELECT
-            p.*,
-            JSON_ARRAYAGG(pp.imageURL) AS imageURL
+        p.*,
+            JSON_ARRAYAGG(pp.imageURL) AS imageURL,
+            (SELECT JSON_ARRAYAGG(videoURL)
+        FROM post_videos pv
+        WHERE pv.idPost = p.id) AS videoURL
         FROM
             posts p
         LEFT JOIN
@@ -170,6 +176,7 @@ module.exports = {
             p.id = ?
         GROUP BY
             p.id;
+        ;
         `;
         const [rows] = await db.execute(statement, [id]);
         return rows[0];

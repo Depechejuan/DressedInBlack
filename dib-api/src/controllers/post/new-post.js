@@ -1,5 +1,5 @@
 const { parseJWT, generateUUID } = require("../../services/crypto-services");
-const { createPost } = require("../../services/db-service");
+const { createPost, addVideoToPost } = require("../../services/db-service");
 const { notAuth, incomplete } = require("../../services/error-service");
 const { sendResponse } = require("../../utils/send-response");
 
@@ -21,13 +21,27 @@ async function newPost(data, token, res) {
             incomplete();
         }
 
-        post = {
+        const post = {
             id: generateUUID(),
             idUser: user.id,
             title: data.title,
             description: data.description,
         };
+
         await createPost(post);
+
+        const videos = [];
+        if (Array.isArray(data.videoURL) && data.videoURL.length > 0) {
+            for (const videoURL of data.videoURL) {
+                const video = {
+                    id: generateUUID(),
+                    videoURL,
+                    idPost: post.id,
+                };
+                await addVideoToPost(video);
+                videos.push(video);
+            }
+        }
 
         return {
             post,

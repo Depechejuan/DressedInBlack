@@ -33,7 +33,7 @@ function EditTourForm({ tourData, id }) {
     useEffect(() => {
         if (tourData) {
             setTourName(tourData.tourName || '');
-            setTourDate(tourData.tourDate || '');
+            setTourDate(tourData.tourDate ? new Date(tourData.tourDate).toISOString().split('T')[0] : '');
             setCity(tourData.city || '');
             setCountry(tourData.country || '');
             setVenue(tourData.venue || '');

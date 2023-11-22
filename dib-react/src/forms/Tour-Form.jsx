@@ -109,6 +109,7 @@ function TourForm() {
         fileInputRef.current.value = '';
         setSelectedPhotos([])
         setPhotoPreview(null)
+        setYoutubeLinks([''])
         setLoading(true);
         setCancelling('Cancelled');
 
