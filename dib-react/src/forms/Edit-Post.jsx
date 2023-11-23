@@ -11,7 +11,7 @@ const EditPost = ({ id, data, onHide, updatePost, post }) => {
     const [title, setTitle] = useState(data.title || "");
     const [description, setDescription] = useState(data.description || "");
     const [loading, setLoading] = useState(false);
-    const [youtubeLinks, setYoutubeLinks] = useState([""]);
+    const [youtubeLinks, setYoutubeLinks] = useState(data.videoURL || [""]);
     const [selectedPhotos, setSelectedPhotos] = useState([]);
     const [submitting, setSubmitting] = useState(false);
     const [cancelling, setCancelling] = useState(false);
@@ -67,6 +67,7 @@ const EditPost = ({ id, data, onHide, updatePost, post }) => {
                 ...post.data,
                 title: newPost.title,
                 description: newPost.description,
+                videoURL: newPost.videoURL,
                 imageURL: [...post.data.imageURL, ...photos],
                 },
             });

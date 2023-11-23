@@ -32,6 +32,7 @@ import "./styles/contact.css"
 import "./styles/rider.css"
 import "./styles/tour.css"
 import UniqueTour from './components/Unique-Tour.jsx';
+import Video from './pages/Video.jsx';
 
 // import Menu from './components/Menu'
 
@@ -50,6 +51,7 @@ function App() {
                 <Route path="/about" element={<AboutPage />}></Route>
                 <Route path="/rider" element={<RiderPage />}></Route>
                 <Route path="/tour/:id" element={<UniqueTour />}></Route>
+                <Route path="/video" element={<Video />}></Route>
                 {/* Routes to Forms*/}
                 <Route path="/diblog" element={<LoginPage />}></Route>
                 <Route path="/dibposts" element={<PostForm />}></Route>
@@ -57,7 +59,7 @@ function App() {
                 <Route path="/editPost" element={<EditPost />}></Route>
                 <Route path="/editTour" element={<UniqueTour />}></Route>
                 {/* <Route path="" element={}></Route>
-                <Route path="" element={}></Route>
+                
                 <Route path="" element={}></Route>
                 <Route path="" element={}></Route> */}
               </Routes>

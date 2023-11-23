@@ -46,6 +46,16 @@ function UniquePost() {
         setPost(updatedPost);
     };
 
+    function getVideoId(url) {
+        if (url && typeof url === 'string') {
+            const parts = url.split("v=");
+            if (parts.length === 2) {
+                return parts[1];
+            }
+        }
+        return null;
+    }
+
     if (!post?.data) {
         return <Loading />;
     }
@@ -82,6 +92,25 @@ function UniquePost() {
                     )}
                 </figure>
                 </div>
+
+                <div className="tour-video">
+                    {post.data.videoURL && post.data.videoURL.length > 0 ? (
+                        post.data.videoURL.map((url, index) => (
+                            url !== null ? (
+                                <iframe
+                                    key={index}
+                                    src={`https://www.youtube.com/embed/${getVideoId(url)}`}
+                                    title="Dressed In Black - Tributo a DEPECHE MODE"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowFullScreen
+                                />
+                            ) : null
+                        ))
+                    ) : (
+                        <></>
+                    )}
+                </div>
+
                 {token && <button className="developer-only-btn" onClick={handleEditClick}>Enable Edit</button>}
                 
                 {isEditPostVisible && (
