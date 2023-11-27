@@ -25,9 +25,6 @@ const mailer = require("../services/mailer");
 const router = Router();
 
 // GET
-router.get("/news");
-
-router.get("/about");
 
 router.get("/tour", json(), async (req, res) => {
     const tour = await getTour();

@@ -4,7 +4,7 @@ import getToken from "../services/token/get-token";
 import getUserToken from "../services/token/get-user-token";
 import deleteToken from "../services/token/delete-token";
 
-function Menu({isMenuOpen, closeMenu}) {
+function Menu({isMenuOpen}) {
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(false)
 
@@ -20,11 +20,11 @@ function Menu({isMenuOpen, closeMenu}) {
     }, []);
     
     const handleLinkClick = () => {
-        closeMenu();
+        // closeMenu();
     }
 
     const handleLogOut = () => {
-        deleteToken();
+        deleteToken();  
         setIsLoggedIn(false)
         navigate("/")
     }

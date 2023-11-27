@@ -1,5 +1,5 @@
 import logo from "../assets/logo/logo-contact.jpg"
-import ContactUs from "./Contact-us";
+import ContactCard from "../components/Contact-Card";
 
 function RiderPage() {
 
@@ -210,7 +210,7 @@ function RiderPage() {
                 {/* Página 6 */}
                 <section className="sub-rider rider-contact">
                     <h3 className="rider-main-title">Contacto</h3>
-                    <ContactUs />
+                    <ContactCard />
                 </section>
             </article>
         </section>

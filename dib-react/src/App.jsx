@@ -60,7 +60,6 @@ function App() {
                 <Route path="/editPost" element={<EditPost />}></Route>
                 <Route path="/editTour" element={<UniqueTour />}></Route>
                 {/* <Route path="" element={}></Route>
-                
                 <Route path="" element={}></Route>
                 <Route path="" element={}></Route> */}
               </Routes>
