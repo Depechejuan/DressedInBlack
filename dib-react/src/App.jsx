@@ -4,12 +4,12 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ContactUs from "./pages/Contact-us.jsx";
 import HomePage from './pages/Home-page';
 import NavBar from './components/Nav-bar';
-import Slider from './components/Slider';
 import TourPage from './pages/Tour-page';
 import EditPost from './forms/Edit-Post.jsx';
 import RiderPage from './pages/Rider.jsx';
 import Banner from './components/Banner.jsx';
 import UniquePost from './components/Unique-post';
+// import Slider from './components/Slider';
 
 // import utilities
 // import { SliderIMG } from './components/Images-slider';
@@ -22,7 +22,6 @@ import TourForm from './forms/Tour-Form.jsx';
 // css imports
 import './styles/App.css'
 import "./styles/user-details.css"
-import "./styles/App.css"
 import "./styles/forms.css"
 import "./styles/post-list.css"
 import "./styles/slider.css"
@@ -33,6 +32,7 @@ import "./styles/rider.css"
 import "./styles/tour.css"
 import UniqueTour from './components/Unique-Tour.jsx';
 import Video from './pages/Video.jsx';
+import Menu from './components/Menu.jsx';
 
 // import Menu from './components/Menu'
 
@@ -42,6 +42,7 @@ function App() {
         <Router>
         <Banner />
           {/* <Slider slides={SliderIMG}/> */}
+          <Menu />
             <main>
               <Routes>
                 <Route path="/" element={<HomePage />}></Route>

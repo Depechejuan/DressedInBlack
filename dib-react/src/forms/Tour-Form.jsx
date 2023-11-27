@@ -62,18 +62,12 @@ function TourForm() {
                 setlist,
                 videoURL: filteredLinks.length > 0 ? filteredLinks : undefined,
             }
-            console.log(newTour)
             let photos = selectedPhotos;
-            console.log(photos);
-            console.log(photos.length);
             setSubmitting(true);
             setSubmitting("Enviando...");
 
             const response = await createNewTour(newTour, token);
-            console.log(response.success);
-            console.log(response.data.fullTour);
             if (response.success == true) {
-                console.log("La repuesta es OK");
                 const idTour = response.data.fullTour.id;
                 const type = "tour";
 
@@ -82,13 +76,11 @@ function TourForm() {
                 }
 
                 if (photos.length > 0) {
-                    console.log("cumple este if");
                     const photosSended = await sendPhoto(type, idTour, photos, token);
-                    console.log(photosSended);
                     if (photosSended.ok == true) {
                         navigate(`/tour`);
                     } else {
-                        console.log("Error sending photo:", photosSended.error);
+                        console.error("Error sending photo:", photosSended.error);
                     }
                 }
                 navigate(`/tour`);

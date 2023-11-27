@@ -30,33 +30,33 @@ function Menu({isMenuOpen, closeMenu}) {
     }
 
     return(
-            <nav className={`${isMenuOpen ? "open" : ""} desktop-navbar`}>
-                <ul>
+        <nav className={`${isMenuOpen ? "open" : "close"} desktop-navbar`}>
+            <ul className="nav-menu">
+                <li>
+                    <Link to="/" onClick={handleLinkClick}>Home</Link>
+                </li>
+                <li>
+                    <Link to="/about" onClick={handleLinkClick}>Quienes Somos</Link>
+                </li>
+                <li>
+                    <Link to="/tour" onClick={handleLinkClick}>Tour</Link>
+                </li>
+                <li>
+                    <Link to="/video" onClick={handleLinkClick}>Video</Link>
+                </li>
+                <li>
+                    <Link to="/rider" onClick={handleLinkClick}>Rider</Link>
+                </li>
+                <li>
+                    <Link to="/contact" onClick={handleLinkClick}>Contactar</Link>
+                </li>
+                {isLoggedIn && (
                     <li>
-                        <Link to="/" onClick={handleLinkClick}>Home</Link>
+                        <button onClick={handleLogOut}>Logout</button>
                     </li>
-                    <li>
-                        <Link to="/about" onClick={handleLinkClick}>Quienes Somos</Link>
-                    </li>
-                    <li>
-                        <Link to="/tour" onClick={handleLinkClick}>Tour</Link>
-                    </li>
-                    <li>
-                        <Link to="/video" onClick={handleLinkClick}>Video</Link>
-                    </li>
-                    <li>
-                        <Link to="/rider" onClick={handleLinkClick}>Rider</Link>
-                    </li>
-                    <li>
-                        <Link to="/contact" onClick={handleLinkClick}>Contactar</Link>
-                    </li>
-                    {isLoggedIn && (
-                        <li>
-                            <button onClick={handleLogOut}>Logout</button>
-                        </li>
-                )}
-                </ul>
-            </nav>
+            )}
+            </ul>
+        </nav>
     );
 }
 
