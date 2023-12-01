@@ -19,11 +19,6 @@ section .tour-title {
     color: white;
 }
 
-.tour-video {
-    display: flex;
-    margin: 1rem;
-}
-
 .tour-name-title,
 .tour-city-title {
     text-align: center;

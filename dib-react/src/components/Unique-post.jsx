@@ -98,6 +98,7 @@ function UniquePost() {
                             url !== null ? (
                                 <iframe
                                     key={url.id}
+                                    className="video-container"
                                     src={`https://www.youtube.com/embed/${getVideoId(url)}`}
                                     title="Dressed In Black - Tributo a DEPECHE MODE"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

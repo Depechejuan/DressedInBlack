@@ -44,17 +44,19 @@
     overflow: auto;
 }
 
-.image-container {
+.image-container,
+.tour-video {
     gap: 20px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     width: 100%;
-    overflow: hidden; /* Para ocultar cualquier desbordamiento */
+    overflow: hidden;
 }
 
-.image-container img {
+.image-container img,
+.tour-video iframe {
     display: flex;
     width: auto;
     height: 250px;
@@ -62,6 +64,7 @@
     object-fit: contain;
     justify-content: space-evenly;
     max-width: calc(33.33% - 20px);
+    margin: 20px 0;
 }
 
 .image-preview {

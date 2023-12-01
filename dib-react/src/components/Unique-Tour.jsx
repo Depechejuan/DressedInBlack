@@ -55,8 +55,8 @@ function UniqueTour() {
             <span>
                 Setlist:
                 <br />
-                {tour.setlist && tour.setlist.split("\n").map((line, i) => (
-                    <p key={i}>{line}</p>
+                {tour.setlist && tour.setlist.split("\n").map((line) => (
+                    <p key={line.id}>{line}</p>
                 ))}
             </span>
             <div className="image-container">
@@ -91,6 +91,7 @@ function UniqueTour() {
                     tour.videoURL.map((url) => (
                         <iframe
                             key={url.id}
+                            className="video-container"
                             src={`https://www.youtube.com/embed/${getVideoId(url)}`}
                             title="Dressed In Black - Tributo a DEPECHE MODE"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -101,10 +102,8 @@ function UniqueTour() {
                     <></>
                 )}
             </div>
-            
             </section>
             </article>
-
             <EditTourForm tourData={tour} id={id} />
         </section>
     )
