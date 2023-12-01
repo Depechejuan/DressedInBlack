@@ -59,12 +59,13 @@ function UniqueTour() {
                     <p key={i}>{line}</p>
                 ))}
             </span>
-            <figure className="post-images">
+            <div className="image-container">
                 {tour.imageURL && tour.imageURL.some((image) => image !== null) ? (
                     tour.imageURL.map((image, index) =>
                         image !== null ? (
-                            <div key={index} className="image-container">
+                            <>
                                 <img
+                                    key={index}
                                     src={`${host}${image}`}
                                     alt={`Dressed In Black - TRIBUTO a Depeche Mode de España`}
                                     className="every-post-image"
@@ -77,13 +78,13 @@ function UniqueTour() {
                                         X
                                     </button>
                                 )}
-                            </div>
+                            </>
                         ) : null
                     )
                 ) : (
                     <></>
                 )}
-            </figure>
+            </div>
             {console.log(tour)}
             <div className="tour-video">
                 {tour.videoURL && tour.videoURL.length > 0 ? (

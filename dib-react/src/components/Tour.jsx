@@ -89,7 +89,7 @@ function Tour() {
                                                         <p key={i + index}>{line}</p>
                                                     ))}
                                                 </span>
-                                                <figure className="post-images">
+                                                <div className="image-container">
                                                     {date.imageURL.some((image) => image !== null) ? (
                                                     date.imageURL.map((image, index) =>
                                                         image !== null ? (
@@ -104,7 +104,7 @@ function Tour() {
                                                     ) : (
                                                     <></>
                                                     )}
-                                                </figure>
+                                                </div>
                                                 <div className="tour-video">
                                                 {date.videoURL && date.videoURL.length > 0 ? (
                                                     date.videoURL.map((url, index) => (

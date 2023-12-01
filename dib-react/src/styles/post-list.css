@@ -30,6 +30,8 @@
 
 .post-description {
     margin-left: 0;
+    white-space: pre-line;
+    margin-bottom: 2rem;
 }
 
 .preview-post,
@@ -42,26 +44,29 @@
     overflow: auto;
 }
 
-.post-images {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    justify-items: center;
+.image-container {
     gap: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    overflow: hidden; /* Para ocultar cualquier desbordamiento */
 }
 
-.image-preview,
-.every-post-image {
+.image-container img {
+    display: flex;
+    width: auto;
+    height: 250px;
+    align-self: center;
+    object-fit: contain;
+    justify-content: space-evenly;
+    max-width: calc(33.33% - 20px);
+}
+
+.image-preview {
     max-width: 100%;
     align-self: center;
-}
-
-.post-description {
-    white-space: pre-line;
-    margin-bottom: 2rem;
-}
-
-.image-container {
-    margin-bottom: 2rem;
 }
 
 @media screen and (min-width: 600px) {

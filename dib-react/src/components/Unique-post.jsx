@@ -66,31 +66,30 @@ function UniquePost() {
                 <Dates date={post.data.createdAt} />
                 <p className="post-description">{post.data.description}</p>
                 <div className="image-container">
-                    <figure className="post-images">
-                    {post.data.imageURL && post.data.imageURL.some((image) => image !== null) ? (
-                        post.data.imageURL.map((image, index) =>
-                            image !== null ? (
-                                <div key={index} className="image-container">
-                                    <img
-                                        src={`${host}${image}`}
-                                        alt={`Dressed In Black - TRIBUTO a Depeche Mode de España`}
-                                        className="every-post-image"
-                                    />
-                                    {token && (
-                                        <button
-                                            className="delete-photo-button"
-                                            onClick={() => deletePhoto(image)}
-                                        >
-                                            X
-                                        </button>
-                                    )}
-                                </div>
-                            ) : null
-                        )
+                {post.data.imageURL && post.data.imageURL.some((image) => image !== null) ? (
+                    post.data.imageURL.map((image, index) =>
+                        image !== null ? (
+                            <>
+                                <img
+                                    key={index}
+                                    src={`${host}${image}`}
+                                    alt={`Dressed In Black - TRIBUTO a Depeche Mode de España`}
+                                    className="every-post-image"
+                                />
+                                {token && (
+                                    <button
+                                        className="delete-photo-button"
+                                        onClick={() => deletePhoto(image)}
+                                    >
+                                        X
+                                    </button>
+                                )}
+                                </>
+                        ) : null
+                    )
                     ) : (
-                        <></>
+                    <></>
                     )}
-                </figure>
                 </div>
 
                 <div className="tour-video">
