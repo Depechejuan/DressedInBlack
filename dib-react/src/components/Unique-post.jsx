@@ -110,9 +110,9 @@ function UniquePost() {
                         <></>
                     )}
                 </div>
-
+                <br />
                 {token && <button className="developer-only-btn" onClick={handleEditClick}>Enable Edit</button>}
-                
+                <br />
                 {isEditPostVisible && (
                 <EditPost
                     id={id}
@@ -122,6 +122,7 @@ function UniquePost() {
                     post={post} // Pasa el estado 'post'
                 />
                 )}
+
             </article>
     )
 }

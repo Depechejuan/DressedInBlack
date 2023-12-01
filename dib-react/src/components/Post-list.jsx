@@ -63,11 +63,13 @@ function PostList() {
                     </div>
 
                     <div className="tour-video">
+                        {console.log("La próxima línea es la que me interesa")}
+                        {console.log(post.videoURL)}
                         {post.videoURL && post.videoURL.length > 0 ? (
                             post.videoURL.map((url) => (
                                 url !== null ? (
                                     <iframe
-                                        key={url.id}
+                                        key={url.id} // Asegúrate de que url.id sea único
                                         className="video-container"
                                         src={`https://www.youtube.com/embed/${getVideoId(url)}`}
                                         title="Dressed In Black - Tributo a DEPECHE MODE"

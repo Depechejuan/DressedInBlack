@@ -160,15 +160,15 @@ const EditPost = ({ id, data, onHide, updatePost, post }) => {
             )}
             </div>
         <div className="existing-photos">
-        <p>Fotos previas</p>
-        {data.imageURL.map((image) => (
-            <img
-            key={image.id}
-            src={`${host}${image}`}
-            alt={`Dressed In Black - TRIBUTO a Depeche Mode de España`}
-            className="photo-preview"
-            />
-        ))}
+            <p>Fotos previas</p>
+            {data.imageURL && data.imageURL.map((image) => (
+                <img
+                key={data.id}
+                src={`${host}${image}`}
+                alt={`Dressed In Black - TRIBUTO a Depeche Mode de España`}
+                className="photo-preview"
+                />
+            ))}
         </div>
         
         {/* Sección para las nuevas imágenes */}
