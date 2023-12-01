@@ -47,10 +47,10 @@ function PostList() {
                     <p className="post-description">{post.description}</p>
                     <div className="image-container">
                         {post.imageURL.some((image) => image !== null) ? (
-                        post.imageURL.map((image, index) =>
+                        post.imageURL.map((image) =>
                             image !== null ? (
                                 <img
-                                    key={index}
+                                    key={image.id}
                                     src={`${host}${image}`}
                                     alt={`Dressed In Black - TRIBUTO a Depeche Mode de España`}
                                     className="every-post-image"
@@ -64,10 +64,10 @@ function PostList() {
 
                     <div className="tour-video">
                         {post.videoURL && post.videoURL.length > 0 ? (
-                            post.videoURL.map((url, index) => (
+                            post.videoURL.map((url) => (
                                 url !== null ? (
                                     <iframe
-                                        key={index}
+                                        key={url.id}
                                         src={`https://www.youtube.com/embed/${getVideoId(url)}`}
                                         title="Dressed In Black - Tributo a DEPECHE MODE"
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

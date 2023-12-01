@@ -61,11 +61,11 @@ function UniqueTour() {
             </span>
             <div className="image-container">
                 {tour.imageURL && tour.imageURL.some((image) => image !== null) ? (
-                    tour.imageURL.map((image, index) =>
+                    tour.imageURL.map((image) =>
                         image !== null ? (
                             <>
                                 <img
-                                    key={index}
+                                    key={image.id}
                                     src={`${host}${image}`}
                                     alt={`Dressed In Black - TRIBUTO a Depeche Mode de España`}
                                     className="every-post-image"
@@ -88,9 +88,9 @@ function UniqueTour() {
             {console.log(tour)}
             <div className="tour-video">
                 {tour.videoURL && tour.videoURL.length > 0 ? (
-                    tour.videoURL.map((url, index) => (
+                    tour.videoURL.map((url) => (
                         <iframe
-                            key={index}
+                            key={url.id}
                             src={`https://www.youtube.com/embed/${getVideoId(url)}`}
                             title="Dressed In Black - Tributo a DEPECHE MODE"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

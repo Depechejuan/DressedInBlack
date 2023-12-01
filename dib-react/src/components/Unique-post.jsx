@@ -67,11 +67,11 @@ function UniquePost() {
                 <p className="post-description">{post.data.description}</p>
                 <div className="image-container">
                 {post.data.imageURL && post.data.imageURL.some((image) => image !== null) ? (
-                    post.data.imageURL.map((image, index) =>
+                    post.data.imageURL.map((image) =>
                         image !== null ? (
                             <>
                                 <img
-                                    key={index}
+                                    key={image.id}
                                     src={`${host}${image}`}
                                     alt={`Dressed In Black - TRIBUTO a Depeche Mode de España`}
                                     className="every-post-image"
@@ -94,10 +94,10 @@ function UniquePost() {
 
                 <div className="tour-video">
                     {post.data.videoURL && post.data.videoURL.length > 0 ? (
-                        post.data.videoURL.map((url, index) => (
+                        post.data.videoURL.map((url) => (
                             url !== null ? (
                                 <iframe
-                                    key={index}
+                                    key={url.id}
                                     src={`https://www.youtube.com/embed/${getVideoId(url)}`}
                                     title="Dressed In Black - Tributo a DEPECHE MODE"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

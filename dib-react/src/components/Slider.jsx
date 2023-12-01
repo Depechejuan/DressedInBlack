@@ -46,7 +46,7 @@ function Slider() {
                     return (
                         <div
                             className={index === currentImage ? 'slide active' : 'slide'}
-                            key={index}
+                            key={slide.id}
                         >
                             {index === currentImage && (
                                 <img src={slide.image} alt='Dressed In Black' className='image' />

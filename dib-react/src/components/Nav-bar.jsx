@@ -14,12 +14,23 @@ function NavBar() {
     }
 
 
-    return(
-            <nav className="mobile-navbar">
-                <img onClick={handleMenuClick} className="menu-icon" src={menuIcon} alt="Menu"/>
-                <Menu isMenuOpen={isMenuOpen} closeMenu={closeMenu} />
-            </nav>
-    )
+    return (
+        <nav className="mobile-navbar">
+            <input
+                type="image"
+                src={menuIcon}
+                alt="Menu"
+                className="menu-icon"
+                onClick={handleMenuClick}
+                onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === 'Space') {
+                    handleMenuClick();
+                    }
+                }}
+            />
+            <Menu isMenuOpen={isMenuOpen} closeMenu={closeMenu} />
+        </nav>
+        );
 }
 
 export default NavBar;

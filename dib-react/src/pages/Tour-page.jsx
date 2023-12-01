@@ -3,9 +3,7 @@ import Tour from "../components/Tour";
 
 function TourPage() {
     return (
-        <>
-            <Tour />
-        </>
+        <Tour />
     )
 }
 

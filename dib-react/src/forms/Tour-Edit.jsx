@@ -211,9 +211,9 @@ function EditTourForm({ tourData, id }) {
 
             {youtubeLinks.map((link, index) => (
                 <input
-                    key={index}
+                    key={link.id}
                     type="text"
-                    name={`youtubeLink${index}`}
+                    name={`youtubeLink${link}`}
                     placeholder="Youtube URL"
                     className="youtube"
                     value={youtubeLinks ? youtubeLinks[index] : link}
@@ -238,9 +238,9 @@ function EditTourForm({ tourData, id }) {
             <div className="custom-file-input">
                     {selectedPhotos.length > 0 && 
                         <div className="photo-preview-container">
-                            {selectedPhotos.map((photo, index) => (
+                            {selectedPhotos.map((photo) => (
                             <img
-                            key={index}
+                            key={photo.id}
                             src={URL.createObjectURL(photo)} alt="Preview"
                             className="photo-preview" />
                             ))}

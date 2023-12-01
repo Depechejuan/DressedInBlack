@@ -64,8 +64,8 @@ function Tour() {
                         <li key={tourName}>
                             <h3>{tourName}:</h3>
                             <ul className="tour-filter">
-                                {tourByNames[tourName].map((date, index) => (
-                                    <li key={index}>
+                                {tourByNames[tourName].map((date) => (
+                                    <li key={date.tourDate}>
                                         <a
                                             href={`#${date.tourDate}`}
                                             onClick={() => toggleEntry(date.tourDate)}
@@ -85,16 +85,16 @@ function Tour() {
                                                 <span>
                                                     Setlist:
                                                     <br />
-                                                    {date.setlist.split("\n").map((line, i) => (
-                                                        <p key={i + index}>{line}</p>
+                                                    {date.setlist.split("\n").map((line) => (
+                                                        <p key={date.city}>{line}</p>
                                                     ))}
                                                 </span>
                                                 <div className="image-container">
                                                     {date.imageURL.some((image) => image !== null) ? (
-                                                    date.imageURL.map((image, index) =>
+                                                    date.imageURL.map((image) =>
                                                         image !== null ? (
                                                         <img
-                                                            key={index}
+                                                            key={image.id}
                                                             src={`${host}${image}`}
                                                             alt={`Dressed In Black - TRIBUTO a Depeche Mode de España`}
                                                             className="every-post-image"
@@ -107,9 +107,9 @@ function Tour() {
                                                 </div>
                                                 <div className="tour-video">
                                                 {date.videoURL && date.videoURL.length > 0 ? (
-                                                    date.videoURL.map((url, index) => (
+                                                    date.videoURL.map((url) => (
                                                         <iframe
-                                                            key={index}
+                                                            key={url.id}
                                                             src={`https://www.youtube.com/embed/${getVideoId(url)}`}
                                                             title="Dressed In Black - Tributo a DEPECHE MODE"
                                                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

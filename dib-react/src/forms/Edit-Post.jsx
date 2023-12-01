@@ -140,7 +140,7 @@ const EditPost = ({ id, data, onHide, updatePost, post }) => {
 
             {youtubeLinks.map((link, index) => (
                 <input
-                    key={index}
+                    key={link.id}
                     type="text"
                     name={`youtubeLink${index}`}
                     placeholder="Youtube URL"
@@ -161,9 +161,9 @@ const EditPost = ({ id, data, onHide, updatePost, post }) => {
             </div>
         <div className="existing-photos">
         <p>Fotos previas</p>
-        {data.imageURL.map((image, index) => (
+        {data.imageURL.map((image) => (
             <img
-            key={index}
+            key={image.id}
             src={`${host}${image}`}
             alt={`Dressed In Black - TRIBUTO a Depeche Mode de España`}
             className="photo-preview"
@@ -176,9 +176,9 @@ const EditPost = ({ id, data, onHide, updatePost, post }) => {
         <p>Nuevas Fotos</p>
             {selectedPhotos.length > 0 && (
                 <div className="photo-preview-container">
-                {selectedPhotos.map((photo, index) => (
+                {selectedPhotos.map((photo) => (
                     <img
-                    key={index}
+                    key={photo.id}
                     src={URL.createObjectURL(photo)}
                     alt="Preview"
                     className="photo-preview"
