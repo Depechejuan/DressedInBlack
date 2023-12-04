@@ -1,13 +1,9 @@
-// Here we will set all memeber cards and info about the bandimport UserDetailJuan from "../components/User-Detail-Juan";
-
 import UserDetail from "../components/User-Detail";
 
-
 function AboutPage() {
-
     return (
     <section className="quienes-somos">
-        <h2>¿Quienes Somos?</h2>
+        <h3 className="about">¿Quienes Somos?</h3>
         <p>
             Dressed In Black es una banda Tributo a Depeche Mode fundada en 2010 por cuatro Devotos de la banda en la ciudad de Valencia.
             <br />
@@ -22,10 +18,9 @@ function AboutPage() {
         <br />
         Cada concierto al que se asiste es diferente. Nunca repetimos Setlist debido a los más de 70 temas disponible para interpretar con una producción muy cuidada.
         </p>
-
-    <h3>Dressed In Black son: </h3>
+        <div className="bar"></div>
+        <h3 className="about">Dressed In Black son: </h3>
         <UserDetail />
-
 
         <p className="thanks">
             Special thanks to: Laura Saint-Claire, Emi Wilder, Carlos Maroto, Luis Botella, José Payá, Juan Luis Manosalbas, Julio César 

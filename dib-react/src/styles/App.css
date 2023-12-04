@@ -76,6 +76,10 @@ main {
     object-fit: none;
 }
 
+.hidden {
+    display: none;
+}
+
 h1 {
     text-align: center;
 }
@@ -102,28 +106,27 @@ p {
 }
 
 .thanks {
-    margin-bottom: 50px;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 55px;
 }
 
 ul {
     list-style: none;
 }
-/* 
-@media screen and (min-width: 600px) {
-    header {
-        height: 200px;
-    }
+
+.divider {
+    width: 80%;
+    height: 2px;
+    border-bottom: 2px solid rgb(100, 95, 92);
+    margin: 0 auto;
 }
 
-@media screen and (min-width: 700px) {
-    header {
-        height: 250px;
-    }
+.videos .divider {
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
-@media screen and (min-width: 1000px) {
-    header {
-        height: 300px;
-        width: 800px;
-    }
-} */
+main > section:last-child {
+    margin-bottom: 60px;
+}

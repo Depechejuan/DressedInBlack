@@ -10,8 +10,8 @@ import CreateBtn from "../components/Create-btn";
 
         return(
             <section className="all-posts">
-                <h1>Dressed In Black</h1>
-                <h2>Tributo a Depeche Mode</h2>
+                <h1 className="hidden">Dressed In Black</h1>
+                <h2 className="hidden">Tributo a Depeche Mode</h2>
                 {token && <Link to="/dibposts"><CreateBtn method={method} /></Link>}
                 <PostList />
             </section>

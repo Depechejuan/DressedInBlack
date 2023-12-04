@@ -41,6 +41,11 @@ article {
     text-align: left;
 }
 
+.about {
+    text-align: center;
+    font-size: 3rem;
+}
+
 @media screen and (min-width: 700px) {
     /* 
     Special Details for Escri

@@ -30,6 +30,7 @@ import "./styles/buttons.css"
 import "./styles/contact.css"
 import "./styles/rider.css"
 import "./styles/tour.css"
+import "./styles/videos.css"
 import UniqueTour from './components/Unique-Tour.jsx';
 import Video from './pages/Video.jsx';
 import Menu from './components/Menu.jsx';

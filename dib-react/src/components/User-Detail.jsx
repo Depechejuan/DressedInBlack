@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import getUser from "../services/get-user";
 import Loading from "./Loading";
+import Divider from "./Divider";
 
 const host = import.meta.env.VITE_API_HOST;
 
@@ -27,6 +28,7 @@ function UserDetail() {
     return(
         <>
         {user.data.map(u => (
+            <div className="users-about" key={user.id}>
             <article className={`user-${u.userName} user-article`} key={u.id}>
                 <h4 className="user-name">
                     {u.realName}
@@ -46,9 +48,11 @@ function UserDetail() {
                     <p className={`user-fav-${u.userName} fav-user`}>Disco Favorito: {u.favAlbum} / Canción Favorita: {u.favSong}</p>
                 </section>
             </article>
+            <Divider />
+            </div>
         ))}
-        
         </>
+
     )
 }
 export default UserDetail;
