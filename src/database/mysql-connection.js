@@ -8,7 +8,7 @@ function createPool(database) {
     const { MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD } = process.env;
     console.log("asking permission...");
     return mysql2.createPool({
-        connectionLimit: 15,
+        connectionLimit: 5,
         host: MYSQL_HOST,
         user: MYSQL_USER,
         database: database,

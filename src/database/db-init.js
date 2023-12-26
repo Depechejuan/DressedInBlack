@@ -10,14 +10,14 @@ const DATABASE_NAME = process.env.MYSQL_DATABASE;
 
 const dbInit = async () => {
     const pool = createPool();
-    console.log("Deleting previous data...");
-    await pool.query(`DROP DATABASE IF EXISTS ${DATABASE_NAME}`);
-    console.log("Database successfuly deleted");
-    console.log("Creating new DataBase");
-    await pool.query(`CREATE DATABASE ${DATABASE_NAME}`);
-    console.log("Database successfully created");
-    await pool.query(`USE ${DATABASE_NAME}`);
-    console.log("Generating tables...");
+    // console.log("Deleting previous data...");
+    // await pool.query(`DROP DATABASE IF EXISTS ${DATABASE_NAME}`);
+    // console.log("Database successfuly deleted");
+    // console.log("Creating new DataBase");
+    // await pool.query(`CREATE DATABASE ${DATABASE_NAME}`);
+    // console.log("Database successfully created");
+    // await pool.query(`USE ${DATABASE_NAME}`);
+    // console.log("Generating tables...");
     await createTables(pool);
     console.log("Adding Details to DataBase");
     await addData(pool);
@@ -80,7 +80,7 @@ async function createTables(pool) {
             createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             modifiedAt TIMESTAMP,
             FOREIGN KEY (idUser) REFERENCES users (id) ON DELETE CASCADE
-    )`);
+    );`);
 
     await pool.query(`
         CREATE TABLE IF NOT EXISTS tour (
@@ -175,6 +175,14 @@ async function createTables(pool) {
             FOREIGN KEY (idUser) REFERENCES users (id) ON DELETE CASCADE
         );
     `);
+
+    await pool.query(`
+    CREATE TABLE IF NOT EXISTS newsletter(
+        id CHAR(36) PRIMARY KEY,
+        email CHAR(36) NOT NULL,
+        city VARCHAR(255)
+    );
+`);
 }
 
 dbInit();
