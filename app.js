@@ -18,6 +18,8 @@ app.use(
             "http://localhost:5174",
             "http://localhost:5173",
             "http://localhost:5500",
+            "http://localhost:80",
+            "http://localhost",
         ],
     })
 );
