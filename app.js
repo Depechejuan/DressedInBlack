@@ -23,6 +23,7 @@ app.use(
             "http://localhost:80",
             "http://localhost",
             "https://busy-rose-clam.cyclic.app",
+            "https://busy-rose-clam.cyclic.app/users",
         ],
     })
 );
