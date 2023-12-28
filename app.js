@@ -24,6 +24,7 @@ app.use(
             "http://localhost",
             "https://busy-rose-clam.cyclic.app",
             "https://busy-rose-clam.cyclic.app/users",
+            "https://dressedinblack.netlify.app/",
         ],
     })
 );
