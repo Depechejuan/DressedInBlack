@@ -50,5 +50,6 @@ app.use((req, res) => {
 });
 
 app.listen(PORT, () => {
+    console.log("CORS re-activated");
     console.log(`Server running on Port ${PORT}`);
 });
