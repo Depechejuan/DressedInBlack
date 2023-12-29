@@ -13,21 +13,7 @@ const appRouter = require("./src/routes/app-router.js");
 const app = express();
 const PORT = 3000;
 
-app.use(
-    cors({
-        origin: [
-            "http://localhost:3000",
-            "http://localhost:5174",
-            "http://localhost:5173",
-            "http://localhost:5500",
-            "http://localhost:80",
-            "http://localhost",
-            "https://busy-rose-clam.cyclic.app",
-            "https://busy-rose-clam.cyclic.app/users",
-            "https://dressedinblack.netlify.app/",
-        ],
-    })
-);
+app.use(cors());
 
 app.use(express.json());
 app.use(validateToken);
