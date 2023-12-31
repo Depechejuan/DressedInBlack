@@ -379,6 +379,32 @@ module.exports = {
         await db.execute(statement, [id]);
     },
 
+    async sendNewsletter(data) {
+        const statement = `
+            INSERT INTO newsletter(id, email, city)
+            VALUES(?, ?, ?)`;
+        await db.execute(statement, [data.id, data.email, data.city]);
+    },
+
+    async checkNewsLetter(data) {
+        const statement = `
+            SELECT * FROM newsletter
+            WHERE email = ?
+        `;
+        const [rows] = await db.execute(statement, [data]);
+        return rows;
+    },
+
+    async getNewsletter() {
+        const statement = `
+            SELECT email FROM newsletter
+        `;
+        const [rows] = await db.execute(statement);
+        const emails = rows.map((row) => row.email);
+        const result = emails.join(", ");
+        return result;
+    },
+
     // async saveValidationCode(code) {
     //     const statement = `
     //     INSERT INTO validationcodes(id, idUser, code)

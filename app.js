@@ -15,6 +15,21 @@ const PORT = 3000;
 
 app.use(cors());
 
+/*
+{
+        origin: [
+            "http://localhost:3000",
+            "http://localhost:5174",
+            "http://localhost:5173",
+            "http://localhost:5500",
+            "http://localhost:80",
+            "http://localhost",
+            "https://busy-rose-clam.cyclic.app",
+            "https://dressedinblack.netlify.app/",
+        ],
+    }
+*/
+
 app.use(express.json());
 app.use(validateToken);
 app.use(appRouter);
@@ -38,6 +53,5 @@ app.use((req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log("CORS re-activated");
     console.log(`Server running on Port ${PORT}`);
 });

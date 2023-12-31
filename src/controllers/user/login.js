@@ -20,10 +20,6 @@ async function login(data) {
         throw invalidCredentials();
     }
 
-    // if (!user.emailValidated) {
-    //     throw emailNotValidated();
-    // }
-
     const passMatch = await validatePassword(data.password, user.password);
 
     if (!passMatch) {

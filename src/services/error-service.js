@@ -63,6 +63,13 @@ function genericError() {
     err.code = "GENERIC_ERROR";
 }
 
+function alreadyAdded() {
+    err = new Error("You are already on the list");
+    err.status = 400;
+    err.code = "ALREADY_ON_NEWSLETTER";
+    throw err;
+}
+
 module.exports = {
     invalidCredentials,
     emailNotValidated,
@@ -73,4 +80,5 @@ module.exports = {
     notFound,
     incomplete,
     genericError,
+    alreadyAdded,
 };

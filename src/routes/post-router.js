@@ -19,6 +19,7 @@ const {
     getPhotoIDfromTourID,
     getPhotoByID,
     getUserById,
+    getNewsletter,
 } = require("../services/db-service");
 const { invalidCredentials } = require("../services/error-service");
 const newPost = require("../controllers/post/new-post");
@@ -30,6 +31,7 @@ const addPhotoToTour = require("../controllers/post/add-tour-photo");
 const addPhotoToUser = require("../controllers/post/add-user-photo");
 const deleteType = require("../controllers/post/delete-type");
 const { deleteFile } = require("../services/file-service");
+const { dibMail } = require("../services/mailer");
 
 const router = Router();
 
@@ -169,7 +171,7 @@ router.delete("/tour/:id", authGuard, json(), async (req, res) => {
         );
     }
     // delete post from database
-    const del = await deleteTour(req.params.id);
+    await deleteTour(req.params.id);
     sendResponse(res);
 });
 
@@ -206,8 +208,17 @@ router.delete("/tour/:id/:idPhoto", authGuard, json(), async (req, res) => {
     const endpoint = "unique";
 
     // delete post from database
-    const del = await deleteType(endpoint, type, idType, idPhoto);
+    await deleteType(endpoint, type, idType, idPhoto);
     sendResponse(res);
+});
+
+// emial
+
+router.post("/send-email", authGuard, json(), async (req, res) => {
+    const suscribers = await getNewsletter();
+    await dibMail(mail, suscribers);
+    // Add image mail
+    sendResponse(res, mail);
 });
 
 module.exports = router;

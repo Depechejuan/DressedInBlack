@@ -2,6 +2,7 @@
 
 require("dotenv").config();
 const addData = require("./db-add-data");
+const addNewsletter = require("./db-add-newsletter");
 const addTourData = require("./db-add-tour-details");
 const { createPool } = require("./mysql-connection");
 
@@ -23,6 +24,8 @@ const dbInit = async () => {
     await addData(pool);
     console.log("Adding TourDates");
     await addTourData(pool);
+    console.log("Adding first newsletters");
+    await addNewsletter(pool);
     console.log("All done");
     console.log("Database Creation complete.");
     await pool.end();

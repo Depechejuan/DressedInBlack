@@ -13,6 +13,7 @@ const { sendResponse } = require("../utils/send-response");
 const { register } = require("../controllers/user/register");
 const authGuard = require("../middlewares/auth-guard");
 const controlPanel = require("../controllers/user/control-panel");
+const { newsletter } = require("../controllers/user/newsletter.js");
 const {
     getFullUserById,
     getTour,
@@ -65,6 +66,19 @@ router.post("/diblog", json(), async (req, res) => {
         } else {
             sendResponse(res, { error: "Internal Server Error" }, 500);
         }
+    }
+});
+
+router.post("/newsletter", json(), async (req, res) => {
+    try {
+        console.log("The data we have");
+        console.log(req.body);
+        console.log("now, send to newsletter");
+        await newsletter(req.body);
+        sendResponse(res, req.body);
+    } catch (err) {
+        console.error(err);
+        sendResponse(res, err);
     }
 });
 

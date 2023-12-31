@@ -1,7 +1,7 @@
 const nodemailer = require("nodemailer");
 require("dotenv").config();
 
-const email = process.env.USER1EMAIL;
+const email = process.env.BANDMAIL;
 const pass = process.env.SECUREPASSAPP;
 
 const transporter = nodemailer.createTransport({
@@ -18,7 +18,7 @@ transporter.verify().then(() => {
     console.log("Ready to send e-mails");
 });
 
-module.exports = async (fullMail) => {
+const contactForm = async (fullMail) => {
     try {
         console.log("ok");
         const info = await transporter.sendMail({
@@ -40,3 +40,47 @@ module.exports = async (fullMail) => {
         console.log(err);
     }
 };
+
+const suscribe = async (mail) => {
+    try {
+        console.log("ok");
+        const info = await transporter.sendMail({
+            from: `${email}`,
+            to: `${mail.email}`,
+            subject: `¡Gracias por unirte a la Newsletter de Dressed In Black!`,
+            text: `
+                Gracias por unirte a la Newsletter de www.dressedinblackband.com
+                Te recordamos que sólo enviaremos correos electrónicos anunciando nuestros conciertos en tu ciudad.
+                Se enviarán 2 correos:
+                - Un mes antes del evento.
+                - Dos o Tres días antes del evento.
+
+                Si no has elegido tu ciudad, te llegarán avisos de todos los conciertos de la banda.
+                Si quieres añadir tu ciudad, contacta con dressedinblackdm@gmail.com.
+
+                ¡Gracias Devotee!
+            `,
+        });
+        console.log("Message sent: %s", info.messageId);
+    } catch (err) {
+        console.error(err);
+    }
+};
+
+const dibMail = async (mail, suscribers) => {
+    try {
+        const info = await transporter.sendMail({
+            from: `${email}`,
+            to: `${suscribers}`,
+            subject: `${mail.subject}`,
+            text: `
+                ${mail.text}
+        `,
+        });
+        console.log("Message sent");
+    } catch (err) {
+        console.error(err);
+    }
+};
+
+module.exports = { contactForm, suscribe, dibMail };
