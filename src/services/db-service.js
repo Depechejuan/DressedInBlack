@@ -1,7 +1,6 @@
 const { getConnection } = require("../database/mysql-connection");
 
 const db = getConnection();
-
 module.exports = {
     // GET
     async getUserByEmail(email) {
@@ -388,11 +387,15 @@ module.exports = {
 
     async checkNewsLetter(data) {
         const statement = `
-            SELECT * FROM newsletter
+            SELECT email FROM newsletter
             WHERE email = ?
         `;
         const [rows] = await db.execute(statement, [data]);
-        return rows;
+        if (rows.length == 0) {
+            return null;
+        } else {
+            return rows;
+        }
     },
 
     async getNewsletter() {
