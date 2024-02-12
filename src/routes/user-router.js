@@ -33,7 +33,6 @@ router.get("/tour", json(), async (req, res) => {
 });
 
 router.get("/tour/:id", json(), async (req, res) => {
-    console.log("tour");
     const tour = await getTourByID(req.params.id);
     sendResponse(res, tour, 200);
 });
@@ -71,9 +70,6 @@ router.post("/diblog", json(), async (req, res) => {
 
 router.post("/newsletter", json(), async (req, res) => {
     try {
-        console.log("The data we have");
-        console.log(req.body);
-        console.log("now, send to newsletter");
         await newsletter(req.body);
         sendResponse(res, req.body);
     } catch (err) {
@@ -85,7 +81,6 @@ router.post("/newsletter", json(), async (req, res) => {
 // mail
 router.post("/dibcontact", json(), async (req, res) => {
     const mail = req.body;
-    console.log(mail);
     await mailer(mail);
     sendResponse(res);
 });
@@ -103,9 +98,7 @@ router.put(
     authGuard,
     upload.array("photos", 1),
     async (req, res) => {
-        console.log("editando foto de usuario - Endpoint");
         const photos = req.files;
-        console.log(photos);
         const method = "user";
         const sendPhotos = await addPhotoToUser(
             method,

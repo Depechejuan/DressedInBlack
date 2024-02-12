@@ -10,6 +10,7 @@ const {
     unauthorized,
 } = require("../../services/error-service");
 const { saveFile } = require("../../services/file-service");
+const { authorize } = require("../../validators/google-auth");
 
 // method = [ user, post, tour]
 
@@ -18,6 +19,7 @@ async function addPhotoToUser(method, idUser, idUserEdit, photos) {
     try {
         const user = await getUserById(idUserEdit);
         const originalUser = await getFullUserById(idUser);
+        const jwtClient = await authorize();
 
         if (!user) {
             notFound();
@@ -40,7 +42,6 @@ async function addPhotoToUser(method, idUser, idUserEdit, photos) {
                 imageURL: fileURL,
             });
         }
-        console.log("savedPhotos = ", savedPhotos);
 
         return savedPhotos;
     } catch (err) {

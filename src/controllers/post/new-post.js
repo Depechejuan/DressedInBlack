@@ -27,10 +27,9 @@ async function newPost(data, token, res) {
             title: data.title,
             description: data.description,
         };
-
         await createPost(post);
 
-        const videos = [];
+        let videos = [];
         if (Array.isArray(data.videoURL) && data.videoURL.length > 0) {
             for (const videoURL of data.videoURL) {
                 const video = {

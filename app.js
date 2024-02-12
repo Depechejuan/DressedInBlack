@@ -4,30 +4,15 @@ require("dotenv").config();
 const path = require("path");
 const cors = require("cors");
 const express = require("express");
-const fs = require("fs");
+
 const { sendError } = require("./src/utils/send-error.js");
 const validateToken = require("./src/middlewares/validate-token.js");
 const appRouter = require("./src/routes/app-router.js");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(cors());
-
-/*
-{
-        origin: [
-            "http://localhost:3000",
-            "http://localhost:5174",
-            "http://localhost:5173",
-            "http://localhost:5500",
-            "http://localhost:80",
-            "http://localhost",
-            "https://busy-rose-clam.cyclic.app",
-            "https://dressedinblack.netlify.app/",
-        ],
-    }
-*/
 
 app.use(express.json());
 app.use(validateToken);

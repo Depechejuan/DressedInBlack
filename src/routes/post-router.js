@@ -4,7 +4,7 @@
 const { Router, json } = require("express");
 const multer = require("multer");
 const upload = multer();
-
+const router = Router();
 const authGuard = require("../middlewares/auth-guard");
 
 // cases
@@ -33,11 +33,8 @@ const deleteType = require("../controllers/post/delete-type");
 const { deleteFile } = require("../services/file-service");
 const { dibMail } = require("../services/mailer");
 
-const router = Router();
-
 router.get("/dibposts", async (req, res) => {
     const posts = await getAllPosts();
-    const videos = [];
     sendResponse(res, posts);
 });
 
@@ -63,8 +60,7 @@ router.put("/dibposts/:id", authGuard, json(), async (req, res) => {
     const idPost = req.params.id;
     const idUser = req.currentUser.id;
     const payload = req.body;
-    const post = await editPost(idPost, idUser, payload);
-    console.log("Post en Endpoint", post);
+    await editPost(idPost, idUser, payload);
     sendResponse(res, payload);
 });
 
@@ -119,15 +115,13 @@ router.put(
     }
 );
 
-router.delete("/dibposts/:id", authGuard, json(), async (req, res) => {
+router.delete("/post/:id", authGuard, json(), async (req, res) => {
     if (!req.currentUser) {
         throw new Error("INVALID_CREDENTIALS");
     }
     const idUser = req.currentUser.id;
     const post = await getPostById(req.params.id);
     const photos = await getPhotoIDfromPostID(req.params.id);
-    console.log(photos.length);
-
     if (post.idUser !== idUser) {
         invalidCredentials();
     }
@@ -135,16 +129,10 @@ router.delete("/dibposts/:id", authGuard, json(), async (req, res) => {
     const type = "post";
     const endpoint = "full";
     if (photos.length > 0) {
-        const delphoto = await deleteType(
-            endpoint,
-            type,
-            req.params.id,
-            photos[0].idPhoto
-        );
+        await deleteType(endpoint, type, req.params.id, photos[0].idPhoto);
     }
     // delete post from database
     const del = await deletePost(req.params.id);
-
     sendResponse(res, del);
 });
 
@@ -155,20 +143,13 @@ router.delete("/tour/:id", authGuard, json(), async (req, res) => {
         throw new Error("INVALID_CREDENTIALS");
     }
 
-    const tour = await getTourByID(req.params.id);
+    await getTourByID(req.params.id);
     const photos = await getPhotoIDfromTourID(req.params.id);
-    console.log(photos.length);
-
     // delete files and database entry
     const type = "tour";
     const endpoint = "full";
     if (photos.length > 0) {
-        const delphoto = await deleteType(
-            endpoint,
-            type,
-            req.params.id,
-            photos[0].idPhoto
-        );
+        await deleteType(endpoint, type, req.params.id, photos[0].idPhoto);
     }
     // delete post from database
     await deleteTour(req.params.id);
@@ -181,12 +162,8 @@ router.delete("/post/:id/:idPhoto", authGuard, json(), async (req, res) => {
     }
     // id de la foto
     const idPhoto = req.params.idPhoto.replace(".webp", "");
-    console.log("ID de la foto: ", idPhoto);
-
     // id del post
     const idType = req.params.id;
-    console.log("ID del post: ", idType);
-    const idUser = req.currentUser.id;
     const type = "post";
     const endpoint = "unique";
 
@@ -212,10 +189,11 @@ router.delete("/tour/:id/:idPhoto", authGuard, json(), async (req, res) => {
     sendResponse(res);
 });
 
-// emial
-
+// email
 router.post("/send-email", authGuard, json(), async (req, res) => {
     const suscribers = await getNewsletter();
+    const mail = req.body;
+    console.log(mail);
     await dibMail(mail, suscribers);
     // Add image mail
     sendResponse(res, mail);

@@ -9,14 +9,16 @@ const {
     notFound,
     unauthorized,
 } = require("../../services/error-service");
-const { saveFile } = require("../../services/file-service");
+const { saveFile, uploadFile } = require("../../services/file-service");
+const { authorize } = require("../../validators/google-auth");
 
 async function addPhotoToPost(method, idPost, idUser, photos) {
     const savedPhotos = [];
-
+    console.log(photos);
     try {
         const post = await getPostById(idPost);
         const originalUser = await getFullUserById(idUser);
+        const jwtClient = await authorize();
         if (!post) {
             notFound();
         }
@@ -27,19 +29,20 @@ async function addPhotoToPost(method, idPost, idUser, photos) {
 
         for (const photo of photos) {
             const idPhoto = generateUUID();
-            const fileURL = await saveFile(method, post.id, idPhoto, photo);
-            const response = await savePhotoPost({
+            const fileURL = `/${method}/${idPost}/${idPhoto}`;
+            const upload = await uploadFile(jwtClient, fileURL, photo);
+            const fileName = upload.data.id;
+            await savePhotoPost({
                 id: idPhoto,
                 idPost: post.id,
-                imageURL: fileURL,
+                imageURL: fileName,
             });
             savedPhotos.push({
                 id: idPhoto,
                 idPost: post.id,
-                imageURL: fileURL,
+                imageURL: fileName,
             });
         }
-        console.log("savedPhotos = ", savedPhotos);
 
         return savedPhotos;
     } catch (err) {

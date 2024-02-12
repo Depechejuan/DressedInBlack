@@ -374,7 +374,7 @@ module.exports = {
     async deleteUniquePhotoByID(type, id) {
         const entry = type + "_photos";
         const statement = `
-        DELETE FROM ${entry} WHERE id = ?`;
+        DELETE FROM ${entry} WHERE imageURL = ?`;
         await db.execute(statement, [id]);
     },
 

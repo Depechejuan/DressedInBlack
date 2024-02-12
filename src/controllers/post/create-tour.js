@@ -7,7 +7,6 @@ const { sendResponse } = require("../../utils/send-response");
 
 async function createTour(data, token) {
     try {
-        console.log(data);
         const user = parseJWT(token);
 
         if (!user) {
@@ -44,7 +43,6 @@ async function createTour(data, token) {
         }
 
         const fullTour = { ...newTour, videos };
-        console.log(fullTour);
         return {
             fullTour,
         };

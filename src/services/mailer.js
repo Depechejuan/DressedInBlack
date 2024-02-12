@@ -20,7 +20,6 @@ transporter.verify().then(() => {
 
 const contactForm = async (fullMail) => {
     try {
-        console.log("ok");
         const info = await transporter.sendMail({
             from: `Contacto de ${fullMail.name} <${fullMail.mail}> - WebSite Form`,
             to: `${email}`,
@@ -37,13 +36,12 @@ const contactForm = async (fullMail) => {
         });
         console.log("Message sent: %s", info.messageId);
     } catch (err) {
-        console.log(err);
+        console.error(err);
     }
 };
 
 const suscribe = async (mail) => {
     try {
-        console.log("ok");
         const info = await transporter.sendMail({
             from: `${email}`,
             to: `${mail.email}`,
@@ -77,7 +75,6 @@ const dibMail = async (mail, suscribers) => {
                 ${mail.text}
         `,
         });
-        console.log("Message sent");
     } catch (err) {
         console.error(err);
     }

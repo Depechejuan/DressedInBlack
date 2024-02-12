@@ -3,22 +3,32 @@
 const {
     deleteUniquePhotoByID,
     deleteAllPhotosByTypeID,
+    getPostById,
+    getTourByID,
 } = require("../../services/db-service");
 const { deleteFile } = require("../../services/file-service");
+const { authorize } = require("../../validators/google-auth");
 
 async function deleteType(endpoint, type, idType, idPhoto) {
+    const jwtClient = await authorize();
     if (endpoint === "full") {
-        // delete local folder
-        await deleteFile(endpoint, type, idType);
-        // delete post by id on database
+        if (type == "post") {
+            const photos = await getPostById(idType);
+            for (const photo of photos.imageURL) {
+                await deleteFile(jwtClient, photo);
+            }
+        }
+        if (type == "tour") {
+            const photos = await getTourByID(idType);
+            for (const photo of photos.imageURL) {
+                await deleteFile(jwtClient, photo);
+            }
+        }
         await deleteAllPhotosByTypeID(type, idType);
     }
 
-    // insert only 1 photo case
     if (endpoint === "unique") {
-        // delete real file
-        await deleteFile(endpoint, type, idType, idPhoto);
-        // delete entry on the database
+        await deleteFile(jwtClient, idPhoto);
         await deleteUniquePhotoByID(type, idPhoto);
     }
 }
