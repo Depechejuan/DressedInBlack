@@ -1,84 +1,94 @@
 "use strict";
-
-let err = null;
-
-function invalidCredentials() {
-    err = new Error("You must enter a valid email and password");
-    err.status = 400;
-    err.code = "INVALID_CREDENTIALS";
-    throw err;
-}
-
-function emailNotValidated() {
-    err = new Error("Email has not been validated yet");
-    err.status = 400;
-    err.code = "EMAIL_NOT_VALIDATED";
-    throw err;
-}
-
-function emailAlreadyRegistered() {
-    err = new Error("This email has already been registered");
-    err.status = 400;
-    err.code = "EMAIL_ALREADY_REGISTERED";
-    throw err;
-}
-
-function didNotAcceptedTOS() {
-    err = new Error("User must accept terms and services to register");
-    err.status = 403;
-    err.code = "DID_NOT_ACCEPT_TOS";
-    throw err;
-}
-
-function notAuth() {
-    err = new Error("User not authenticated. Token missing");
-    err.status = 401;
-    err.code = "NOT_AUTHENTICATED";
-    throw err;
-}
-
-function unauthorized() {
-    err = new Error("User not authorized to do this action");
-    err.status = 403;
-    err.code = "UNAUTHORIZED";
-    throw err;
-}
-
-function notFound() {
-    err = new Error("Not Found");
-    err.status = 404;
-    err.code = "NOT_FOUND";
-    throw err;
-}
-
-function incomplete() {
-    err = new Error("You must complete all required data");
-    err.status = 403;
-    err.code = "INCOMPLETE";
-}
-
-function genericError() {
-    err = new Error("An error just ocurred");
-    err.status = 403;
-    err.code = "GENERIC_ERROR";
-}
-
-function alreadyAdded() {
-    err = new Error("You are already on the list");
-    err.status = 400;
-    err.code = "ALREADY_ON_NEWSLETTER";
-    throw err;
-}
+const success = false;
 
 module.exports = {
-    invalidCredentials,
-    emailNotValidated,
-    emailAlreadyRegistered,
-    didNotAcceptedTOS,
-    notAuth,
-    unauthorized,
-    notFound,
-    incomplete,
-    genericError,
-    alreadyAdded,
+    invalidCredentials() {
+        return {
+            success,
+            status: 400,
+            code: "INVALID_CREDENTIALS",
+            message: "You must enter a valid email and password",
+        };
+    },
+
+    emailNotValidated() {
+        return {
+            success,
+            status: 400,
+            code: "EMAIL_NOT_VALIDATED",
+            message: "Email has not been validated yet",
+        };
+    },
+
+    emailAlreadyRegistered() {
+        return {
+            success,
+            status: 400,
+            code: "EMAIL_ALREADY_REGISTERED",
+            message: "This email has already been registered",
+        };
+    },
+
+    didNotAcceptedTOS() {
+        return {
+            success,
+            status: 403,
+            code: "DID_NOT_ACCEPT_TOS",
+            message: "User must accept terms and services to register",
+        };
+    },
+
+    notAuth() {
+        return {
+            success,
+            status: 401,
+            code: "NOT_AUTHENTICATED",
+            message: "User not authenticated. Token missing",
+        };
+    },
+
+    unauthorized() {
+        return {
+            success,
+            status: 403,
+            code: "UNAUTHORIZED",
+            message: "User not authorized to do this action",
+        };
+    },
+
+    notFound() {
+        return {
+            success,
+            status: 404,
+            code: "NOT_FOUND",
+            message: "Not Found",
+        };
+    },
+
+    incomplete() {
+        return {
+            success,
+            status: 403,
+            code: "INCOMPLETE",
+            message: "You must complete all required data",
+        };
+    },
+
+    genericError() {
+        return {
+            success,
+            status: 403,
+            code: "GENERIC_ERROR",
+            message: "Something Went Wrong Along The Way...",
+        };
+    },
+
+    alreadyAdded() {
+        return {
+            success,
+            status: 400,
+            code: "ALREADY_ON_NEWSLETTER",
+            message: "You are already on the list",
+        };
+    },
 };
