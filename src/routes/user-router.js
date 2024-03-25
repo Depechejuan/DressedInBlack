@@ -22,6 +22,8 @@ const {
 } = require("../services/db-service");
 const addPhotoToUser = require("../controllers/post/add-user-photo");
 const mailer = require("../services/mailer");
+const { invalidCredentials } = require("../services/error-service.js");
+const { sendError } = require("../utils/send-error.js");
 
 const router = Router();
 
@@ -60,11 +62,7 @@ router.post("/diblog", json(), async (req, res) => {
         sendResponse(res, token);
     } catch (err) {
         console.error(err);
-        if (err.code === "INVALID_CREDENTIALS") {
-            sendResponse(res, { error: "Invalid email or password" }, 400);
-        } else {
-            sendResponse(res, { error: "Internal Server Error" }, 500);
-        }
+        sendError(res, err);
     }
 });
 
@@ -74,7 +72,7 @@ router.post("/newsletter", json(), async (req, res) => {
         sendResponse(res, req.body);
     } catch (err) {
         console.error(err);
-        sendResponse(res, err);
+        sendError(res, err);
     }
 });
 
