@@ -142,16 +142,10 @@ module.exports = {
         const statement = `
         SELECT
             p.*,
-            JSON_ARRAYAGG(pp.imageURL) AS imageURL,
-            JSON_ARRAYAGG(pv.videoURL) AS videoURL
+            (SELECT JSON_ARRAYAGG(pp.imageURL) FROM post_photos pp WHERE pp.idPost = p.id) AS imageURL,
+            (SELECT JSON_ARRAYAGG(pv.videoURL) FROM post_videos pv WHERE pv.idPost = p.id) AS videoURL
         FROM
             posts p
-        LEFT JOIN
-            post_photos pp ON p.id = pp.idPost
-        LEFT JOIN
-            post_videos pv ON p.id = pv.idPost
-        GROUP BY
-            p.id
         ORDER BY
             p.createdAt DESC;
         `;
