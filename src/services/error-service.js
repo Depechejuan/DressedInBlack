@@ -91,4 +91,13 @@ module.exports = {
             message: "You are already on the list",
         };
     },
+
+    uploadError() {
+        return {
+            success,
+            status: 400,
+            code: "UPLOAD_ERROR",
+            message: "Something Went Wrong Uploading...",
+        };
+    },
 };

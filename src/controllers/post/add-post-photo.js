@@ -5,9 +5,9 @@ const {
     getFullUserById,
 } = require("../../services/db-service");
 const {
-    genericError,
     notFound,
     unauthorized,
+    uploadError,
 } = require("../../services/error-service");
 const { saveFile } = require("../../services/file-service");
 
@@ -18,11 +18,11 @@ async function addPhotoToPost(method, idPost, idUser, photos) {
         const post = await getPostById(idPost);
         const originalUser = await getFullUserById(idUser);
         if (!post) {
-            notFound();
+            throw notFound();
         }
 
         if (post.idUser !== idUser && originalUser.role !== "Admin") {
-            unauthorized();
+            throw unauthorized();
         }
 
         for (const photo of photos) {
@@ -39,11 +39,10 @@ async function addPhotoToPost(method, idPost, idUser, photos) {
                 imageURL: fileURL,
             });
         }
-        console.log("savedPhotos = ", savedPhotos);
 
         return savedPhotos;
     } catch (err) {
-        genericError();
+        throw uploadError();
     }
 }
 

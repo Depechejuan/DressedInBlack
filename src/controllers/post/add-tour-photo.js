@@ -4,7 +4,11 @@ const {
     getFullUserById,
     savePhotoTour,
 } = require("../../services/db-service");
-const { notFound, unauthorized } = require("../../services/error-service");
+const {
+    notFound,
+    unauthorized,
+    uploadError,
+} = require("../../services/error-service");
 const { saveFile } = require("../../services/file-service");
 
 async function addPhotoToTour(method, idTour, idUser, photos) {
@@ -14,7 +18,7 @@ async function addPhotoToTour(method, idTour, idUser, photos) {
         const tour = await getTourByID(idTour);
 
         if (!tour) {
-            notFound();
+            throw notFound();
         }
 
         for (const photo of photos) {
@@ -35,6 +39,7 @@ async function addPhotoToTour(method, idTour, idUser, photos) {
         return savedPhotos;
     } catch (err) {
         console.error(err);
+        throw uploadError();
     }
 }
 
