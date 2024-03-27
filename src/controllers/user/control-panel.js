@@ -7,10 +7,10 @@ const errorService = require("../../services/error-service");
 async function controlPanel(idUser, userInfo) {
     const oldUserInfo = await getUserById(idUser);
     if (!oldUserInfo) {
-        return errorService.unauthorized();
+        throw errorService.unauthorized();
     }
     const userInfoEdit = Object.assign({}, oldUserInfo[0], userInfo);
-    const update = await updateUser(idUser, userInfoEdit);
+    await updateUser(idUser, userInfoEdit);
 
     return userInfoEdit;
 }

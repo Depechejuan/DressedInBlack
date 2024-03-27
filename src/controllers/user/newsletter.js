@@ -15,7 +15,7 @@ async function newsletter(payload) {
         const send = await sendNewsletter(data);
         return send;
     } else {
-        return alreadyAdded();
+        throw alreadyAdded();
     }
 }
 

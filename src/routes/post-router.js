@@ -114,7 +114,7 @@ router.put(
 
 router.delete("/post/:id", authGuard, json(), async (req, res) => {
     if (!req.currentUser) {
-        throw new Error("INVALID_CREDENTIALS");
+        throw invalidCredentials();
     }
     const idUser = req.currentUser.id;
     const post = await getPostById(req.params.id);
@@ -155,7 +155,7 @@ router.delete("/tour/:id", authGuard, json(), async (req, res) => {
 
 router.delete("/post/:id/:idPhoto", authGuard, json(), async (req, res) => {
     if (!req.currentUser) {
-        throw new Error("INVALID_CREDENTIALS");
+        throw invalidCredentials();
     }
     // id de la foto
     const idPhoto = req.params.idPhoto.replace(".webp", "");

@@ -100,4 +100,13 @@ module.exports = {
             message: "Something Went Wrong Uploading...",
         };
     },
+
+    emailNotSended() {
+        return {
+            success,
+            status: 400,
+            code: "EMAIL_NOT_SENDED",
+            message: "Something Went Wrong with the newsletter...",
+        };
+    },
 };

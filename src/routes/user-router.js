@@ -6,8 +6,6 @@ const multer = require("multer");
 const upload = multer();
 
 // cases
-const validateBody = require("../middlewares/validate-body");
-const { handleAsyncError } = require("../utils/handle-async-error");
 const { login } = require("../controllers/user/login");
 const { sendResponse } = require("../utils/send-response");
 const { register } = require("../controllers/user/register");
@@ -15,14 +13,12 @@ const authGuard = require("../middlewares/auth-guard");
 const controlPanel = require("../controllers/user/control-panel");
 const { newsletter } = require("../controllers/user/newsletter.js");
 const {
-    getFullUserById,
     getTour,
     getTourByID,
     getAllUsersFull,
 } = require("../services/db-service");
 const addPhotoToUser = require("../controllers/post/add-user-photo");
 const mailer = require("../services/mailer");
-const { invalidCredentials } = require("../services/error-service.js");
 const { sendError } = require("../utils/send-error.js");
 
 const router = Router();

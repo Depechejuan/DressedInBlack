@@ -43,7 +43,7 @@ async function saveFile(method, id, idPhoto, photo) {
         return photo.originalname;
     } catch (err) {
         console.error(err);
-        genericError();
+        throw genericError();
     }
 }
 

@@ -1,24 +1,27 @@
 const { parseJWT, generateUUID } = require("../../services/crypto-services");
 const { createPost, addVideoToPost } = require("../../services/db-service");
-const { notAuth, incomplete } = require("../../services/error-service");
-const { sendResponse } = require("../../utils/send-response");
+const {
+    notAuth,
+    incomplete,
+    uploadError,
+} = require("../../services/error-service");
 
 async function newPost(data, token, res) {
     try {
         const user = parseJWT(token);
 
         if (!user) {
-            notAuth();
+            throw notAuth();
         }
 
         if (!token) {
-            notAuth();
+            throw notAuth();
         }
 
         const { title, description } = data;
 
         if (!title || !description) {
-            incomplete();
+            throw incomplete();
         }
 
         const post = {
@@ -47,7 +50,7 @@ async function newPost(data, token, res) {
         };
     } catch (err) {
         console.error(err);
-        sendResponse(err);
+        throw uploadError();
     }
 }
 

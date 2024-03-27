@@ -18,12 +18,12 @@ const { getTimerForValidationCode } = require("../../services/time-service");
 
 async function register(userData) {
     if (!userData.acceptedTOS) {
-        didNotAcceptedTOS();
+        throw didNotAcceptedTOS();
     }
 
     const alreadyRegistered = await getUserByEmail(userData.email);
     if (alreadyRegistered) {
-        emailAlreadyRegistered();
+        throw emailAlreadyRegistered();
     }
 
     const hashedPassword = await hashPassword(userData.password);

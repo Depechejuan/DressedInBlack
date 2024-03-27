@@ -2,7 +2,7 @@
 
 const { parseJWT, generateUUID } = require("../../services/crypto-services");
 const { addTour, addVideoToTour } = require("../../services/db-service");
-const { notAuth } = require("../../services/error-service");
+const { notAuth, uploadError } = require("../../services/error-service");
 const { sendResponse } = require("../../utils/send-response");
 
 async function createTour(data, token) {
@@ -48,7 +48,7 @@ async function createTour(data, token) {
         };
     } catch (err) {
         console.error(err);
-        sendResponse(err);
+        throw uploadError();
     }
 }
 

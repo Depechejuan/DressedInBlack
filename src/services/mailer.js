@@ -1,4 +1,5 @@
 const nodemailer = require("nodemailer");
+const { emailNotSended } = require("./error-service");
 require("dotenv").config();
 
 const email = process.env.BANDMAIL;
@@ -37,6 +38,7 @@ const contactForm = async (fullMail) => {
         console.log("Message sent: %s", info.messageId);
     } catch (err) {
         console.error(err);
+        throw emailNotSended();
     }
 };
 
@@ -62,6 +64,7 @@ const suscribe = async (mail) => {
         console.log("Message sent: %s", info.messageId);
     } catch (err) {
         console.error(err);
+        throw emailNotSended();
     }
 };
 
@@ -77,6 +80,7 @@ const dibMail = async (mail, suscribers) => {
         });
     } catch (err) {
         console.error(err);
+        throw emailNotSended();
     }
 };
 

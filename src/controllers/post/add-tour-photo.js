@@ -24,7 +24,7 @@ async function addPhotoToTour(method, idTour, idUser, photos) {
         for (const photo of photos) {
             const idPhoto = generateUUID();
             const fileURL = await saveFile(method, tour.id, idPhoto, photo);
-            const response = await savePhotoTour({
+            await savePhotoTour({
                 id: idPhoto,
                 idTour: tour.id,
                 imageURL: fileURL,
