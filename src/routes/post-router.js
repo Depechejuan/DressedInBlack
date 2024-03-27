@@ -17,7 +17,6 @@ const {
     deleteTour,
     getPhotoIDfromPostID,
     getPhotoIDfromTourID,
-    getPhotoByID,
     getUserById,
     getNewsletter,
 } = require("../services/db-service");
@@ -28,7 +27,6 @@ const createTour = require("../controllers/post/create-tour");
 const editTour = require("../controllers/post/edit-tour");
 const addPhotoToPost = require("../controllers/post/add-post-photo");
 const addPhotoToTour = require("../controllers/post/add-tour-photo");
-const addPhotoToUser = require("../controllers/post/add-user-photo");
 const deleteType = require("../controllers/post/delete-type");
 const { deleteFile } = require("../services/file-service");
 const { dibMail } = require("../services/mailer");
@@ -86,7 +84,6 @@ router.put(
     upload.array("photos", 10),
     async (req, res) => {
         const photos = req.files;
-        console.log(photos);
         const method = "post";
         const sendPhotos = await addPhotoToPost(
             method,

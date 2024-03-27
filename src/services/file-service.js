@@ -1,27 +1,46 @@
+const cloudinary = require("cloudinary").v2;
 const path = require("path");
 const fs = require("fs/promises");
 const sharp = require("sharp");
 const { genericError } = require("./error-service");
+require("dotenv").config();
+const { Readable } = require("stream");
+
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET,
+});
 
 // method = post, user, tour // id user, post or tour // idPhoto = generateUUID and photo file
 async function saveFile(method, id, idPhoto, photo) {
-    const directory = path.join(__dirname, `../../public/${method}/${id}`);
-
     try {
-        await fs.mkdir(directory, { recursive: true });
-        const fileName = `${idPhoto}.webp`;
-        const filePath = path.join(directory, fileName);
-        const resize = sharp(photo.buffer);
+        photo.originalname = `${method}/${id}/${idPhoto}.webp`;
 
-        const metadata = await resize.metadata();
+        const bufferStream = new Readable();
+        bufferStream.push(photo.buffer);
+        bufferStream.push(null);
 
-        if (metadata.width > 1080) {
-            resize.resize(720);
-        }
+        const result = await new Promise((resolve, reject) => {
+            const uploadStream = cloudinary.uploader.upload_stream(
+                {
+                    folder: `${method}/${id}`,
+                    public_id: idPhoto,
+                },
+                (error, result) => {
+                    if (error) reject(error);
+                    else resolve(result);
+                }
+            );
 
-        await resize.webp().toFile(filePath);
-        const fileURL = `/${method}/${id}/${fileName}`;
-        return fileURL;
+            bufferStream.pipe(uploadStream);
+        });
+
+        console.log(result);
+        console.log(result.secure_url);
+        console.log(result.url);
+
+        return photo.originalname;
     } catch (err) {
         console.error(err);
         genericError();
