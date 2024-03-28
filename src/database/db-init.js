@@ -119,7 +119,7 @@ async function createTables(pool) {
             createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             modifiedAt TIMESTAMP,
             FOREIGN KEY (idTour) REFERENCES tour (id) ON DELETE CASCADE
-        );    
+        );
     `);
 
     await pool.query(`

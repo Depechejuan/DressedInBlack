@@ -1071,6 +1071,138 @@ async function addTourData(pool) {
             19.	Never Let Me Down Again \n`,
         ]
     );
+
+    await pool.query(
+        `
+    INSERT INTO tour (id, tourName, tourDate, city, country, venue, soldOut, setlist)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+        [
+            generateUUID(),
+            "Sweetest Devotion Tour",
+            "2023-04-15",
+            "Benidorm",
+            "España",
+            "Sala Rockstar",
+            true,
+            `01. Painkiller (Intro) \n
+            02. A Question Of Time \n
+            03. Behind The Wheel \n
+            04. Wrong \n
+            05. Dream On \n
+            06. Strangelove \n
+            07. World In My Eyes \n
+            08. Speak To Me \n
+            09. Useless \n
+            10. Walking In My Shoes \n
+            11. Corrupt \n
+            12. Barrel Of A Gun \n
+            13. I Feel You \n
+            14. Policy Of Truth \n
+            15. Personal Jesus \n
+            16. Enjoy The Silence \n
+            17. Just Can't Get Enough \n
+            18. Everything Counts \n
+            19. Ghosts Again \n
+            20. Never Let Me Down Again \n`,
+        ]
+    );
+
+    await pool.query(
+        `
+    INSERT INTO tour (id, tourName, tourDate, city, country, venue, soldOut, setlist)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+        [
+            generateUUID(),
+            "Sweetest Devotion Tour",
+            "2023-10-13",
+            "Valencia",
+            "España",
+            "Black Note Club",
+            true,
+            `01. Pimpf \n
+            02. Behind The Wheel \n
+            03. A Question Of Time \n
+            04. Strangelove \n
+            05. Walking In My Shoes \n
+            06. The Sinner In Me \n
+            07. I Feel You \n
+            08. Policy Of Truth \n
+            09. Ghosts Again \n
+            10. Rush \n
+            11. My Favourite Stranger \n
+            12. Corrupt \n
+            13. Barrel Of A Gun \n
+            14. Just Can't Get Enough \n
+            15. Everything Counts \n
+            16. Never Let Me Down Again \n
+            17. Blasphemous Rumours \n
+            18. Enjoy The Silence \n
+            19. Personal Jesus \n`,
+        ]
+    );
+
+    await pool.query(
+        `
+    INSERT INTO tour (id, tourName, tourDate, city, country, venue, soldOut, setlist)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+        [
+            generateUUID(),
+            "Sweetest Devotion Tour",
+            "2024-01-13",
+            "Valencia",
+            "España",
+            "Casino CIRSA",
+            true,
+            `01. Pimpf \n
+            02. Behind The Wheel \n
+            03. Strangelove \n
+            04. World In My Eyes \n
+            05. Walking In My Shoes \n
+            06. Ghosts Again \n
+            07. I Feel You \n
+            08. Policy Of Truth \n
+            09. Barrel Of A Gun \n
+            10. Just Can’t Get Enough \n
+            11. Everything Counts \n
+            12. Enjoy The Silence \n
+            13. Personal Jesus \n
+            14. Never Let Me Down Again \n`,
+        ]
+    );
+
+    await pool.query(
+        `
+    INSERT INTO tour (id, tourName, tourDate, city, country, venue, soldOut, setlist)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+        [
+            generateUUID(),
+            "Sweetest Devotion Tour",
+            "2024-02-03",
+            "Elda",
+            "España",
+            "Sala Zirkus",
+            true,
+            `01. Intro (Christmas Island) \n
+            02. Black Celebration \n
+            03. World In My Eyes \n
+            04. Behind The Wheel \n
+            05. Walking In My Shoes \n
+            06. The Sinner In Me \n
+            07. Ghosts Again \n
+            08. Rush \n
+            09. I Feel You \n
+            10. Barrel Of A Gun \n
+            11. Policy Of Truth \n
+            12. Corrupt \n
+            13. Blpashemous Rumours \n
+            14. Strangelove \n
+            15. Just Can’t Get Enough \n
+            16. Everything Counts \n
+            17. Enjoy The Silence \n
+            18. Personal Jesus \n
+            19. Never Let Me Down Again \n`,
+        ]
+    );
 }
 
 module.exports = addTourData;
