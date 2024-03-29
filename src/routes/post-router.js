@@ -43,7 +43,7 @@ router.get("/dibposts/:id", async (req, res) => {
 
 router.post("/dibposts", authGuard, json(), async (req, res) => {
     if (!req.currentUser) {
-        invalidCredentials();
+        throw invalidCredentials();
     }
     const token = req.currentUser.token;
     const post = await newPost(req.body, token, res);
