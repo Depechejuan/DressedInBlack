@@ -166,7 +166,7 @@ async function createTables(pool) {
             createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             modifiedAt TIMESTAMP,
             FOREIGN KEY (idPost) REFERENCES posts (id) ON DELETE CASCADE
-        );    
+        );
     `);
 
     await pool.query(`
@@ -182,7 +182,7 @@ async function createTables(pool) {
     await pool.query(`
     CREATE TABLE IF NOT EXISTS newsletter(
         id CHAR(36) PRIMARY KEY,
-        email CHAR(36) NOT NULL,
+        email CHAR(255) NOT NULL,
         city VARCHAR(255)
     );
 `);
