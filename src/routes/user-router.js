@@ -23,6 +23,10 @@ const { sendError } = require("../utils/send-error.js");
 
 const router = Router();
 
+router.get("/test", json(), async (req, res) =>{
+    return "Working"
+})
+
 // GET
 
 router.get("/tour", json(), async (req, res) => {
