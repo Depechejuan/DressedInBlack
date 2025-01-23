@@ -21,7 +21,11 @@ app.use(appRouter);
 const staticDirectory = path.join(__dirname, "/public/");
 app.use(express.static(staticDirectory));
 
-app.get("/", (req, res) => res.send("Express on Vercel"));
+// Vercel
+app.get('/', (req, res) => {
+    res.send('¡Hola, mundo!');
+});
+
 
 // Error Middleware
 app.use((err, req, res, next) => {
