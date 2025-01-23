@@ -133,8 +133,8 @@ async function addTourData(pool) {
             07.	Stripped	 \n
             08.	A Question Of Time	 \n
             09.	Personal Jesus	 \n
-            10.	Enjoy The Silence (Acoustic) \n
-            11.	Dressed In Black	 \n
+            10.	Enjoy The Silence \n
+            11.	Dressed In Black (Acoustic)	 \n
             12.	Photographic	 \n
             13.	Never Let Me Down Again	 \n`,
         ]
@@ -216,12 +216,12 @@ async function addTourData(pool) {
             02.	Behind The Wheel	 \n
             03.	Wrong	 \n
             04.	Black Celebration	 \n
-            05.	Fly On The Windscreen	 (Acoustic)
-            07.	The Things You Said	(Acoustic)
+            05.	Fly On The Windscreen \n
+            07.	The Things You Said	(Acoustic) \n
             08.	Stripped	 \n
             09.	Personal Jesus \n	
             10.	Enjoy The Silence \n	
-            11.	Shake The Disease (Acoustic)
+            11.	Shake The Disease (Acoustic) \n
             12.	Photographic	 \n
             13.	Just Can't Get Enough	 \n
             14.	Never Let Me Down Again	 \n`,
@@ -245,7 +245,7 @@ async function addTourData(pool) {
             03.	Wrong	 \n
             04.	Fly On The Windscreen	 \n
             05.	Stripped	 \n
-            06.	It Doesnt' Matter Two (Acoustic)
+            06.	It Doesnt' Matter Two (Acoustic) \n
             07.	Waiting For The Night	 \n
             08.	Pleasure, Little Treasure	 \n
             09.	Personal Jesus	 \n
@@ -333,7 +333,7 @@ async function addTourData(pool) {
             03.	Two Minute Warning	 \n
             04.	Pleasure, Little Treasure	 \n
             05.	Wrong	 \n
-            06.	Heaven	Acoustic \n
+            06.	Heaven	(Acoustic) \n
             07.	When The Body Speaks	 \n
             08.	Fly On The Windscreen	 \n
             09.	Photographic	 \n
@@ -520,13 +520,13 @@ async function addTourData(pool) {
             07.	Should Be Higher	 \n
             08.	The Things You Said	 \n
             09.	Enjoy The Silence (Acoustic) \n
-            10.	It Doesnt' Matter Two (Acoustic) \n
+            10.	It Doesn't Matter Two (Acoustic) \n
             11.	Black Celebration	 \n
             12.	Pleasure, Little Treasure	 \n
             13.	Monument	 \n
             14.	Photographic	 \n
             15.	Stripped	 \n
-            16.	Nothing's Impossible (Acoustic) \n
+            16.	Nothing's Impossible (As Demo) \n
             18.	Everything Counts	 \n
             19.	Personal Jesus	 \n`,
         ]
